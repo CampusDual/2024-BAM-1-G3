@@ -17,3 +17,6 @@ node_modules/
 
 # Compiled Java class files
 *.class
+
+#ignoring /google-services.json file
+/google-services.json

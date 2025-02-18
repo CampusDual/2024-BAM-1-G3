@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "411246372401",
+    "project_id": "book-and-go-suitehost",
+    "storage_bucket": "book-and-go-suitehost.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411246372401:android:1675ec54d8738d1ce5d710",
+        "android_client_info": {
+          "package_name": "com.campusdual_grupo3.bookandgo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3ffKJ0WMZsVJELzt5F4hj2yyWrz41RQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

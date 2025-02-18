@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CitasBootcamp"
+rootProject.name = "BookAndGo"
 include(":app")
+ 
