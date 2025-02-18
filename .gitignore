@@ -1,0 +1,22 @@
+# These are some examples of commonly ignored file patterns.
+# You should customize this list as applicable to your project.
+# Learn more about .gitignore:
+#     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+
+*.iml
+.gradle
+/local.properties
+/.idea/*
+/build
+/captures
+.externalNativeBuild
+.cxx
+.idea/*
+# Node artifact files
+node_modules/
+
+# Compiled Java class files
+*.class
+
+#ignoring /google-services.json file
+/google-services.json
