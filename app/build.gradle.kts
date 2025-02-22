@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId = "com.campusdual_grupo3.bookandgo"
-        minSdk = 21
+        minSdk = 24
         //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
