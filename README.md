@@ -1,1 +1,1 @@
-Proyecto app de citas para el bootcamp del grupo 3.
+![Book&Go*](app/documentation/repo-banner.jpg "Book&Go")
