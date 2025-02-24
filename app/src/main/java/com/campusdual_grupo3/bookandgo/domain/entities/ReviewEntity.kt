@@ -1,4 +1,4 @@
-package com.campusdual_grupo3.bookandgo.domain.entities.reviews
+package com.campusdual_grupo3.bookandgo.domain.entities
 
 data class ReviewsEntity(
     val id: String,

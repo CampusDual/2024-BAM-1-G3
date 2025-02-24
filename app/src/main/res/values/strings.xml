@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BookAndGo</string>
+    <string name="datos_incorrectos_o_la_cuenta_no_existe">Error, los datos están incorrectos o la cuenta no existe</string>
+    <string name="datos_incorrectos">Datos incorrectos</string>
+    <string name="comprueba_tu_bandeja_de_entrada">" Comprueba tu bandeja de entrada para recuperar la contraseña"</string>
+    <string name="cerrar_mensaje">Cerrar</string>
 </resources>

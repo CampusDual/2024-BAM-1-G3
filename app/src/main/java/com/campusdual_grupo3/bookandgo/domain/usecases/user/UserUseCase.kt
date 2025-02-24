@@ -1,15 +1,14 @@
 package com.campusdual_grupo3.bookandgo.domain.usecases.user
 
-import com.campusdual_grupo3.bookandgo.domain.entities.user.UserEntity
+
 
 interface UserUseCase {
-    suspend fun getUsers(): List<UserEntity>
 
-    suspend fun getUser(id: String): UserEntity
+    suspend fun login(email: String, password: String): Boolean
+    fun isMailValid(email: String): Boolean
+    fun isPasswordValid(password: String): Boolean
+    fun isLoggingFormatValid(email: String, password: String): Boolean
+    suspend fun recoverPassword(email: String)
 
-    suspend fun createUser(userEntity: UserEntity)
 
-    suspend fun updateUser(id: String): Boolean
-
-    suspend fun deleteUser(id: String): Boolean
 }

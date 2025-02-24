@@ -1,16 +1,11 @@
 package com.campusdual_grupo3.bookandgo.domain.repositories.user
 
-import com.campusdual_grupo3.bookandgo.domain.entities.user.UserEntity
+
 
 interface UserRepository {
+    suspend fun login(email: String, password: String): Boolean
+    suspend fun recoverPassword(email: String): Boolean
 
-    suspend fun getUsers(): List<UserEntity>
 
-    suspend fun getUser(id: String): UserEntity
 
-    suspend fun createUser(userEntity: UserEntity)
-
-    suspend fun updateUser(id: String): Boolean
-
-    suspend fun deleteUser(id: String): Boolean
 }

@@ -1,6 +1,5 @@
-package com.campusdual_grupo3.bookandgo.domain.entities.cart
+package com.campusdual_grupo3.bookandgo.domain.entities
 
-import com.campusdual_grupo3.bookandgo.domain.entities.experience.ExperienceEntity
 import java.util.Date
 
 data class CartEntity(

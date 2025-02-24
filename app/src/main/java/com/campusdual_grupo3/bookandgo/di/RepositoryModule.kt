@@ -17,11 +17,16 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(@Mock userMockDataSource: UserRemoteDataSource,
-                               userRemoteDataSource: UserRemoteDataSource,
-                              userLocalDataSource: UserLocalDataSource
+    fun provideUserRepository(
+        @Mock userMockDataSource: UserRemoteDataSource,
+        userRemoteDataSource: UserRemoteDataSource,
+        userLocalDataSource: UserLocalDataSource
     ): UserRepository {
-        return UserRepositoryImpl(userMockDataSource, userRemoteDataSource, userLocalDataSource)
+        return UserRepositoryImpl(
+            userMockDataSource,
+            userRemoteDataSource,
+            userLocalDataSource
+        )
 
     }
 }

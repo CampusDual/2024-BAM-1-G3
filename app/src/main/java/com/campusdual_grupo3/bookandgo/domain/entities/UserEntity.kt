@@ -1,4 +1,4 @@
-package com.campusdual_grupo3.bookandgo.domain.entities.user
+package com.campusdual_grupo3.bookandgo.domain.entities
 
 data class UserEntity(
     val id: String,

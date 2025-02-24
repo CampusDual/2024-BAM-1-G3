@@ -1,6 +1,4 @@
-package com.campusdual_grupo3.bookandgo.domain.entities.experience
-
-import com.campusdual_grupo3.bookandgo.domain.entities.reviews.ReviewsEntity
+package com.campusdual_grupo3.bookandgo.domain.entities
 
 data class ExperienceEntity(
     val id: String,
