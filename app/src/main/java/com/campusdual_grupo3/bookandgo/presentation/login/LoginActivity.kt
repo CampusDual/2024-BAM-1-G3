@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
         binding?.textLoginPassword?.doOnTextChanged { text, _, _, _ ->
             viewModel?.setPassword(text.toString())
         }
-        binding?.buttonLogin?.setOnClickListener {
+        binding?.btnLgsLogin?.setOnClickListener {
             viewModel?.login()
 
         }

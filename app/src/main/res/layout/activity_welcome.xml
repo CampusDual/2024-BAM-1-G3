@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Fondo de pantalla -->
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:contentDescription="@string/w_subtitle"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_welcome"
+        app:layout_constraintHeight_percent="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Contenedor principal -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="420dp"
+            android:fontFamily="@font/playfair_bold"
+            android:gravity="center"
+            android:text="@string/w_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_xxlarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Subtítulo -->
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:fontFamily="@font/playfair_regular"
+            android:text="@string/w_subtitle"
+            android:textColor="@color/gray_40"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+        <!-- Botón Login -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_ws_login"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/playfair_regular"
+            android:layout_height="53dp"
+            android:layout_marginTop="@dimen/margin_xxxlarge"
+            android:layout_width="320dp"
+            android:text="@string/btn_sign_in"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/corner_radius_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+            style="@style/insets"
+            />
+
+        <!-- Botón Register -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/playfair_regular"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_width="320dp"
+            android:text="@string/btn_sign_up"
+            android:textColor="@color/black"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_ws_login"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp"
+            style="@style/insets"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

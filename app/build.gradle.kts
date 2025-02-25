@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId = "com.campusdual_grupo3.bookandgo"
-        minSdk = 26
+        minSdk = 28
         //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
@@ -70,6 +70,7 @@ dependencies {
     //implementation(libs.firebase.firestore)
     //implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

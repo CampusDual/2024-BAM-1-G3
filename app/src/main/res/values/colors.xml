@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- THEME COLORS -->
+    <!-- NEUTRAL COLORS -->
     <color name="black">#FF000000</color>
+    <color name="gray_100">#1A1A1A</color>
+    <color name="gray_80">#333333</color>
+    <color name="gray_60">#666666</color>
+    <color name="gray_40">#999999</color>
+    <color name="gray_20">#CCCCCC</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <!-- STATUS COLORS -->
+    <color name="error_light">#EF9A9A</color>
+    <color name="error">#FF0000</color>
+
+    <color name="warning_light">#FFB74D</color>
+    <color name="warning">#F57C00</color>
+
+    <color name="success_light">#81C784</color>
+    <color name="success">#388E3C</color>
+
+    <color name="info_light">#64B5F6</color>
+    <color name="info">#1E88E5</color>
+
+
 </resources>

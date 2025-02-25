@@ -8,7 +8,11 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dbo.UserDBO
 import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 
-@Database(entities = [UserDBO::class], version = 1/*,  exportSchema = false */)
+@Database(
+    entities = [UserDBO::class],
+    version = AppGlobalConstants.DATABASE_VERSION,
+    exportSchema = AppGlobalConstants.EXPORT_SCHEME
+)
 abstract class RoomDB : RoomDatabase() {
 
     abstract fun userDAO(): UserDAO
@@ -24,7 +28,11 @@ abstract class RoomDB : RoomDatabase() {
         }
 
         private fun createRoomDatabase(context: Context): RoomDB {
-            return Room.databaseBuilder(context, RoomDB::class.java, AppGlobalConstants.DATABASE_NAME)
+            return Room.databaseBuilder(
+                context,
+                RoomDB::class.java,
+                AppGlobalConstants.DATABASE_NAME
+            )
                 .fallbackToDestructiveMigration()
                 .build()
         }

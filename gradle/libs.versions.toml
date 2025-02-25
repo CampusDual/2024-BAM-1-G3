@@ -27,6 +27,7 @@ roomCompiler = "2.6.0"
 roomRuntime = "2.6.1"
 firebaseAuthKtx = "23.2.0"
 firebaseFirestoreKtx = "25.1.2"
+firebaseAuthKtxVersion = "23.2.0"
 
 [libraries]
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
@@ -58,6 +59,7 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 #firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
