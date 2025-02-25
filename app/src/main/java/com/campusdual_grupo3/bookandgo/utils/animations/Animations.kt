@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
-import // android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 
 object Animations {
