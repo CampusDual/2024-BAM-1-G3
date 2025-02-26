@@ -121,6 +121,8 @@ class OnBoardingActivity : AppCompatActivity() {
             2 -> {
                 binding.tvTitle.text = getString(R.string.ob_title_3)
                 binding.tvDescription.text = getString(R.string.ob_subtitle_3)
+                binding.btnNext.text = getString(R.string.btn_get_started)
+                binding.btnSkip.visibility = View.GONE
             }
         }
     }

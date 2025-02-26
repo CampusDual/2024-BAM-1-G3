@@ -11,6 +11,7 @@
     <string name="forgot_password_toast_msg">Te hemos enviado un correo electrónico para recuperar tu contraseña</string>
 
     <!-- BUTTONS -->
+    <string name="btn_get_started">Explorar experiencias »</string>
     <string name="btn_next">Siguiente</string>
     <string name="btn_omit">Omitir este paso</string>
     <string name="btn_sign_in">Iniciar sesión</string>
