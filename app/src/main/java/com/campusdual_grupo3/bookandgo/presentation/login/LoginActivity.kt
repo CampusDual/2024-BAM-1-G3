@@ -32,20 +32,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        viewModel?.isLoggingSuccess?.observe(this) { isSucces ->
-            if (isSucces) {
+        viewModel?.isLoggingSuccess?.observe(this) { isSuccess ->
+            if (isSuccess) {
                 startActivity(Intent(this, HomeActivity::class.java))
             } else {
                 Toast.makeText(
                     this,
-                    getString(R.string.datos_incorrectos_o_la_cuenta_no_existe), Toast.LENGTH_LONG
+                    getString(R.string.account_not_found), Toast.LENGTH_LONG
                 ).show()
             }
 
         }
         viewModel?.isLoggingFormatValid?.observe(this) { isFormatValid ->
             if (!isFormatValid) {
-                Toast.makeText(this, getString(R.string.datos_incorrectos), Toast.LENGTH_LONG)
+                Toast.makeText(this, getString(R.string.wrong_data), Toast.LENGTH_LONG)
                     .show()
             }
         }
@@ -62,15 +62,15 @@ class LoginActivity : AppCompatActivity() {
             viewModel?.login()
 
         }
-        binding?.inLoginForgotPW?.setOnClickListener { result ->
+        binding?.inLoginForgotPW?.setOnClickListener { _ ->
             viewModel?.recoverPassword()
 
             val dialog = MaterialAlertDialogBuilder(this)
                 .setTitle(
                     binding?.textLoginMail?.text.toString() +
-                            getString(R.string.comprueba_tu_bandeja_de_entrada)
+                            getString(R.string.forgot_password_toast_msg)
                 )
-                .setPositiveButton(getString(R.string.cerrar_mensaje)) { dialog, _ ->
+                .setPositiveButton(getString(R.string.btn_close)) { dialog, _ ->
                     dialog.dismiss()
                 }
 

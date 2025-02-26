@@ -1,41 +1,41 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- APP -->
     <string name="app_name">BookAndGo</string>
+
     <!-- ERRORS -->
-    <string name="datos_incorrectos_o_la_cuenta_no_existe">Error, los datos están incorrectos o la cuenta no existe</string>
-    <string name="datos_incorrectos">Datos incorrectos</string>
     <string name="comprueba_tu_bandeja_de_entrada">" Comprueba tu bandeja de entrada para recuperar la contraseña"</string>
-    <string name="cerrar_mensaje">Cerrar</string>
-    <string name="account_not_found">La cuenta no existe</string>
+    <string name="account_not_found">La cuenta no ha sido encontrada</string>
     <string name="wrong_data">Datos incorrectos</string>
 
+    <!-- MESSAGES -->
+    <string name="forgot_password_toast_msg">Te hemos enviado un correo electrónico para recuperar tu contraseña</string>
+
     <!-- BUTTONS -->
-    <string name="btn_skip">Saltar</string>
     <string name="btn_next">Siguiente</string>
+    <string name="btn_omit">Omitir este paso</string>
     <string name="btn_sign_in">Iniciar sesión</string>
     <string name="btn_sign_up">Registrarse</string>
+    <string name="btn_skip">Saltar</string>
+    <string name="btn_close">Cerrar</string>
 
     <!-- ONBOARDING SCREENS -->
-    <string name="ob_title_1">Descubre juntos</string>
     <string name="ob_subtitle_1">Aventuras únicas con amigos</string>
-    <string name="ob_title_2">Personaliza tu viaje</string>
     <string name="ob_subtitle_2">Aventuras hechas a medida para ti</string>
-    <string name="ob_title_3">Salta a la diversión</string>
     <string name="ob_subtitle_3">Reserva tu próxima experiencia ahora</string>
+    <string name="ob_title_1">Descubre juntos</string>
+    <string name="ob_title_2">Personaliza tu viaje</string>
+    <string name="ob_title_3">Salta a la diversión</string>
 
     <!-- WELCOME SCREEN -->
+    <string name="w_subtitle" tools:ignore="Typos">Reserve en cualquier momento y lugar</string>
     <string name="w_title">Todo un mundo de experiencias a tu alcance</string>
-    <string name="w_subtitle">Reserve en cualquier momento y lugar</string>
 
     <!-- LOGIN SCREEN -->
-    <string name="lg_title_1">Bienvenido</string>
-    <string name="lg_title_2">Bienvenido de vuelta</string>
-    <string name="lg_ti_email">Correo electrónico</string>
-    <string name="lg_ti_password">Contraseña</string>">
     <string name="lg_forgot_password">¿Olvidaste la contraseña?</string>
     <string name="lg_not_account">¿No tienes una cuenta?<u>Registrarse</u></string>
     <string name="lg_professional">¿Eres un profesional o una empresa y quieres publicar tu servicio en nuestra plataforma?</string>
-
-
-
-
+    <string name="lg_ti_email">Correo electrónico</string>
+    <string name="lg_ti_password">Contraseña</string>">
+    <string name="lg_title_1">Bienvenido</string>
+    <string name="lg_title_2">Bienvenido de vuelta</string>
 </resources>

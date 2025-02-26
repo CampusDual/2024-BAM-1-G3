@@ -1,8 +1,11 @@
 package com.campusdual_grupo3.bookandgo.di
 
+import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.repositories.user.UserRepositoryImpl
+import com.campusdual_grupo3.bookandgo.domain.repositories.AppPreferencesRepository
+import com.campusdual_grupo3.bookandgo.domain.repositories.AppPreferencesRepositoryImpl
 import com.campusdual_grupo3.bookandgo.domain.repositories.user.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -28,5 +31,13 @@ object RepositoryModule {
             userLocalDataSource
         )
 
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppPreferencesRepository(
+        appPreferencesDataSource: AppPreferencesDataSource
+    ): AppPreferencesRepository {
+        return AppPreferencesRepositoryImpl(appPreferencesDataSource)
     }
 }

@@ -3,10 +3,8 @@ package com.campusdual_grupo3.bookandgo.presentation.home
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-// import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferences
 import com.campusdual_grupo3.bookandgo.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-// import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {

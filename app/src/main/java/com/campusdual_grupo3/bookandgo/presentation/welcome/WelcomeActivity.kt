@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.campusdual_grupo3.bookandgo.databinding.ActivityWelcomeBinding
+import com.campusdual_grupo3.bookandgo.presentation.home.HomeActivity
 import com.campusdual_grupo3.bookandgo.presentation.login.LoginActivity
 
 class WelcomeActivity : AppCompatActivity() {
@@ -27,10 +28,20 @@ class WelcomeActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
             // Lógica para navegar a la pantalla de registro
         }
+
+        // Configurar clic en el botón omitir este paso
+        binding.btnWsOmit.setOnClickListener {
+            navigateToHomeActivity()
+        }
     }
 
     private fun navigateToLoginActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
+    private fun navigateToHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }
 

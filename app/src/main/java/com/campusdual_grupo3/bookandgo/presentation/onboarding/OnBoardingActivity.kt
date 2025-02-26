@@ -4,43 +4,47 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.viewpager2.widget.ViewPager2
 import com.campusdual_grupo3.bookandgo.R
-// import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferences
 import com.campusdual_grupo3.bookandgo.databinding.ActivityOnboardingBinding
-import com.campusdual_grupo3.bookandgo.presentation.home.HomeActivity
 import com.campusdual_grupo3.bookandgo.presentation.welcome.WelcomeActivity
 import com.campusdual_grupo3.bookandgo.utils.animations.Animations
 import dagger.hilt.android.AndroidEntryPoint
-// import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class OnBoardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
-
+    private val viewModel: OnBoardingViewModel by viewModels()
     private var oldView: View? = null
-
-    /*
-    @Inject
-    lateinit var appPreferences: AppPreferences
-
-     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewModel.shouldShowOnBoarding.value == null
+            }
+        }
+
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*
-        if (appPreferences.getIsOnboardingCompleted()) {
-            navigateToMainActivity()
+        viewModel.shouldShowOnBoarding.observe(this) {
+            if (it) {
+                setupOnboarding()
+            } else {
+                navigateToWelcomeActivity()
+            }
         }
+    }
 
-         */
-
+    private fun setupOnboarding() {
         // Configurar el ViewPager con el adapter
         val onBoardingAdapter = OnBoardingAdapter(this)
         binding.viewPager.adapter = onBoardingAdapter
@@ -52,12 +56,16 @@ class OnBoardingActivity : AppCompatActivity() {
                 super.onPageSelected(position)
                 updateBullets(position)
                 updateTitleAndDescription(position)
+
+                // Si es la última página, marcar el onboarding como completado
+                if (position == onBoardingAdapter.itemCount - 1) {
+                    viewModel.markOnboardingAsCompleted()
+                }
             }
         })
 
         // Configurar botones Skip y Next
         binding.btnSkip.setOnClickListener {
-            // navigateToMainActivity() // Saltar directamente a MainActivity
             navigateToWelcomeActivity()
         }
 
@@ -117,13 +125,9 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun navigateToMainActivity() {
-        startActivity(Intent(this, HomeActivity::class.java))
-        finish()
-    }*/
-
     private fun navigateToWelcomeActivity() {
         startActivity(Intent(this, WelcomeActivity::class.java))
         finish()
+
     }
 }
