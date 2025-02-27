@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <!--PERMISSION TO USE INTERNET-->
+    <!-- PERMISSION TO USE INTERNET -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookAndGo"
         tools:targetApi="31">
-
+        <activity
+            android:name=".presentation.experience.RegisterExperienceActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.onboarding.OnBoardingActivity"
             android:exported="true">
@@ -26,22 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.home.HomeActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.welcome.WelcomeActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".presentation.login.LoginActivity"
-            android:exported="false">
-
-        </activity>
-
+            android:exported="false"></activity>
     </application>
 
 </manifest>
