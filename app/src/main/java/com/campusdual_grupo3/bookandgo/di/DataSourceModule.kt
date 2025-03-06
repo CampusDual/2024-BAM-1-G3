@@ -7,6 +7,8 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.appData
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
+import com.campusdual_grupo3.bookandgo.data.datasource.mock.ExperienceMockRemoteDataSourceImpl
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSourceImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -25,13 +27,13 @@ object DataSourceModule {
     @Mock
     @Provides
     @Singleton
-    fun provideUserMockDataSource( auth: FirebaseAuth): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(auth )
+    fun provideUserMockDataSource(auth: FirebaseAuth): UserRemoteDataSource {
+        return UserRemoteDataSourceImpl(auth)
     }
 
     @Provides
     @Singleton
-    fun provideUserRemoteDataSource( auth: FirebaseAuth): UserRemoteDataSource {
+    fun provideUserRemoteDataSource(auth: FirebaseAuth): UserRemoteDataSource {
         return UserRemoteDataSourceImpl(auth)
     }
 
@@ -47,6 +49,12 @@ object DataSourceModule {
         @ApplicationContext context: Context
     ): AppPreferencesDataSource {
         return AppPreferencesDataSourceImpl(context.appDataStore)
+    }
+    @Mock
+    @Provides
+    @Singleton
+    fun provideExperienceMockDataSource(): ExperienceRemoteDataSource {
+        return ExperienceMockRemoteDataSourceImpl()
     }
 }
 

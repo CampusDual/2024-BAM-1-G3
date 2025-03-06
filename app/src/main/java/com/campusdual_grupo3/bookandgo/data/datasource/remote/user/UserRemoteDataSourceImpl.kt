@@ -11,6 +11,7 @@ import kotlin.coroutines.suspendCoroutine
 class UserRemoteDataSourceImpl @Inject constructor(
     private val auth: FirebaseAuth
 
+
 ) : UserRemoteDataSource {
     override suspend fun login(loginDto: LoginDto): Boolean{
         return suspendCoroutine { result ->
@@ -32,6 +33,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 }
         }
     }
+
+
 
 
 }

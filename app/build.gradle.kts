@@ -113,6 +113,7 @@ dependencies {
     //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation (libs.androidx.hilt.navigation.compose)
 
     //Kotlin Livecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -126,4 +127,7 @@ dependencies {
 
     // API Google Splash Screen
     implementation(libs.core.splashscreen)
+
+    //coil Image compose
+    implementation(libs.coil.compose)
 }

@@ -4,6 +4,7 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataS
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.dto.LoginDto
 import com.campusdual_grupo3.bookandgo.di.Mock
+import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.domain.repositories.user.UserRepository
 import javax.inject.Inject
 
@@ -27,6 +28,8 @@ class UserRepositoryImpl @Inject constructor(
         return isSuccessful
 
     }
+
+
 
 
 }

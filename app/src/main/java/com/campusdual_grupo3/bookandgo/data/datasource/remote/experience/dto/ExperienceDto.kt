@@ -1,9 +1,9 @@
-package com.campusdual_grupo3.bookandgo.domain.entities
+package com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto
 
-import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.RewiewDto
+
 import java.time.LocalDate
 
-data class ExperienceEntity(
+data class ExperienceDto(
     val id: Int,
     var name: String,
     var description: String,
