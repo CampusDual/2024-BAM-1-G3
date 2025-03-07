@@ -1,5 +1,6 @@
 package com.campusdual_grupo3.bookandgo.di
 
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.ExperienceLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
@@ -46,9 +47,11 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideExperienceRepository(
-       @Mock experienceRemoteDataSource: ExperienceRemoteDataSource
+       @Mock experienceRemoteDataSource: ExperienceRemoteDataSource,
+        experienceLocalDataSource: ExperienceLocalDataSource
     ): ExperienceRepository {
-        return ExperienceRepositoryImpl(experienceRemoteDataSource)
+        return ExperienceRepositoryImpl(experienceRemoteDataSource,
+            experienceLocalDataSource)
 
     }
 }

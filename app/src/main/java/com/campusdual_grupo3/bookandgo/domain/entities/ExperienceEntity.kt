@@ -15,8 +15,9 @@ data class ExperienceEntity(
     var capacity: Int,
     var stock: Int,
     var availability: Boolean,
-    var reviews: List<RewiewDto>?,
+    var reviews: List<ReviewEntity>,
     var category: Int,
+    var isFavorite: Boolean = false,
     var image: String,
     var createAt: LocalDate,
     var updateAt: LocalDate?

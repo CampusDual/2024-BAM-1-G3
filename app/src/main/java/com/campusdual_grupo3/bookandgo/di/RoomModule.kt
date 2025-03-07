@@ -1,11 +1,13 @@
 package com.campusdual_grupo3.bookandgo.di
 
-import android.app.Application
-import com.campusdual_grupo3.bookandgo.data.datasource.local.room.RoomDB
-import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
+import android.content.Context
+import androidx.room.Room
+import com.campusdual_grupo3.bookandgo.data.datasource.local.room.ExperiencesDataBase
+import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -15,13 +17,15 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun provideRoomDatabase(application: Application): RoomDB {
-        return RoomDB.invoke(application)
+    fun provideExperienceDatabase(@ApplicationContext context: Context): ExperiencesDataBase {
+        return Room.databaseBuilder(
+            context,
+            ExperiencesDataBase::class.java,
+            AppGlobalConstants.DATABASE_NAME
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideUserDao(database: RoomDB): UserDAO {
-        return database.userDAO()
-    }
 }
+

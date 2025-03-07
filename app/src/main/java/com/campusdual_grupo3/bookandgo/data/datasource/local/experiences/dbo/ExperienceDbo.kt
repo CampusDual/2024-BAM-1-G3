@@ -1,9 +1,13 @@
-package com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto
+package com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dbo
 
-
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.RewiewDto
 import java.time.LocalDate
 
-data class ExperienceDto(
+@Entity(tableName = "experiences")
+data class ExperienceDbo(
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     var name: String,
     var description: String,
@@ -15,9 +19,9 @@ data class ExperienceDto(
     var capacity: Int,
     var stock: Int,
     var availability: Boolean,
-    var reviews: List<RewiewDto>?,
+    var reviews: ArrayList<ReviewDbo>,
     var category: Int,
-    var isFavorite: Boolean = false,
+    val isFavorite: Boolean,
     var image: String,
     var createAt: LocalDate,
     var updateAt: LocalDate?

@@ -1,9 +1,13 @@
 package com.campusdual_grupo3.bookandgo.di
 
 import android.content.Context
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.ExperienceLocalDataSource
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.ExperienceLocalDataSourceImpl
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dao.ExperiencesDao
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.appDataStore
+import com.campusdual_grupo3.bookandgo.data.datasource.local.room.ExperiencesDataBase
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
@@ -39,8 +43,8 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideUserLocalDataSource(userDao: UserDAO): UserLocalDataSource {
-        return UserLocalDataSourceImpl(userDao)
+    fun provideUserLocalDataSource(): UserLocalDataSource {
+        return UserLocalDataSourceImpl()
     }
 
     @Provides
@@ -55,6 +59,16 @@ object DataSourceModule {
     @Singleton
     fun provideExperienceMockDataSource(): ExperienceRemoteDataSource {
         return ExperienceMockRemoteDataSourceImpl()
+    }
+    @Provides
+    @Singleton
+    fun provideExperienceLocalDataSource(
+        experienceDataBase: ExperiencesDataBase
+    ): ExperienceLocalDataSource {
+        return ExperienceLocalDataSourceImpl(
+            experiencesDao = experienceDataBase.experienceDao
+
+        )
     }
 }
 

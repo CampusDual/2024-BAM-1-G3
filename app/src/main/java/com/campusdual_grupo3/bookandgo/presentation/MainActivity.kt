@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.databinding.ActivityMainBinding
+import com.campusdual_grupo3.bookandgo.presentation.favorites.FavoritesFragment
 import com.campusdual_grupo3.bookandgo.presentation.home.HomeFragment
 
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> replaceFragment(HomeFragment())
-                R.id.navigation_favorites-> replaceFragment(HomeFragment())
+                R.id.navigation_favorites-> replaceFragment(FavoritesFragment())
                 R.id.navigation_list-> replaceFragment(HomeFragment())
                 R.id.navigation_giftCard-> replaceFragment(HomeFragment())
                 else -> {
