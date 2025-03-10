@@ -1,35 +1,26 @@
 package com.campusdual_grupo3.bookandgo.presentation.home
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import com.campusdual_grupo3.bookandgo.databinding.ActivityHomeBinding
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.campusdual_grupo3.bookandgo.ui.theme.BookAndGoTheme
 
-@AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityHomeBinding
-
-    /*
-    @Inject
-    lateinit var appPreferences: AppPreferences
-
-     */
-
+class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
-
-        /*
-        if (!appPreferences.getIsOnboardingCompleted()) {
-            appPreferences.setIsOnboardingCompleted(true)
+        setContent {
+            BookAndGoTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    HomeScreen()
+                }
+            }
         }
-        */
-
     }
 }
