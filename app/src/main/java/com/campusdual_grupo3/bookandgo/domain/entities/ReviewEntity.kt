@@ -1,10 +1,12 @@
 package com.campusdual_grupo3.bookandgo.domain.entities
 
-data class ReviewsEntity(
-    val id: String,
+import java.time.LocalDate
+
+data class ReviewEntity(
+    val id: Int,
     var rating: Double,
     var comment: String,
-    var createAt: String,
-    var updateAt: String?
+    var createAt: LocalDate,
+    var updateAt: LocalDate?
 )
 

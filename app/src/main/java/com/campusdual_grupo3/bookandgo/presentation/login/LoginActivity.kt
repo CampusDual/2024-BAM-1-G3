@@ -9,7 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.databinding.ActivityLoginBinding
-import com.campusdual_grupo3.bookandgo.presentation.home.HomeActivity
+import com.campusdual_grupo3.bookandgo.presentation.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel?.isLoggingSuccess?.observe(this) { isSuccess ->
             if (isSuccess) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
             } else {
                 Toast.makeText(
                     this,

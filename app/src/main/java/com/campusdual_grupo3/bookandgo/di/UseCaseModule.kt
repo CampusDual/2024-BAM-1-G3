@@ -1,8 +1,11 @@
 package com.campusdual_grupo3.bookandgo.di
 
 import com.campusdual_grupo3.bookandgo.domain.repositories.AppPreferencesRepository
+import com.campusdual_grupo3.bookandgo.domain.repositories.experience.ExperienceRepository
 import com.campusdual_grupo3.bookandgo.domain.repositories.user.UserRepository
 import com.campusdual_grupo3.bookandgo.domain.usecases.AppPreferencesUseCase
+import com.campusdual_grupo3.bookandgo.domain.usecases.experiences.ExperiencesUseCase
+import com.campusdual_grupo3.bookandgo.domain.usecases.experiences.ExperiencesUseCaseImpl
 import com.campusdual_grupo3.bookandgo.domain.usecases.user.UserUseCase
 import com.campusdual_grupo3.bookandgo.domain.usecases.user.UserUseCaseImpl
 
@@ -29,4 +32,12 @@ object UseCaseModule {
     ): AppPreferencesUseCase {
         return AppPreferencesUseCase(appPreferencesRepository)
     }
+    @Provides
+    @Singleton
+    fun provideExperienceUseCase(
+        experienceRepository: ExperienceRepository
+    ): ExperiencesUseCase {
+        return ExperiencesUseCaseImpl(experienceRepository)
+    }
+
 }

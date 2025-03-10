@@ -1,12 +1,18 @@
 package com.campusdual_grupo3.bookandgo.di
 
 import android.content.Context
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.ExperienceLocalDataSource
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.ExperienceLocalDataSourceImpl
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dao.ExperiencesDao
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.appDataStore
+import com.campusdual_grupo3.bookandgo.data.datasource.local.room.ExperiencesDataBase
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
+import com.campusdual_grupo3.bookandgo.data.datasource.mock.ExperienceMockRemoteDataSourceImpl
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSourceImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -25,20 +31,20 @@ object DataSourceModule {
     @Mock
     @Provides
     @Singleton
-    fun provideUserMockDataSource( auth: FirebaseAuth): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(auth )
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserRemoteDataSource( auth: FirebaseAuth): UserRemoteDataSource {
+    fun provideUserMockDataSource(auth: FirebaseAuth): UserRemoteDataSource {
         return UserRemoteDataSourceImpl(auth)
     }
 
     @Provides
     @Singleton
-    fun provideUserLocalDataSource(userDao: UserDAO): UserLocalDataSource {
-        return UserLocalDataSourceImpl(userDao)
+    fun provideUserRemoteDataSource(auth: FirebaseAuth): UserRemoteDataSource {
+        return UserRemoteDataSourceImpl(auth)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserLocalDataSource(): UserLocalDataSource {
+        return UserLocalDataSourceImpl()
     }
 
     @Provides
@@ -47,6 +53,22 @@ object DataSourceModule {
         @ApplicationContext context: Context
     ): AppPreferencesDataSource {
         return AppPreferencesDataSourceImpl(context.appDataStore)
+    }
+    @Mock
+    @Provides
+    @Singleton
+    fun provideExperienceMockDataSource(): ExperienceRemoteDataSource {
+        return ExperienceMockRemoteDataSourceImpl()
+    }
+    @Provides
+    @Singleton
+    fun provideExperienceLocalDataSource(
+        experienceDataBase: ExperiencesDataBase
+    ): ExperienceLocalDataSource {
+        return ExperienceLocalDataSourceImpl(
+            experiencesDao = experienceDataBase.experienceDao
+
+        )
     }
 }
 

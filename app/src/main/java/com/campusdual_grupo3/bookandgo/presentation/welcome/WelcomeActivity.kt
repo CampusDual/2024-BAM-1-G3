@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.campusdual_grupo3.bookandgo.databinding.ActivityWelcomeBinding
-import com.campusdual_grupo3.bookandgo.presentation.home.HomeActivity
+import com.campusdual_grupo3.bookandgo.presentation.MainActivity
 import com.campusdual_grupo3.bookandgo.presentation.login.LoginActivity
 
 class WelcomeActivity : AppCompatActivity() {
@@ -41,7 +41,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToHomeActivity() {
-        startActivity(Intent(this, HomeActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

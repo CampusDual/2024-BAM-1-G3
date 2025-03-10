@@ -29,7 +29,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.home.HomeActivity"
+            android:name=".presentation.MainActivity"
             android:exported="false" />
 
         <activity

@@ -4,25 +4,25 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dbo.UserDBO
 import javax.inject.Inject
 
-class UserLocalDataSourceImpl @Inject constructor(private val userDao: UserDAO) :
+class UserLocalDataSourceImpl @Inject constructor() :
     UserLocalDataSource {
     override suspend fun getUsers(): List<UserDBO> {
-        return userDao.getUsers()
+        TODO("Not yet implemented")
     }
 
     override suspend fun getUser(id: String): UserDBO {
-        return userDao.getUser(id)
+        TODO("Not yet implemented")
     }
 
     override suspend fun createUser(user: UserDBO) {
-        userDao.createUser(user)
+        TODO("Not yet implemented")
     }
 
     override suspend fun updateUser(user: UserDBO) {
-        userDao.updateUser(user)
+        TODO("Not yet implemented")
     }
 
     override suspend fun deleteUser(user: UserDBO) {
-        userDao.deleteUser(user)
+        TODO("Not yet implemented")
     }
 }
