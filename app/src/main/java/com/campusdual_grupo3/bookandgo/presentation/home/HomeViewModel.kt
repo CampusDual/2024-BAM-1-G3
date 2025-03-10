@@ -18,8 +18,9 @@ data class HomeUiState(
     val categories: List<CategoryEntity?> = listOf(null),
     val selectedCategory: CategoryEntity? = null,
     val experiences: List<ExperienceEntity> = emptyList(),
-    val betterExperience: List<ExperienceEntity> = emptyList()
-)
+    val betterExperience: List<ExperienceEntity> = emptyList(),
+
+    )
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -34,9 +35,12 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
             val experiences = experiencesUseCase.getExperiences()
+
             _uiState.update { home ->
                 home.copy(
-                    experiences = experiences.sortedByDescending { it.createAt }
+                    experiences = experiences.sortedByDescending { experience ->
+                            experience.createAt
+                        }
                 )
             }
 
@@ -44,9 +48,9 @@ class HomeViewModel @Inject constructor(
             _uiState.update { valoradas ->
                 valoradas.copy(
                     betterExperience = betterExperience.sortedByDescending { experience ->
-                        experience.reviews?.map { review -> review.rating }?.average() ?: 0.0
+                            experience.reviews.map { review -> review.rating }.average()
 
-                    }
+                        }
                 )
             }
 
@@ -55,6 +59,17 @@ class HomeViewModel @Inject constructor(
                 home.copy(
                     categories = home.categories.plus(categories)
                 )
+            }
+        }
+    }
+
+    fun onFavoriteClicked(experience: ExperienceEntity) {
+        viewModelScope.launch {
+            experience.isFavorite = !experience.isFavorite
+            if (experience.isFavorite) {
+                experiencesUseCase.addFavorite(experience)
+            } else {
+                experiencesUseCase.removeFavorite(experience)
             }
         }
     }
@@ -69,6 +84,8 @@ class HomeViewModel @Inject constructor(
                 _uiState.update { home ->
                     home.copy(
                         experiences = experiences.sortedByDescending { it.createAt }
+
+
                     )
                 }
                 _uiState.update { valoradas ->
@@ -81,7 +98,7 @@ class HomeViewModel @Inject constructor(
                 }
             }
 
-        }else{
+        } else {
             loadExperiencesByCategory(category.id)
         }
 
@@ -102,7 +119,7 @@ class HomeViewModel @Inject constructor(
 
             _uiState.update { valoradas ->
                 valoradas.copy(
-                    betterExperience =experiences.sortedByDescending { experience ->
+                    betterExperience = experiences.sortedByDescending { experience ->
                         experience.reviews?.map { review -> review.rating }?.average() ?: 0.0
                     }
                 )

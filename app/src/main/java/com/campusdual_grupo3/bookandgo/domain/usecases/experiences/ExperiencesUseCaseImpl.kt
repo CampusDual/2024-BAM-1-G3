@@ -44,4 +44,9 @@ class ExperiencesUseCaseImpl @Inject constructor(
     override suspend fun getFavoriteById(id: Int): ExperienceEntity? {
         return experienceRepository.getFavoriteById(id)
     }
+
+    override suspend fun isFavorite(experience: ExperienceEntity): Boolean {
+        return experienceRepository.isFavorite(experience)
+
+    }
 }

@@ -7,5 +7,7 @@ interface ExperienceLocalDataSource {
     suspend fun insertExperience(experience: ExperienceDbo)
     suspend fun deleteExperience(experience: ExperienceDbo)
     suspend fun getExperienceById(id: Int): ExperienceDbo?
+    suspend fun isFavorite(experience: ExperienceDbo): Boolean
+
 
 }

@@ -20,7 +20,10 @@ class ExperienceRepositoryImpl @Inject constructor(
     private val experienceLocalDataSource: ExperienceLocalDataSource
 ) : ExperienceRepository {
     override suspend fun getExperiences(): List<ExperienceEntity> {
-        return experienceRemoteDataSource.getExperiences().map { it.toDomain() }
+        val favorites = experienceLocalDataSource.getAllExperiences()
+        return experienceRemoteDataSource.getExperiences().map {
+            it.toDomain().copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
+        }
 
     }
 
@@ -39,7 +42,10 @@ class ExperienceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceEntity> {
-        return experienceRemoteDataSource.getExperiencesByCategory(categoryId).map { it.toDomain() }
+        val favorites = experienceLocalDataSource.getAllExperiences()
+        return experienceRemoteDataSource.getExperiencesByCategory(categoryId).map {
+            it.toDomain().copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
+        }
     }
 
     override suspend fun getFavorites(): List<ExperienceEntity> {
@@ -56,6 +62,10 @@ class ExperienceRepositoryImpl @Inject constructor(
 
     override suspend fun getFavoriteById(id: Int): ExperienceEntity? {
         return experienceLocalDataSource.getExperienceById(id)?.toDomain()
+    }
+
+    override suspend fun isFavorite(experience: ExperienceEntity): Boolean {
+        return experienceLocalDataSource.getExperienceById(experience.id) != null
     }
 
 

@@ -24,4 +24,8 @@ class ExperienceLocalDataSourceImpl @Inject constructor(
         return experiencesDao.getExperienceById(id)
     }
 
+    override suspend fun isFavorite(experience: ExperienceDbo): Boolean {
+       return experiencesDao.isFavorite(id = experience.id)
+    }
+
 }

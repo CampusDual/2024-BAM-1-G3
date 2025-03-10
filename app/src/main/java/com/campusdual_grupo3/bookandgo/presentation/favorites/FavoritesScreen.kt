@@ -39,7 +39,14 @@ fun FavoritesScreen() {
 
         LazyColumn() {
             items(uiState.favoritesExperiences) { favorites ->
-                Card {
+                Card(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 8.dp,
+                            vertical = 8.dp
+                        )
+                        .fillMaxWidth()
+                ) {
                     Column {
                         AsyncImage(
                             model = favorites.image,
@@ -51,6 +58,18 @@ fun FavoritesScreen() {
                         )
                         Text(
                             text = favorites.name,
+                            modifier = Modifier
+                                .padding(8.dp),
+                            fontSize = 14.sp
+                        )
+                        Text(
+                            text = favorites.description,
+                            modifier = Modifier
+                                .padding(8.dp),
+                            fontSize = 14.sp
+                        )
+                        Text(
+                            text = "Precio " + favorites.price.toString() + "€",
                             modifier = Modifier
                                 .padding(8.dp),
                             fontSize = 14.sp
