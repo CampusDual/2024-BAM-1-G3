@@ -43,5 +43,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- HOME SCREEN -->
+    <string name="best_rated_experiences">Mejor valoradas</string>">
+    <string name="featured_experiences">Destacadas</string>
     <string name="search_experience">Buscar experiencias</string>
+
+    <!-- CATEGORY EXPERIENCES -->
+    <string name="adventures_category">Aventuras</string>
+    <string name="culture_category">Cultura</string>
+    <string name="default_explorer_category">Explorar</string>
+    <string name="gaming_category">Gaming</string>
+    <string name="gastronomy_category">Gastronomía</string>
+    <string name="music_category">Música</string>
+    <string name="nightlife_category">Vida Nocturna</string>
+    <string name="relax_category">Relax</string>
+    <string name="sports_category">Deportes</string>
 </resources>

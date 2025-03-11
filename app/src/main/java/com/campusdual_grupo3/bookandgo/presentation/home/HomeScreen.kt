@@ -37,6 +37,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -47,12 +49,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
+import com.campusdual_grupo3.bookandgo.presentation.components.TitleH1App
 
 
 @Composable
 fun HomeScreen() {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
+    val APP_FONT_REGULAR = FontFamily(Font(R.font.playfair_regular))
+    val APP_FONT_BOLD = FontFamily(Font(R.font.playfair_bold))
 
     Column(
         modifier = Modifier
@@ -67,7 +72,7 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = 20.dp, top = 45.dp, bottom = 5.dp, end = 20.dp
+                    start = 16.dp, top = 24.dp, bottom = 8.dp, end = 16.dp
                 ),
             horizontalArrangement = Arrangement.SpaceBetween,
 
@@ -85,17 +90,17 @@ fun HomeScreen() {
                     .clickable {
                         // Aquí añadir la lógica para navegar a la sección de perfil
                     }
-
             )
         }
         Row(
             //***** barra buscador *****
             modifier = Modifier
                 .padding(
-                    horizontal = 10.dp, vertical = 10.dp
+                    horizontal = 16.dp, vertical = 8.dp
                 )
+                .height(46.dp)
                 .fillMaxWidth()
-                .background(color = Color.LightGray),
+                .background(color = Color.LightGray, RoundedCornerShape(4.dp)),
             verticalAlignment = Alignment.CenterVertically
 
         ) {
@@ -121,8 +126,9 @@ fun HomeScreen() {
                         start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp
                     )
 
-                    .background(color = Color.Black)
-                    .width(50.dp)
+                    .background(color = Color.Black, RoundedCornerShape(4.dp))
+                    .width(72.dp)
+                    .height(42.dp)
 
             )
 
@@ -136,14 +142,15 @@ fun HomeScreen() {
 
             items(uiState.categories) { category ->
                 Text(
-                    text = category?.name ?: "Explorar",
+                    text = category?.name ?: stringResource(R.string.default_explorer_category),
+                    fontFamily = APP_FONT_REGULAR,
                     modifier = Modifier
                         .padding(vertical = 16.dp)
                         .clip(RoundedCornerShape(4.dp))
                         .background(if (uiState.selectedCategory == category) Color.Black else Color.White)//
                         .padding(
-                            horizontal = if (uiState.selectedCategory == category) 10.dp else 4.dp,
-                            vertical = 2.dp
+                            horizontal = if (uiState.selectedCategory == category) 16.dp else 8.dp,
+                            vertical = 4.dp
                         )
                         .clickable {
                             viewModel.onCategorySelected(category)
@@ -158,7 +165,7 @@ fun HomeScreen() {
 
         LazyColumn(
             modifier = Modifier
-                .padding(vertical = 10.dp)
+                .padding(horizontal = 16.dp, vertical = 4.dp)
                 .fillMaxWidth()
         ) {
             item {
@@ -167,13 +174,15 @@ fun HomeScreen() {
                     .height(150.dp)
                     .padding(vertical = 8.dp)
                     .clickable {
-                        // Aquí añadir la lógica para navegar a la sección de exploración
+                        // TODO: code navigation to categories
                     }) {
                     if (uiState.selectedCategory == null) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_onboarding_1),
+                            painter = painterResource(id = R.drawable.ic_default_image_explorer_category),
                             contentDescription = null,
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(16.dp)),
                             contentScale = ContentScale.Crop
                         )
 
@@ -181,35 +190,30 @@ fun HomeScreen() {
                         AsyncImage(
                             model = uiState.selectedCategory?.image,
                             contentDescription = uiState.selectedCategory?.name,
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(16.dp)),
                             contentScale = ContentScale.Crop
                         )
 
                     }
 
                     Text(
-                        text = uiState.selectedCategory?.name ?: "Explorar",
+                        text = uiState.selectedCategory?.name
+                            ?: stringResource(R.string.default_explorer_category),
                         color = Color.White,
-                        fontSize = 32.sp,
+                        fontFamily = APP_FONT_BOLD,
+                        fontSize = 48.sp,
                         fontWeight = FontWeight.Bold,
-
                         modifier = Modifier
                             .align(Alignment.Center)
-                            .padding(16.dp)
                     )
                 }
             }
 
             item {
-                Text(
-                    text = "Experiencias destacadas",
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .fillMaxWidth(),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Start
-                )
+                TitleH1App(stringResource(R.string.featured_experiences))
+
                 LazyRow(
                     modifier = Modifier
                         .padding(vertical = 10.dp)
@@ -218,150 +222,143 @@ fun HomeScreen() {
                 ) {
                     items(uiState.experiences) { experience ->
                         var isFavorite by remember { mutableStateOf(experience.isFavorite) }
+
+                        /* ------------------- CARD SQUARE -------------------*/
                         Card(
                             modifier = Modifier
-                                .width(200.dp)
+                                .width(250.dp)
                                 .height(150.dp)
                         ) {
-                            Column {
+                            Column() {
                                 AsyncImage(
                                     model = experience.image,
                                     contentDescription = experience.name,
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(100.dp),
+                                        .fillMaxWidth(),
                                     contentScale = ContentScale.Crop
                                 )
+
+                                Box() {
+                                    Text(
+                                        text = experience.name,
+                                        modifier = Modifier.padding(8.dp),
+                                        fontSize = 14.sp
+                                    )
+
+
+
+
+                                    Image(painter = painterResource(
+                                        if (isFavorite) {
+                                            R.drawable.ic_favorite
+                                        } else R.drawable.ic_not_favorite
+                                    ), // Cambiamos el icono según el estado
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .padding(8.dp)
+                                            .size(20.dp)
+                                            .clickable {
+                                                isFavorite = !isFavorite
+                                                // Actualizamos el estado en la experiencia original
+                                                viewModel.onFavoriteClicked(experience)
+
+                                            })
+                                }
                             }
-                            Row {
-                                Text(
-                                    text = experience.name,
-                                    modifier = Modifier.padding(8.dp),
-                                    fontSize = 14.sp
-                                )
-
-
-
-
-                            Image(painter = painterResource(
-                                if (isFavorite) {
-                                    R.drawable.ic_favorite
-                                } else R.drawable.ic_not_favorite
-                            ), // Cambiamos el icono según el estado
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .size(20.dp)
-                                    .clickable {
-                                        isFavorite = !isFavorite
-                                        // Actualizamos el estado en la experiencia original
-                                        viewModel.onFavoriteClicked(experience)
-
-                                    })
-
                         }
-                    }
 
+                    }
                 }
             }
-        }
 
-        item {
-            Text(
-                text = "Las mejor valoradas",
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .fillMaxWidth(),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Start
-            )
-        }
+            item {
+                TitleH1App(stringResource(R.string.best_rated_experiences))
+            }
 
-        items(uiState.betterExperience) { experience ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = 4.dp
-                )
-            ) {
-                Row(
-                    modifier = Modifier.height(intrinsicSize = IntrinsicSize.Max),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+            items(uiState.betterExperience) { experience ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 4.dp
+                    )
                 ) {
-
                     Row(
-                        modifier = Modifier.weight(1f, true),
-                        verticalAlignment = Alignment.CenterVertically // Alinea verticalmente el texto
-
+                        modifier = Modifier.height(intrinsicSize = IntrinsicSize.Max),
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        AsyncImage(
-                            model = experience.image,
-                            contentDescription = experience.name,
+
+                        Row(
+                            modifier = Modifier.weight(1f, true),
+                            verticalAlignment = Alignment.CenterVertically // Alinea verticalmente el texto
+
+                        ) {
+                            AsyncImage(
+                                model = experience.image,
+                                contentDescription = experience.name,
+                                modifier = Modifier
+                                    .padding(start = 4.dp)
+                                    .size(100.dp)
+                                    .clip(CircleShape),
+                            )
+                            Column(
+                                // Contenido de texto a la derecha
+                                modifier = Modifier.padding(
+                                    start = 16.dp
+                                ),// Espacio entre imagen y texto
+
+                            ) {
+                                Text(
+                                    text = experience.name,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = experience.description,// Añade una descripción
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
+                                    fontSize = 14.sp,
+                                    color = Color.Gray
+                                )
+                            }
+                        }
+
+                        Column( // puntuacion y precio
                             modifier = Modifier
-                                .padding(start = 4.dp)
-                                .size(100.dp)
-                                .clip(CircleShape),
-                        )
-                        Column(
-                            // Contenido de texto a la derecha
-                            modifier = Modifier.padding(
-                                start = 16.dp
-                            ),// Espacio entre imagen y texto
+                                .padding(start = 16.dp, bottom = 16.dp)
+                                .fillMaxHeight(),
+
+                            verticalArrangement = Arrangement.SpaceBetween
 
                         ) {
                             Text(
-                                text = experience.name,
+                                modifier = Modifier
+                                    .padding(
+                                        end = 16.dp, start = 8.dp
+                                    )
+                                    .background(Color.Yellow)
+                                    .padding(
+                                        8.dp
+                                    ),
+
+
+                                text = experience.reviews?.get(index = 0)?.rating.toString(),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
                             )
+
                             Text(
-                                text = experience.description,// Añade una descripción
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                                fontSize = 14.sp,
-                                color = Color.Gray
+                                text = experience.price.toString(), // Añade una descripción
+                                fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray
                             )
                         }
+
                     }
-
-                    Column( // puntuacion y precio
-                        modifier = Modifier
-                            .padding(start = 16.dp, bottom = 16.dp)
-                            .fillMaxHeight(),
-
-                        verticalArrangement = Arrangement.SpaceBetween
-
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(
-                                    end = 16.dp, start = 8.dp
-                                )
-                                .background(Color.Yellow)
-                                .padding(
-                                    8.dp
-                                ),
-
-
-                            text = experience.reviews?.get(index = 0)?.rating.toString(),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Text(
-                            text = experience.price.toString(), // Añade una descripción
-                            fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray
-                        )
-                    }
-
                 }
             }
         }
     }
-}
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
