@@ -50,6 +50,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.presentation.components.TitleH1App
+import com.example.presentation.components.CardVExperience
 
 
 @Composable
@@ -219,11 +220,30 @@ fun HomeScreen() {
                         .padding(vertical = 10.dp)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
+
                 ) {
                     items(uiState.experiences) { experience ->
                         var isFavorite by remember { mutableStateOf(experience.isFavorite) }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(0.dp,0.dp,16.dp,16.dp )
+                        ) {
 
-                        /* ------------------- CARD SQUARE -------------------*/
+                            /* ------------------- COMPONENT V CARD -------------------*/
+                            CardVExperience(
+                                experience = experience,
+                                onFavoriteClick = {
+                                    isFavorite = !isFavorite
+                                    viewModel.toggleFavorite(experience) },
+                                onViewOfferClick = {
+                                    /* Navigate to offer details */ }
+                            )
+                            /* ------------------- END COMPONENT V CARD -------------------*/
+                        }
+
+                        /* ------------------- OLD CARD -------------------*/
+                        /*
                         Card(
                             modifier = Modifier
                                 .width(250.dp)
@@ -267,6 +287,8 @@ fun HomeScreen() {
                             }
                         }
 
+                        */
+                        /* ------------------- END OLD CARD -------------------*/
                     }
                 }
             }

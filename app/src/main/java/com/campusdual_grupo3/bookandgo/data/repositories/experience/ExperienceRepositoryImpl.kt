@@ -68,6 +68,17 @@ class ExperienceRepositoryImpl @Inject constructor(
         return experienceLocalDataSource.getExperienceById(experience.id) != null
     }
 
+    override suspend fun toggleFavorite(experience: ExperienceEntity): ExperienceEntity {
+        return if (isFavorite(experience)) {
+            removeFavorite(experience)
+            experience.copy(isFavorite = false)
+        } else {
+            addFavorite(experience)
+            experience.copy(isFavorite = true)
+        }
+
+    }
+
 
     private fun RewiewDto.toDomain(): ReviewEntity {
         return ReviewEntity(

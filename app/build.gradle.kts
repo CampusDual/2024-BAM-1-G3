@@ -87,35 +87,35 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //MockK
+    // MockK
     testImplementation(libs.mockk)
 
-    //Glide
+    // Glide
     implementation(libs.glide)
     ksp(libs.compiler)
 
-    //Retrofit
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    //Google Gson
+    // Google Gson
     implementation(libs.gson)
 
-    //Logging Interceptor
+    // Logging Interceptor
     implementation(libs.logging.interceptor)
 
-    //Room
+    // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     // kapt (libs.androidx.room.compiler.v260)
     ksp(libs.androidx.room.compiler)
 
-    //Hilt
+    // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation (libs.androidx.hilt.navigation.compose)
 
-    //Kotlin Livecycle
+    // Kotlin Livecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // Navigation Component
@@ -128,6 +128,6 @@ dependencies {
     // API Google Splash Screen
     implementation(libs.core.splashscreen)
 
-    //coil Image compose
+    // Coil Image compose
     implementation(libs.coil.compose)
 }

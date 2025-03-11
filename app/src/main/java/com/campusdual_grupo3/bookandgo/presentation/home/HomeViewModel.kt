@@ -39,8 +39,8 @@ class HomeViewModel @Inject constructor(
             _uiState.update { home ->
                 home.copy(
                     experiences = experiences.sortedByDescending { experience ->
-                            experience.createAt
-                        }
+                        experience.createAt
+                    }
                 )
             }
 
@@ -48,9 +48,9 @@ class HomeViewModel @Inject constructor(
             _uiState.update { valoradas ->
                 valoradas.copy(
                     betterExperience = betterExperience.sortedByDescending { experience ->
-                            experience.reviews.map { review -> review.rating }.average()
+                        experience.reviews.map { review -> review.rating }.average()
 
-                        }
+                    }
                 )
             }
 
@@ -74,6 +74,25 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun toggleFavorite(experience: ExperienceEntity) {
+        viewModelScope.launch {
+            val updatedExperience = experiencesUseCase.toggleFavorite(experience)
+            val updatedExperiences = uiState.value.experiences.map {
+                if (it.id == updatedExperience.id) {
+                    updatedExperience
+                } else {
+                    it
+                }
+                }
+            _uiState.update { home ->
+                home.copy(
+                    experiences = updatedExperiences
+                )
+
+            }
+        }
+    }
+
     fun onCategorySelected(category: CategoryEntity?) {
         _uiState.value = _uiState.value.copy(
             selectedCategory = category
@@ -91,7 +110,8 @@ class HomeViewModel @Inject constructor(
                 _uiState.update { valoradas ->
                     valoradas.copy(
                         betterExperience = experiences.sortedByDescending { experience ->
-                            experience.reviews?.map { review -> review.rating }?.average() ?: 0.0
+                            experience.reviews?.map { review -> review.rating }?.average()
+                                ?: 0.0
 
                         }
                     )

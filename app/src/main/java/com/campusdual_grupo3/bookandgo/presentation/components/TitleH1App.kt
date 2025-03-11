@@ -22,7 +22,7 @@ fun TitleH1App(text: String, color: Color = Color.Black, size: TextUnit = 24.sp,
     Text(
         text = text,
         modifier = Modifier
-            .padding(horizontal = 0.dp, vertical = 16.dp)
+            .padding(horizontal = 0.dp, vertical = 8.dp)
             .fillMaxWidth(),
         fontFamily = font,
         fontSize = size,

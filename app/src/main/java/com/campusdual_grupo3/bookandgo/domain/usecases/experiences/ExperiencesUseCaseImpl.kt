@@ -14,11 +14,11 @@ class ExperiencesUseCaseImpl @Inject constructor(
     }
 
     override suspend fun getExperienceById(id: Int): ExperienceEntity? {
-       return experienceRepository.getExperienceById(id)
+        return experienceRepository.getExperienceById(id)
     }
 
     override suspend fun getRewiewsByExperienceId(experienceId: Int): List<ReviewEntity?> {
-      return experienceRepository.getRewiewsByExperienceId(experienceId)
+        return experienceRepository.getRewiewsByExperienceId(experienceId)
     }
 
     override suspend fun getCategories(): List<CategoryEntity> {
@@ -30,7 +30,7 @@ class ExperiencesUseCaseImpl @Inject constructor(
     }
 
     override suspend fun getFavorites(): List<ExperienceEntity> {
-       return experienceRepository.getFavorites()
+        return experienceRepository.getFavorites()
     }
 
     override suspend fun addFavorite(experience: ExperienceEntity) {
@@ -48,5 +48,9 @@ class ExperiencesUseCaseImpl @Inject constructor(
     override suspend fun isFavorite(experience: ExperienceEntity): Boolean {
         return experienceRepository.isFavorite(experience)
 
+    }
+
+    override suspend fun toggleFavorite(experience: ExperienceEntity): ExperienceEntity {
+        return experienceRepository.toggleFavorite(experience)
     }
 }
