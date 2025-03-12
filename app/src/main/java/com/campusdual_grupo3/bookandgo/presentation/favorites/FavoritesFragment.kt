@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.campusdual_grupo3.bookandgo.databinding.FragmentFavoritesBinding
+import com.campusdual_grupo3.bookandgo.presentation.MainActivity
 
 
 class FavoritesFragment : Fragment() {
@@ -23,7 +24,14 @@ class FavoritesFragment : Fragment() {
     ): View? {
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         binding?.composeView?.setContent {
-            FavoritesScreen()
+            FavoritesScreen(
+                goToExperienceDetail = { experienceId ->
+                    (activity as? MainActivity)?.openExperienceDetail(experienceId)
+                },
+                goToGiftCard = {
+                    (activity as? MainActivity)?.goToGift()
+                }
+            )
         }
         return binding?.root
     }

@@ -1,17 +1,17 @@
 package com.campusdual_grupo3.bookandgo.presentation
 
+
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.databinding.ActivityMainBinding
+import com.campusdual_grupo3.bookandgo.presentation.experiencia.ExperienceDetailFragment
 import com.campusdual_grupo3.bookandgo.presentation.favorites.FavoritesFragment
 import com.campusdual_grupo3.bookandgo.presentation.home.HomeFragment
+import com.campusdual_grupo3.bookandgo.presentation.listing.ListFragment
 import com.campusdual_grupo3.bookandgo.presentation.navigation.NavigationHelper
 import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
-
-
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,9 +21,10 @@ class MainActivity : AppCompatActivity() {
     private var navigationHelper = NavigationHelper()
     private var currentFragment: Fragment? = null
 
+
     private var homeFragment = HomeFragment()
     private var favoritesFragment = FavoritesFragment()
-    private var listFragment = HomeFragment()
+    private var listFragment = ListFragment()
     private var giftCardFragment = HomeFragment()
 
 
@@ -51,13 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-        fragmentTransaction.commit()
-    }
-
     private fun openHome() {
         if (currentFragment !is HomeFragment) {
             currentFragment = navigationHelper.showFragment(
@@ -74,13 +68,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun openList(){
-        if (currentFragment !is HomeFragment){
+        if (currentFragment !is ListFragment){
             currentFragment = navigationHelper.showFragment(
                 this, currentFragment,
-                homeFragment, AppGlobalConstants.F_HOME)
+                listFragment, AppGlobalConstants.F_LIST)
         }
 
     }
+
+    fun goToGift() {
+        binding.bottomNavigation.selectedItemId = R.id.navigation_giftCard
+    }
+
     private fun openGiftCard() {
         if (currentFragment !is HomeFragment) {
             currentFragment = navigationHelper.showFragment(
@@ -88,5 +87,17 @@ class MainActivity : AppCompatActivity() {
                 homeFragment, AppGlobalConstants.F_HOME
             )
         }
+    }
+
+    fun openExperienceDetail(experienceId: Int) {
+        val experienceDetailFragment = ExperienceDetailFragment.newInstance(experienceId)
+        currentFragment = navigationHelper.showFragment(
+            this, currentFragment,
+            experienceDetailFragment, AppGlobalConstants.F_EXPERIENCE_DETAIL
+        )
+    }
+
+    fun navigateBackStack() {
+        currentFragment = navigationHelper.backStackFragment(this, currentFragment)
     }
 }

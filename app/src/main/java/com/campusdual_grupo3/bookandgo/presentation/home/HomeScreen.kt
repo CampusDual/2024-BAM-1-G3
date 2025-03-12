@@ -50,7 +50,7 @@ import com.campusdual_grupo3.bookandgo.R
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onClickExperience: (Int) -> Unit) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
@@ -222,6 +222,9 @@ fun HomeScreen() {
                             modifier = Modifier
                                 .width(200.dp)
                                 .height(150.dp)
+                                .clickable {
+                                    onClickExperience(experience.id)
+                                }
                         ) {
                             Column {
                                 AsyncImage(
@@ -282,6 +285,9 @@ fun HomeScreen() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clickable {
+                        onClickExperience(experience.id)
+                    }
                     .padding(8.dp),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 4.dp
@@ -367,6 +373,6 @@ fun HomeScreen() {
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
 @Composable
 fun HomePreview() {
-    HomeScreen()
+    HomeScreen() {}
 
 }

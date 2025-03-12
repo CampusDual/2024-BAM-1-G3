@@ -10,7 +10,7 @@ interface ExperienceRemoteDataSource {
     suspend fun getRewiewsByExperienceId(experienceId: Int): List<RewiewDto>
     suspend fun getCategories():List<CategoryDto>
     suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceDto>
-//    suspend fun getCategoriesWithExperiences(): List<CategoryDto>
+
 
 
 }

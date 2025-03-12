@@ -17,11 +17,11 @@ object AppGlobalConstants {
     const val SHARED_PREFERENCES_NAME = "bookandgo_preferences"
     const val IS_ON_BOARDING_COMPLETED = "is_onboarding_completed"
 
-//FRAGMENT NAVIGATION
-const val F_HOME = "F_HOME"
+    //FRAGMENT NAVIGATION
+    const val F_HOME = "F_HOME"
     const val F_FAVORITES = "F_FAVORITES"
     const val F_LIST = "F_LIST"
     const val F_GIFT_CARD = "F_GIFT_CARD"
     const val F_PROFILE = "F_PROFILE"
-
+    const val F_EXPERIENCE_DETAIL = "F_EXPERIENCE_DETAIL"
 }

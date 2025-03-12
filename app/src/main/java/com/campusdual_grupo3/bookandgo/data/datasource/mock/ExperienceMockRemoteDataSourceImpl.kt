@@ -130,7 +130,7 @@ class ExperienceMockRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getExperienceById(id: Int): ExperienceDto? {
-        return null
+        return getExperiences().find { it.id == id }
 
     }
 
@@ -170,17 +170,5 @@ class ExperienceMockRemoteDataSourceImpl @Inject constructor(
         return getExperiences().filter { it.category == categoryId }
     }
 
-//    override suspend fun getCategoriesWithExperiences(): List<CategoryDto> {
-//        val allCategories = getCategories() // Función para obtener todas las categorías disponibles.
-//        val categoriesWithExperiences = mutableListOf<CategoryDto>()
-//
-//        for (category in allCategories) {
-//            val experiences = getExperiencesByCategory(category.id) // Obtener experiencias por categoría.
-//            if (experiences.isNotEmpty()) {
-//                categoriesWithExperiences.add(category)
-//            }
-//        }
-//
-//        return categoriesWithExperiences
-//    }
+
 }

@@ -84,8 +84,6 @@ class HomeViewModel @Inject constructor(
                 _uiState.update { home ->
                     home.copy(
                         experiences = experiences.sortedByDescending { it.createAt }
-
-
                     )
                 }
                 _uiState.update { valoradas ->
