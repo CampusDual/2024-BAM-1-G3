@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -50,6 +51,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.presentation.components.TitleH1App
+import com.campusdual_grupo3.bookandgo.presentation.theme.GoldenYellow
 import com.example.presentation.components.CardVExperience
 
 
@@ -227,7 +229,7 @@ fun HomeScreen() {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(0.dp,0.dp,16.dp,16.dp )
+                                .padding(0.dp, 0.dp, 16.dp, 16.dp)
                         ) {
 
                             /* ------------------- COMPONENT V CARD -------------------*/
@@ -235,9 +237,11 @@ fun HomeScreen() {
                                 experience = experience,
                                 onFavoriteClick = {
                                     isFavorite = !isFavorite
-                                    viewModel.toggleFavorite(experience) },
+                                    viewModel.toggleFavorite(experience)
+                                },
                                 onViewOfferClick = {
-                                    /* Navigate to offer details */ }
+                                    /* Navigate to offer details */
+                                }
                             )
                             /* ------------------- END COMPONENT V CARD -------------------*/
                         }
@@ -301,41 +305,53 @@ fun HomeScreen() {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(8.dp)
+                        .height(100.dp),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 4.dp
-                    )
+                    ),
                 ) {
                     Row(
-                        modifier = Modifier.height(intrinsicSize = IntrinsicSize.Max),
+                        modifier = Modifier
+                            .height(intrinsicSize = IntrinsicSize.Max)
+                            .background(Color.White),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
 
                         Row(
-                            modifier = Modifier.weight(1f, true),
+                            modifier = Modifier
+                                .weight(1f, true)
+                                .background(Color.White),
                             verticalAlignment = Alignment.CenterVertically // Alinea verticalmente el texto
 
                         ) {
                             AsyncImage(
                                 model = experience.image,
+                                contentScale = ContentScale.Crop,
                                 contentDescription = experience.name,
                                 modifier = Modifier
-                                    .padding(start = 4.dp)
-                                    .size(100.dp)
-                                    .clip(CircleShape),
+                                    .width(100.dp)
+                                    .height(100.dp)
+                                    .padding(8.dp)
+                                    .background(Color.Transparent, RoundedCornerShape(20.dp))
+                                    .clip(RoundedCornerShape(8.dp))
                             )
                             Column(
                                 // Contenido de texto a la derecha
-                                modifier = Modifier.padding(
-                                    start = 16.dp
-                                ),// Espacio entre imagen y texto
+                                modifier = Modifier
+                                    .background(Color.White)
+                                    .padding(
+                                        start = 8.dp
+                                    ),// Espacio entre imagen y texto
 
                             ) {
                                 Text(
+                                    modifier = Modifier.fillMaxWidth(),
                                     text = experience.name,
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 )
+                                /*
                                 Text(
                                     text = experience.description,// Añade una descripción
                                     maxLines = 2,
@@ -343,12 +359,13 @@ fun HomeScreen() {
                                     fontSize = 14.sp,
                                     color = Color.Gray
                                 )
+                                */
                             }
                         }
 
                         Column( // puntuacion y precio
                             modifier = Modifier
-                                .padding(start = 16.dp, bottom = 16.dp)
+                                .padding(start = 8.dp, bottom = 16.dp)
                                 .fillMaxHeight(),
 
                             verticalArrangement = Arrangement.SpaceBetween
@@ -359,21 +376,25 @@ fun HomeScreen() {
                                     .padding(
                                         end = 16.dp, start = 8.dp
                                     )
-                                    .background(Color.Yellow)
+                                    .background(
+                                        GoldenYellow,
+                                        RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
+                                    )
                                     .padding(
-                                        8.dp
+                                        start = 16.dp, top = 16.dp, bottom = 8.dp, end = 16.dp
                                     ),
 
-
                                 text = experience.reviews?.get(index = 0)?.rating.toString(),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
+                                fontSize = 24.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Black
                             )
 
+                            /*
                             Text(
                                 text = experience.price.toString(), // Añade una descripción
                                 fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray
-                            )
+                            ) */
                         }
 
                     }
