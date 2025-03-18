@@ -24,8 +24,12 @@ interface ExperiencesApi {
     @GET ("v1/categories")
     suspend fun getCategories(): Response<CategoriesDto>
 
-    @GET ("v1/categories/{categoryId}/experiences")
-    suspend fun getExperiencesByCategory(categoryId: Int): Response<List<ExperienceDto>>
+    @GET ("v1/categories/experiences")
+    suspend fun getExperiencesByCategory(
+        @Query("id") categoryId: Int
+    ): Response<List<ExperienceDto>>
+
+
 
 
 
