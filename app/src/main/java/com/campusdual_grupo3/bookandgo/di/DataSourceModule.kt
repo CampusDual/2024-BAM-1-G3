@@ -10,9 +10,9 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.appData
 import com.campusdual_grupo3.bookandgo.data.datasource.local.room.ExperiencesDataBase
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSourceImpl
-import com.campusdual_grupo3.bookandgo.data.datasource.local.user.dao.UserDAO
-import com.campusdual_grupo3.bookandgo.data.datasource.mock.ExperienceMockRemoteDataSourceImpl
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.ExperiencesApi
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSourceImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -54,12 +54,12 @@ object DataSourceModule {
     ): AppPreferencesDataSource {
         return AppPreferencesDataSourceImpl(context.appDataStore)
     }
-    @Mock
-    @Provides
-    @Singleton
-    fun provideExperienceMockDataSource(): ExperienceRemoteDataSource {
-        return ExperienceMockRemoteDataSourceImpl()
-    }
+//    @Mock
+//    @Provides
+//    @Singleton
+//    fun provideExperienceMockDataSource(): ExperienceRemoteDataSource {
+//        return ExperienceMockRemoteDataSourceImpl()
+//    }
     @Provides
     @Singleton
     fun provideExperienceLocalDataSource(
@@ -68,6 +68,15 @@ object DataSourceModule {
         return ExperienceLocalDataSourceImpl(
             experiencesDao = experienceDataBase.experienceDao
 
+        )
+    }
+    @Provides
+    @Singleton
+    fun provideExperienceRemoteDataSource(
+        experienceApi: ExperiencesApi
+    ): ExperienceRemoteDataSource {
+        return ExperienceRemoteDataSourceImpl(
+            experienceApi = experienceApi
         )
     }
 

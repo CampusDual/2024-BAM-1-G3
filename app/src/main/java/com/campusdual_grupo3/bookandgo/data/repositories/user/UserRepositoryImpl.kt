@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
 
-    @Mock private val userMockDataSource: UserRemoteDataSource,
-    private val userRemoteDataSource: UserRemoteDataSource,
-    private val userLocalDataSource: UserLocalDataSource
+//    @Mock private val userMockDataSource: UserRemoteDataSource,
+    private val userRemoteDataSource: UserRemoteDataSource
+//    private val userLocalDataSource: UserLocalDataSource
 
 ) : UserRepository {
     override suspend fun login(email: String, password: String): Boolean {

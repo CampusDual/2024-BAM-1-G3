@@ -2,11 +2,11 @@ package com.campusdual_grupo3.bookandgo.utils.config
 
 object AppGlobalConstants {
     // URLs de la API
-    const val BASE_URL = ""
+    const val BASE_URL = "https://bookandgo.apieverywhere.com/"
 
     // DATABASE
     const val DATABASE_NAME = "bookandgo_db"
-    const val DATABASE_VERSION = 1
+    const val DATABASE_VERSION = 3
     const val EXPORT_SCHEME = false
     const val TABLE_USERS = "users"
 

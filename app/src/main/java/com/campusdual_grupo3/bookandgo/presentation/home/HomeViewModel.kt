@@ -10,15 +10,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 data class HomeUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
-    val categories: List<CategoryEntity?> = listOf(null),
-    val selectedCategory: CategoryEntity? = null,
+//    val categories: List<CategoryId> = emptyList(),
+    val categories: List<CategoryEntity> = emptyList(),
+    val selectedCategoryId: Int = -1,
     val experiences: List<ExperienceEntity> = emptyList(),
     val betterExperience: List<ExperienceEntity> = emptyList(),
+
+
 
     )
 
@@ -39,7 +43,7 @@ class HomeViewModel @Inject constructor(
             _uiState.update { home ->
                 home.copy(
                     experiences = experiences.sortedByDescending { experience ->
-                            experience.createAt
+                            experience.createdAt
                         }
                 )
             }
@@ -48,7 +52,7 @@ class HomeViewModel @Inject constructor(
             _uiState.update { valoradas ->
                 valoradas.copy(
                     betterExperience = betterExperience.sortedByDescending { experience ->
-                            experience.reviews.map { review -> review.rating }.average()
+                            experience.reviews?.map { review -> review.rating }?.average()
 
                         }
                 )
@@ -74,16 +78,16 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onCategorySelected(category: CategoryEntity?) {
+    fun onCategorySelected(categoryId: Int) {
         _uiState.value = _uiState.value.copy(
-            selectedCategory = category
+            selectedCategoryId = categoryId
         )
-        if (category == null) {
+        if (categoryId == -1)  {
             viewModelScope.launch {
                 val experiences = experiencesUseCase.getExperiences()
                 _uiState.update { home ->
                     home.copy(
-                        experiences = experiences.sortedByDescending { it.createAt }
+                        experiences = experiences.sortedByDescending { it.createdAt }
                     )
                 }
                 _uiState.update { valoradas ->
@@ -97,7 +101,7 @@ class HomeViewModel @Inject constructor(
             }
 
         } else {
-            loadExperiencesByCategory(category.id)
+            loadExperiencesByCategory(categoryId)
         }
 
     }
@@ -129,5 +133,10 @@ class HomeViewModel @Inject constructor(
 
 
         }
+    }
+    fun getCategoryById(id: Int): CategoryEntity {
+        return uiState.value.categories.find { it.id == id } ?: CategoryEntity(-1, "https://i.blogs.es/161dfa/simon-migaj-yui5vfkhuzs-unsplash/1366_2000.webp", "Explorar", createdAt = LocalDate.now(), updateAt = LocalDate.now())
+
+
     }
 }

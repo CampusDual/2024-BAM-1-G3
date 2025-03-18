@@ -1,24 +1,25 @@
 package com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto
 
 
-import java.time.LocalDate
+import com.google.gson.annotations.SerializedName
 
 data class ExperienceDto(
     val id: Int,
     var name: String,
     var description: String,
-    var price: Double,
-    var duration: Double,
+    var price: Int,
+    var duration: Int?,
     var dateTo: String,
     var dateFrom: String,
     var location: String,
-    var capacity: Int,
+    var capacity: Int?,
     var stock: Int,
     var availability: Boolean,
-    var reviews: List<RewiewDto>?,
+    var reviews: List<ReviewDto>?,
     var category: Int,
     var isFavorite: Boolean = false,
     var image: String,
-    var createAt: LocalDate,
-    var updateAt: LocalDate?
-)
+    val user_id: Int?,
+    val createdAt: String,
+
+    )

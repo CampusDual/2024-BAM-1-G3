@@ -13,6 +13,7 @@ class ExperienceDetailFragment : Fragment() {
     private var binding: FragmentExperienceDetailBinding? = null
     private var experienceId: Int? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -26,9 +27,14 @@ class ExperienceDetailFragment : Fragment() {
     ): View? {
         binding = FragmentExperienceDetailBinding.inflate(inflater, container, false)
         binding?.composeView?.setContent {
-            ExperienceDetailScreen(experienceId = experienceId!!, onBackClick = {
-                (activity as? MainActivity)?.navigateBackStack()
-            })
+            ExperienceDetailScreen(experienceId = experienceId!!,
+                onBackClick = {
+                    (activity as? MainActivity)?.navigateBackStack()
+            },
+                goToGiftCard = {
+                    (activity as? MainActivity)?.goToGift()
+                }
+            )
 
         }
         return binding?.root

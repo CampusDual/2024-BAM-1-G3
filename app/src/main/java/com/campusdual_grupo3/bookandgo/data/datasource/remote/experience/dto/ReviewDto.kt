@@ -2,7 +2,7 @@ package com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto
 
 import java.time.LocalDate
 
-data class RewiewDto(
+data class ReviewDto(
     val id: Int,
     var rating: Double,
     var comment: String,

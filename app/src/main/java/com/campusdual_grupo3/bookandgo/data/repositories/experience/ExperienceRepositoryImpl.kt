@@ -6,24 +6,30 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dbo.Rev
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.CategoryDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ExperienceDto
-import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.RewiewDto
-import com.campusdual_grupo3.bookandgo.di.Mock
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ReviewDto
 import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ReviewEntity
 import com.campusdual_grupo3.bookandgo.domain.repositories.experience.ExperienceRepository
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class ExperienceRepositoryImpl @Inject constructor(
-
-    @Mock private val experienceRemoteDataSource: ExperienceRemoteDataSource,
+    private val experienceRemoteDataSource: ExperienceRemoteDataSource,
     private val experienceLocalDataSource: ExperienceLocalDataSource
+
+
 ) : ExperienceRepository {
     override suspend fun getExperiences(): List<ExperienceEntity> {
-        val favorites = experienceLocalDataSource.getAllExperiences()
-        return experienceRemoteDataSource.getExperiences().map {
-            it.toDomain().copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
-        }
+        val experiences = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
+        return experiences
+
+
+//       val favorites = experienceLocalDataSource.getAllExperiences()
+//        return experienceRemoteDataSource.getExperiences().map {
+//            it.toDomain().copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
+//        }
 
     }
 
@@ -32,8 +38,9 @@ class ExperienceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getRewiewsByExperienceId(experienceId: Int): List<ReviewEntity> {
-        return experienceRemoteDataSource.getRewiewsByExperienceId(experienceId)
-            .map { it.toDomain() }
+        return experienceRemoteDataSource.getRewiewsByExperienceId(experienceId)?.data?.map { it.toDomain() }
+            ?: emptyList()
+
 
     }
 
@@ -49,7 +56,11 @@ class ExperienceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavorites(): List<ExperienceEntity> {
-        return experienceLocalDataSource.getAllExperiences().map { it.toDomain() }
+        val favorites = experienceLocalDataSource.getAllExperiences()
+        return experienceLocalDataSource.getAllExperiences().map {
+            it.toDomain()
+                .copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
+        }
     }
 
     override suspend fun addFavorite(experience: ExperienceEntity) {
@@ -69,7 +80,7 @@ class ExperienceRepositoryImpl @Inject constructor(
     }
 
 
-    private fun RewiewDto.toDomain(): ReviewEntity {
+    private fun ReviewDto.toDomain(): ReviewEntity {
         return ReviewEntity(
             id, rating, comment, createAt, updateAt
         )
@@ -78,24 +89,60 @@ class ExperienceRepositoryImpl @Inject constructor(
 
     private fun ExperienceDto.toDomain(): ExperienceEntity {
         return ExperienceEntity(
-            id, name, description, price, duration,
-            dateTo, dateFrom, location, capacity, stock, availability,
-            reviews?.map { it.toDomain() } ?: emptyList(), category, isFavorite, image, createAt, updateAt
+            id = id,
+            name = name,
+            description = description,
+            price = price,
+            duration = duration,
+            dateTo = LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            dateFrom = LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            location = location,
+            capacity = capacity,
+            stock = stock,
+            availability = availability,
+            reviews = listOf(),
+//            reviews = reviews?.map { it.toDomain() } ?: emptyList(),
+            category = category,
+            isFavorite = isFavorite,
+            image = image,
+            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            user_id = user_id
+
 
         )
     }
 
     private fun CategoryDto.toDomain(): CategoryEntity {
         return CategoryEntity(
-            id, image, name
+            id,
+            image,
+            name,
+            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            updateAt = LocalDate.parse(updateAt?.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
         )
     }
 
     private fun ExperienceDbo.toDomain(): ExperienceEntity {
         return ExperienceEntity(
-            id, name, description, price, duration,
-            dateTo, dateFrom, location, capacity, stock, availability,
-            reviews.map { it.toDomain() }, category, isFavorite, image, createAt, updateAt
+            id = id,
+            name = name,
+            description = description,
+            price = price,
+            duration = duration,
+            dateTo = dateTo,
+            dateFrom = dateFrom,
+            location = location,
+            capacity = capacity,
+            stock = stock,
+            availability = availability,
+            reviews = reviews?.map { it.toDomain() } ?: emptyList(),
+            category = category,
+            isFavorite = isFavorite,
+            user_id = user_id,
+            image = image,
+            createdAt = createdAt,
+
+
         )
     }
 
@@ -125,12 +172,13 @@ class ExperienceRepositoryImpl @Inject constructor(
             capacity = capacity,
             stock = stock,
             availability = availability,
-            reviews = ArrayList(reviews.map { it.toDbo() }),
+            reviews = ArrayList(reviews?.map { it.toDbo() }),
             category = category,
             isFavorite = isFavorite,
             image = image,
-            createAt = createAt,
-            updateAt = updateAt
+            createdAt = createdAt,
+            user_id = user_id
+
         )
     }
 

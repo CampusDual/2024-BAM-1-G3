@@ -1,24 +1,24 @@
 package com.campusdual_grupo3.bookandgo.domain.entities
 
-import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.RewiewDto
 import java.time.LocalDate
 
 data class ExperienceEntity(
     val id: Int,
     var name: String,
     var description: String,
-    var price: Double,
-    var duration: Double,
-    var dateTo: String,
-    var dateFrom: String,
+    var price: Int,
+    var duration: Int?,
+    var dateTo: LocalDate,
+    var dateFrom: LocalDate,
     var location: String,
-    var capacity: Int,
+    var capacity: Int?,
     var stock: Int,
     var availability: Boolean,
     var reviews: List<ReviewEntity>,
     var category: Int,
     var isFavorite: Boolean = false,
+    val user_id: Int?,
     var image: String,
-    var createAt: LocalDate,
-    var updateAt: LocalDate?
-)
+    var createdAt: LocalDate,
+
+    )

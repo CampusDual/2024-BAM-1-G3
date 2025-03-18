@@ -1,5 +1,6 @@
 package com.campusdual_grupo3.bookandgo.di
 
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.ExperiencesApi
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.api.UserAPI
 import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 import dagger.Module
@@ -38,6 +39,7 @@ object APIModule {
             .connectTimeout(AppGlobalConstants.CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .build()
+
     }
 
     @Provides
@@ -58,6 +60,13 @@ object APIModule {
     fun provideUserAPI(retrofit: Retrofit): UserAPI {
         return retrofit
             .create(UserAPI::class.java)
+    }
+    @Provides
+    @Singleton
+    // 4. API
+    fun provideExperienceAPI(retrofit: Retrofit): ExperiencesApi {
+        return retrofit
+            .create(ExperiencesApi::class.java)
     }
 }
 

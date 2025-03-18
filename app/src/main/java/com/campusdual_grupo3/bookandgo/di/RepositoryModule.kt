@@ -25,16 +25,9 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideUserRepository(
-        @Mock userMockDataSource: UserRemoteDataSource,
-        userRemoteDataSource: UserRemoteDataSource,
-        userLocalDataSource: UserLocalDataSource
+        userRemoteDataSource: UserRemoteDataSource
     ): UserRepository {
-        return UserRepositoryImpl(
-            userMockDataSource,
-            userRemoteDataSource,
-            userLocalDataSource
-        )
-
+        return UserRepositoryImpl(userRemoteDataSource)
     }
 
     @Provides
@@ -47,11 +40,12 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideExperienceRepository(
-       @Mock experienceRemoteDataSource: ExperienceRemoteDataSource,
+        experienceRemoteDataSource: ExperienceRemoteDataSource,
         experienceLocalDataSource: ExperienceLocalDataSource
     ): ExperienceRepository {
         return ExperienceRepositoryImpl(experienceRemoteDataSource,
             experienceLocalDataSource)
 
     }
+
 }
