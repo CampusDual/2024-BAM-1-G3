@@ -13,9 +13,16 @@ import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.databinding.ActivityRegisterBinding
+import com.campusdual_grupo3.bookandgo.presentation.navigation.NavigationHelper
+import com.campusdual_grupo3.bookandgo.presentation.register.fragments.personalinfo.PersonalInfoFragment
+import com.campusdual_grupo3.bookandgo.presentation.register.fragments.preferences.PreferencesFragment
+import com.campusdual_grupo3.bookandgo.presentation.register.fragments.termsandconds.TermsAndConditionsFragment
+import com.campusdual_grupo3.bookandgo.presentation.register.fragments.uploadpic.UploadPicFragment
+import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -31,6 +38,15 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var animator: ObjectAnimator
     private lateinit var gradientDrawable: GradientDrawable
 
+    private var navigationHelper = NavigationHelper()
+
+    private var currentFragment: Fragment? = null
+
+    private var personalInfoFragment = PersonalInfoFragment()
+    private var uploadPicFragment = UploadPicFragment()
+    private var preferencesFragment = PreferencesFragment()
+    private var termsAndConditionsFragment = TermsAndConditionsFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,29 +54,31 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupToolbar()
         setupOnBackPressedObserver()
+
         setupStepperPos(1)
-        lifecycleScope.launch {
-            (2..5).forEach { position ->
-                startLineTransition(position)
-                delay(DURATION)
-                setupStepperPos(position)
-                nextStep()
-            }
-            (4 downTo 1).forEach { position ->
-                delay(DURATION)
-                setupStepperPos(position)
-                prevStep()
-                returnLineTransition(position)
-            }
-        }
+        openPersonalInfo()
+
+//        lifecycleScope.launch {
+//            (2..4).forEach { position ->
+//                startLineTransition(position)
+//                delay(DURATION)
+//                setupStepperPos(position)
+//                nextStep()
+//            }
+//            (3 downTo 1).forEach { position ->
+//                delay(DURATION)
+//                setupStepperPos(position)
+//                prevStep()
+//                returnLineTransition(position)
+//            }
+//        }
     }
 
     private fun startLineTransition(position: Int) {
         val lineView = when (position) {
             2 -> binding.stepper.lineOne
             3 -> binding.stepper.lineTwo
-            4 -> binding.stepper.lineThree
-            else -> binding.stepper.lineFour
+            else -> binding.stepper.lineThree
         }
 
         // Establecer el color inicial de la línea a gris
@@ -92,8 +110,7 @@ class RegisterActivity : AppCompatActivity() {
         val lineView = when (position) {
             1 -> binding.stepper.lineOne
             2 -> binding.stepper.lineTwo
-            3 -> binding.stepper.lineThree
-            else -> binding.stepper.lineFour
+            else -> binding.stepper.lineThree
         }
 
         // Crear un ValueAnimator para animar el cambio de color de gris a negro
@@ -133,6 +150,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupOnBackPressedObserver() {
         onBackPressedDispatcher.addCallback {
             prevStep()
+            currentFragment = navigationHelper.backStackFragment(this@RegisterActivity, currentFragment)
         }
     }
 
@@ -141,48 +159,84 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun prevStep() {
-        when (position) {
-            1 -> {
-                binding.stepper.circleTwo.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_profile_pic, null)
-                binding.stepper.circleOne.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_personal_info_selected, null)
-                binding.stepper.lineOne.setBackgroundColor(Color.GRAY)
-            }
-            2 -> {
-                binding.stepper.circleThree.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_preferences, null)
-                binding.stepper.circleTwo.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_profile_pic_selected, null)
-                binding.stepper.lineTwo.setBackgroundColor(Color.GRAY)
+        lifecycleScope.launch {
+            setupStepperPos(position - 1)
+            when (position) {
+                1 -> {
+                    binding.stepper.circleTwo.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_profile_pic, null)
+                    binding.stepper.circleOne.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_personal_info_selected, null)
+                    binding.stepper.lineOne.setBackgroundColor(Color.GRAY)
+                }
+                2 -> {
+                    binding.stepper.circleThree.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_preferences, null)
+                    binding.stepper.circleTwo.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_profile_pic_selected, null)
+                    binding.stepper.lineTwo.setBackgroundColor(Color.GRAY)
 
-            }
-            3 -> {
-                binding.stepper.circleFour.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_payment_method, null)
-                binding.stepper.circleThree.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_preferences_selected, null)
-                binding.stepper.lineThree.setBackgroundColor(Color.GRAY)
+                }
+                3 -> {
+                    binding.stepper.circleFour.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_done, null)
+                    binding.stepper.circleThree.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_preferences_selected, null)
+                    binding.stepper.lineThree.setBackgroundColor(Color.GRAY)
 
+                }
             }
-            4 -> {
-                binding.stepper.circleFive.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_done, null)
-                binding.stepper.circleFour.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_payment_method_selected, null)
-                binding.stepper.lineFour.setBackgroundColor(Color.GRAY)
-            }
-
-
+            returnLineTransition(position)
         }
+
     }
 
     private fun nextStep() {
-        when (position) {
-            2 -> {
-                binding.stepper.circleTwo.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_profile_pic_selected, null)
-            }
-            3 -> {
-                binding.stepper.circleThree.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_preferences_selected, null)
-            }
-            4 -> {
-                binding.stepper.circleFour.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_payment_method_selected, null)
-            }
-            5 -> {
-                binding.stepper.circleFive.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_done_selected, null)
+        lifecycleScope.launch {
+            setupStepperPos(position + 1)
+            startLineTransition(position)
+            delay(DURATION)
+            when (position) {
+                2 -> {
+                    binding.stepper.circleTwo.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_profile_pic_selected, null)
+                }
+                3 -> {
+                    binding.stepper.circleThree.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_preferences_selected, null)
+                }
+                4 -> {
+                    binding.stepper.circleFour.background = ResourcesCompat.getDrawable(resources, R.drawable.ic_step_done_selected, null)
+                }
             }
         }
     }
+
+    fun openPersonalInfo() {
+        if (currentFragment !is PersonalInfoFragment) {
+            currentFragment = navigationHelper.showFragment(
+                this, currentFragment,
+                personalInfoFragment, AppGlobalConstants.F_PERSONAL_INFO)
+        }
+    }
+
+    fun openUploadPicture() {
+        nextStep()
+        if (currentFragment !is UploadPicFragment) {
+            currentFragment = navigationHelper.showFragment(
+                this, currentFragment,
+                uploadPicFragment, AppGlobalConstants.F_UPLOAD_PICTURE)
+        }
+    }
+    fun openPreferences() {
+        nextStep()
+        if (currentFragment !is PreferencesFragment) {
+            currentFragment = navigationHelper.showFragment(
+                this, currentFragment,
+                preferencesFragment, AppGlobalConstants.F_PREFERENCES)
+        }
+    }
+
+    fun openTermsandconditions() {
+        nextStep()
+        if (currentFragment !is TermsAndConditionsFragment) {
+            currentFragment = navigationHelper.showFragment(
+                this, currentFragment,
+                termsAndConditionsFragment, AppGlobalConstants.F_TERMS_AND_CONDITIONS)
+        }
+    }
+
+
 }

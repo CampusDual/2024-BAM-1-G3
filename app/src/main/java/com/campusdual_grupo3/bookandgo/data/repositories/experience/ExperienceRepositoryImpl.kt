@@ -6,6 +6,7 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dbo.Rev
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.CategoryDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ExperienceDto
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.PreferenceDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.RewiewDto
 import com.campusdual_grupo3.bookandgo.di.Mock
 import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
@@ -68,6 +69,12 @@ class ExperienceRepositoryImpl @Inject constructor(
         return experienceLocalDataSource.getExperienceById(experience.id) != null
     }
 
+
+    private fun CategoryEntity.toDto(): PreferenceDto{
+        return PreferenceDto(
+            id, name
+        )
+    }
 
     private fun RewiewDto.toDomain(): ReviewEntity {
         return ReviewEntity(

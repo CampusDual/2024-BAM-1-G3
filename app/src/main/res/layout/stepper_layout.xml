@@ -41,30 +41,16 @@ android:orientation="horizontal"
     android:layout_height="48dp"
     android:background="@drawable/ic_step_preferences" />
 
-<!-- Línea 3 (RESPONSIVE) -->
+<!-- Línea 4 (RESPONSIVE) -->
 <View
     android:id="@+id/line_three"
     android:layout_width="0dp"
     android:layout_weight="1"
     android:layout_height="1dp" />
 
-<!-- Paso 4 -->
-<View
-    android:id="@+id/circle_four"
-    android:layout_width="48dp"
-    android:layout_height="48dp"
-    android:background="@drawable/ic_step_payment_method" />
-
-<!-- Línea 4 (RESPONSIVE) -->
-<View
-    android:id="@+id/line_four"
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="1dp" />
-
 <!-- Paso 5 -->
 <View
-    android:id="@+id/circle_five"
+    android:id="@+id/circle_four"
     android:layout_width="48dp"
     android:layout_height="48dp"
     android:background="@drawable/ic_step_done" />

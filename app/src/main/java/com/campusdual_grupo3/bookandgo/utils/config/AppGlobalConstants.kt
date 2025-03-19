@@ -24,4 +24,10 @@ const val F_HOME = "F_HOME"
     const val F_GIFT_CARD = "F_GIFT_CARD"
     const val F_PROFILE = "F_PROFILE"
 
+    // REGISTER NAVIGATION
+    const val F_PERSONAL_INFO = "personalInfo"
+    const val F_UPLOAD_PICTURE = "uploadPicture"
+    const val F_PREFERENCES = "preferences"
+    const val F_TERMS_AND_CONDITIONS = "termsAndConditions"
+
 }
