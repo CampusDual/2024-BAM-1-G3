@@ -104,7 +104,8 @@ class PreferencesFragment : Fragment() {
             bundle.putString("ADDRESS", address)
             bundle.putString("IMAGE", image)
             bundle.putString("ZIPCODE", zipcode)
-            bundle.putString("PREFERENCES", viewModel.getSelectedPreferences)
+            val preferences = viewModel.preferencesSelected.joinToString(",")
+            bundle.putString("PREFERENCES", preferences)
 
             activity?.intent?.putExtras(bundle)
             (activity as? RegisterActivity)?.openTermsandconditions()

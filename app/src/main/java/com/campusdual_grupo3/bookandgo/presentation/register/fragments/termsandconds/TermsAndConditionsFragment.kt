@@ -124,6 +124,7 @@ class TermsAndConditionsFragment : Fragment() {
                         MainActivity::class.java
                     )
                 )
+                requireActivity().finish()
             }
         }
     }

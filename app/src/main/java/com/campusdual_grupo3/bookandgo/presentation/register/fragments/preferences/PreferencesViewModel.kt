@@ -27,9 +27,7 @@ class PreferencesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(PreferencesUistate())
     val uiState: StateFlow<PreferencesUistate> = _uiState.asStateFlow()
 
-    private val preferencesSelected: MutableList<CategoryEntity> = mutableListOf()
-
-    val getSelectedPreferences = preferencesSelected.joinToString("," )
+     val preferencesSelected: MutableList<String> = mutableListOf()
 
     fun loadCategories() {
         viewModelScope.launch {
@@ -43,10 +41,10 @@ class PreferencesViewModel @Inject constructor(
     }
 
     fun onSelectPreference(preference: CategoryEntity) {
-        if (preferencesSelected.contains(preference)) {
-            preferencesSelected.remove(preference)
+        if (preferencesSelected.contains(preference.name)) {
+            preferencesSelected.remove(preference.name)
         } else {
-            preferencesSelected.add(preference)
+            preferencesSelected.add(preference.name)
         }
     }
 }
