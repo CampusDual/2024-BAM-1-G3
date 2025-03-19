@@ -38,36 +38,35 @@ class UserRemoteDataSourceImpl @Inject constructor(
     override suspend fun register(dto: UserDTO): Pair<Boolean, String> {
         val uuid = createAuthUser(dto.email, dto.password)
         if (uuid.isNotEmpty()){
-            return Pair(createDatabaseUser (uuid, dto), uuid)
+            val isUserCreated = createDatabaseUser(uuid, dto)
+            return Pair(isUserCreated, uuid)
         } else{
             return Pair(false, "")
         }
     }
 
     private suspend fun createDatabaseUser(uuid: String, obj: UserDTO): Boolean {
-    val dto = hashMapOf(
-        "id" to uuid,
-        "name" to obj.name,
-        "email" to obj.email,
-        "address" to obj.address,
-        "image" to obj.image,
-        "phone" to obj.phone,
-        "zipcode" to obj.zipcode,
-        "preferences" to obj.preferences
-    )
+        val dto = hashMapOf(
+            "id" to uuid,
+            "name" to obj.name,
+            "email" to obj.email,
+            "address" to obj.address,
+            "image" to obj.image,
+            "phone" to obj.phone,
+            "zipcode" to obj.zipcode,
+            "preferences" to obj.preferences
+        )
 
-    firestore.collection("users").document(uuid)
-
-    return suspendCoroutine { result->
-        firestore.collection("users").document().set(dto)
-            .addOnSuccessListener {
-                result.resume(true)
-            }
-            .addOnFailureListener {
-                result.resume(false)
-            }
+        return suspendCoroutine { result ->
+            firestore.collection("users").document(uuid).set(dto)
+                .addOnSuccessListener {
+                    result.resume(true)
+                }
+                .addOnFailureListener {
+                    result.resume(false)
+                }
+        }
     }
-}
 
     private suspend fun createAuthUser(email: String, password:String): String {
     return suspendCoroutine { result ->
@@ -81,40 +80,3 @@ class UserRemoteDataSourceImpl @Inject constructor(
     }
 }
 }
-
-//private suspend fun createDatabaseUser(uuid: String, obj: UserDto): Boolean {
-//    val dto = hashMapOf(
-//        "id" to uuid,
-//        "name" to obj.name,
-//        "email" to obj.email,
-//        "age" to obj.age,
-//        "isAdmin" to obj.isAdmin,
-//    )
-//
-//    firestore.collection("users").document(uuid)
-//
-//    return suspendCoroutine { result->
-//        firestore.collection("users").document().set(dto)
-//            .addOnSuccessListener {
-//                result.resume(true)
-//            }
-//            .addOnFailureListener {
-//                result.resume(false)
-//            }
-//    }
-//}
-//
-
-
-//private suspend fun createAuthUser(email: String, password:String): String {
-//    return suspendCoroutine { result ->
-//        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                result.resume(task.result.user?.uid ?: "")
-//            }
-//        }.addOnFailureListener {
-//            result.resume("")
-//        }
-//    }
-//}
-
