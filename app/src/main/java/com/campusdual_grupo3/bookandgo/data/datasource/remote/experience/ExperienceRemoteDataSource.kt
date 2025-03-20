@@ -2,6 +2,7 @@ package com.campusdual_grupo3.bookandgo.data.datasource.remote.experience
 
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.CategoryDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ExperienceDto
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.PreferenceDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.RewiewDto
 
 interface ExperienceRemoteDataSource {

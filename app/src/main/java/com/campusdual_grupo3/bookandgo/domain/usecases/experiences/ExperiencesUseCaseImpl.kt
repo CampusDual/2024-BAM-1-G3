@@ -49,4 +49,5 @@ class ExperiencesUseCaseImpl @Inject constructor(
         return experienceRepository.isFavorite(experience)
 
     }
+
 }
