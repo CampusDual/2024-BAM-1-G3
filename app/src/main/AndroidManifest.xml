@@ -21,8 +21,12 @@
 
         <activity
             android:name=".presentation.register.RegisterActivity"
-            android:exported="true">
+            android:exported="false">
+        </activity>
 
+        <activity
+        android:name=".presentation.onboarding.OnBoardingActivity"
+        android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
