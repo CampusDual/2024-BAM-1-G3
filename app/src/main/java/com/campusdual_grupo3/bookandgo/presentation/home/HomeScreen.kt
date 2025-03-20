@@ -175,17 +175,20 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(vertical = 16.dp)
                         .clip(RoundedCornerShape(4.dp))
-                        .background(if (uiState.selectedCategoryId == category.id) Color.Black else Color.White)//
+                        .background(if (uiState.selectedCategoryId?.id == category.id) Color.Black else Color.White)//
                         .padding(
-                            horizontal = if (uiState.selectedCategoryId == category.id) 10.dp else 4.dp,
+                            horizontal = if (uiState.selectedCategoryId?.id == category.id) 10.dp else 4.dp,
                             vertical = 2.dp
                         )
                         .clickable {
                             viewModel.onCategorySelected(category.id)
 
                         },
-                    color = if (uiState.selectedCategoryId == category.id) Color.White else Color.Black
+                    color = if (uiState.selectedCategoryId?.id == category.id) Color.White else Color.Black
                 )
+
+            }
+            item {
 
             }
 
@@ -205,7 +208,7 @@ fun HomeScreen(
                     .clickable {
 
                     }) {
-                    val selectedCat = uiState.categories.find { it.id == categories }
+                    val selectedCat = uiState.categories.find { it.id == categories?.id }
 
                     AsyncImage(
                         model = selectedCat?.name,
