@@ -130,7 +130,6 @@ fun HomeScreen(
 
                     .background(color = Color.Black)
                     .width(50.dp)
-
             )
 
         }

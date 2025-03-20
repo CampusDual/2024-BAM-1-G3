@@ -73,31 +73,9 @@ class ExperienceRepositoryImpl @Inject constructor(
         return experienceRemoteDataSource.getCategories().map { it.toDomain() }
     }
 
-    override suspend fun getExperiencesByCategory(category: Int): List<ExperienceEntity> {
-        return experienceRemoteDataSource.getExperiencesByCategory(category).map { it.toDomain() }
-//
-////        val categories = experienceRemoteDataSource.getCategories().map { it.toDomain().id }
-//        val categorieExperience = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
-//
-//        return categorieExperience.filter { experience ->
-//            experience.category == category
-//
-//
-//
-//        }
+    override suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceEntity> {
+        return experienceRemoteDataSource.getExperiencesByCategory(categoryId).map { it.toDomain() }
 
-//        return categorieExperience.filter { experience ->
-//            experience.category in categories
-//        }
-////        val categorieExperience = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
-//        if (categorieExperience.contains(category)) {
-//            categorieExperience.filter { categorieExperience ->
-//                categorieExperience.category == category
-//            }
-//        }
-//        return experienceRemoteDataSource.getExperiencesByCategory(category).map {
-//            it.toDomain()
-//        }
 
     }
 
@@ -122,6 +100,7 @@ class ExperienceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isFavorite(experience: ExperienceEntity): Boolean {
+
         return experienceLocalDataSource.getExperienceById(experience.id) != null
     }
 
@@ -136,37 +115,22 @@ class ExperienceRepositoryImpl @Inject constructor(
     private fun ExperienceDto.toDomain(): ExperienceEntity {
         return ExperienceEntity(
             id = id,
-            name = name?:"<nombre no disponible>",
+            name = name,
             description = description,
             price = price,
             duration = duration,
-            dateTo = if (dateTo != null) {
-                LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
-            } else {
-                LocalDate.MIN // o algun valor por defecto
-            },
-            dateFrom = if (dateFrom != null) {
-                LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
-            } else {
-                LocalDate.MIN
-            },
-//            dateTo = LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
-//            dateFrom = LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            dateTo = LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            dateFrom = LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
             location = location,
             capacity = capacity,
             stock = stock,
             availability = availability,
-//            reviews = ,
             reviews = reviews?.map { it.toDomain() } ?: emptyList(),
-            category = category,
+            category_id = category_id,
             isFavorite = isFavorite == 0,
             image = image,
-            createdAt = if (createdAt != null) {
-                LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
-            } else {
-                LocalDate.MIN
-            },
-//            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+
+            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
             user_id = user_id
 
 
@@ -204,7 +168,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             stock = stock,
             availability = availability,
             reviews = reviews?.map { it.toDomain() } ?: emptyList(),
-            category = category,
+            category_id = category_id,
             isFavorite = isFavorite,
             user_id = user_id,
             image = image,
@@ -241,7 +205,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             stock = stock,
             availability = availability,
             reviews = ArrayList(reviews.map { it.toDbo() }?: emptyList()),
-            category = category,
+            category_id = category_id,
             isFavorite = isFavorite,
             image = image,
             createdAt = createdAt,

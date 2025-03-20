@@ -3,7 +3,6 @@ package com.campusdual_grupo3.bookandgo.data.datasource.remote.api
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.CategoriesDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ExperienceDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ExperiencesDto
-import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.OnlyCategory
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto.ReviewsDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -25,15 +24,12 @@ interface ExperiencesApi {
     @GET ("v1/category/list")
     suspend fun getCategories(): Response<CategoriesDto>
 
-    @GET ("v1/category")
+    @GET ("v1/experience/by-category")
     suspend fun getExperiencesByCategory(
-        @Query("id") categoryId: Int
-    ): Response<List<ExperienceDto>>
+        @Query("category_id") categoryId: Int
+    ): Response<ExperiencesDto>
 
-//    @GET ("v1/category")
-//    suspend fun getExperiencesByCategory(
-//        @Query("id") categoryId: Int
-//    ): Response<OnlyCategory>
+
 
 
 

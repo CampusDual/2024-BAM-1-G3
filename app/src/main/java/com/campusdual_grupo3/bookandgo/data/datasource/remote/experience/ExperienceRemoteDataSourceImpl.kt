@@ -61,10 +61,12 @@ class ExperienceRemoteDataSourceImpl @Inject constructor(
         return try {
             val response = experienceApi.getExperiencesByCategory(categoryId)
             if (response.isSuccessful) {
-                response.body()?: emptyList()
-//                response.body()?.data ?: emptyList()
+                response.body()?.data ?: emptyList()
             }else{
-                throw Exception("Error ${response.body()?: response.code()}: ${response.message()}")
+
+                throw Exception("Error ${response.body()?.error?: response.code()}: ${response.message()}")
+
+//                throw Exception("Error ${response.body()?.error}: ${response.message()}")
 
             }
 

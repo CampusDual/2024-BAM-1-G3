@@ -1,8 +1,6 @@
 package com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.dto
 
 
-import com.google.gson.annotations.SerializedName
-
 data class ExperienceDto(
     val id: Int,
     var name: String,
@@ -16,7 +14,7 @@ data class ExperienceDto(
     var stock: Int,
     var availability: String?,
     var reviews: List<ReviewDto>?,
-    var category: Int,
+    var category_id: Int,
     var isFavorite: Int,
     var image: String,
     val user_id: Int,

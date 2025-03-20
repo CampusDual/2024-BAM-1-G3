@@ -15,7 +15,7 @@ data class ExperienceEntity(
     var stock: Int,
     var availability: String?,
     var reviews: List<ReviewEntity>,
-    var category: Int,
+    var category_id: Int,
     var isFavorite: Boolean = false,
     val user_id: Int,
     var image: String,
