@@ -1,5 +1,6 @@
 package com.campusdual_grupo3.bookandgo.presentation.favorites
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,9 +40,20 @@ fun FavoritesScreen(
     val viewModel: FavoritesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
+
+
     LaunchedEffect(uiState.favoritesExperiences.isEmpty()) {
+
         viewModel.loadFavorites()
+
+
+
     }
+
+
+//        viewModel.loadFavorites(uiState.favoritesExperiences)
+//        viewModel.onFavoriteClicked()
+
 
     Column() {
         Text(
@@ -87,15 +99,18 @@ fun FavoritesScreen(
                                 ),
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
-                            Text(
-                                text = favorites.name,
-                                modifier = Modifier
-                                    .padding(8.dp),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
+                            favorites.name?.let {
+
+                                Text(
+                                    text = it,
+                                    modifier = Modifier
+                                        .padding(8.dp),
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
 
 
-                            )
+                                )
+                            }
                             Image(painter = painterResource(
                                 id = R.drawable.ic_giftcard),
                                 contentDescription = null,

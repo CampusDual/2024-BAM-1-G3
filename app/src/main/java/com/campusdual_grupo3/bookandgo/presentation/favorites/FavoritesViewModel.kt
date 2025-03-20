@@ -7,13 +7,19 @@ import com.campusdual_grupo3.bookandgo.domain.usecases.experiences.ExperiencesUs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class FavoritesUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
-    val favoritesExperiences: List<ExperienceEntity> = emptyList()
+    val favoritesExperiences: List<ExperienceEntity> = emptyList(),
+    val favorite: ExperienceEntity?  = null,
+    // Otros estados y funciones de la UI aquí
+    val favorites: List<ExperienceEntity> = emptyList()
+
+
 )
 
 @HiltViewModel
@@ -25,15 +31,32 @@ class FavoritesViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<FavoritesUiState> = MutableStateFlow(FavoritesUiState())
     val uiState: StateFlow<FavoritesUiState> = _uiState
 
+    init {
+        loadFavorites()
+
+
+    }
+
+
+
 
     fun loadFavorites() {
         viewModelScope.launch {
             val favoritesExperiences = experiencesUseCase.getFavorites()
-            _uiState.value = uiState.value.copy(
-                favoritesExperiences = favoritesExperiences
-            )
+            val updatedFavorites = favoritesExperiences.map { experience ->
+                experience.copy(isFavorite = true)
+            }
+
+            _uiState.update {
+               it.copy(
+                    favoritesExperiences = updatedFavorites
+                )
+
+            }
         }
     }
+
+
 
 
 }

@@ -6,7 +6,7 @@ object AppGlobalConstants {
 
     // DATABASE
     const val DATABASE_NAME = "bookandgo_db"
-    const val DATABASE_VERSION = 3
+    const val DATABASE_VERSION = 6
     const val EXPORT_SCHEME = false
     const val TABLE_USERS = "users"
 

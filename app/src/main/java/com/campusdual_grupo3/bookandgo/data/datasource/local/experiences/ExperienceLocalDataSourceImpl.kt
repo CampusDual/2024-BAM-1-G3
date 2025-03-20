@@ -20,7 +20,7 @@ class ExperienceLocalDataSourceImpl @Inject constructor(
         experiencesDao.deleteExperience(experience)
     }
 
-    override suspend fun getExperienceById(id: Int): ExperienceDbo? {
+    override suspend fun getExperienceById(id: Int): ExperienceDbo {
         return experiencesDao.getExperienceById(id)
     }
 

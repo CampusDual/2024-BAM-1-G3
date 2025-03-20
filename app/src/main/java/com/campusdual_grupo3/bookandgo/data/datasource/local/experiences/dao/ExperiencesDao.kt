@@ -20,7 +20,7 @@ interface ExperiencesDao {
     suspend fun deleteExperience(experience: ExperienceDbo)
 
     @Query("SELECT * FROM experiences WHERE id = :id")
-    suspend fun getExperienceById(id: Int): ExperienceDbo?
+    suspend fun getExperienceById(id: Int): ExperienceDbo
 
     @Query("SELECT EXISTS(SELECT * FROM experiences WHERE id = :id)")
     suspend fun isFavorite(id: Int): Boolean

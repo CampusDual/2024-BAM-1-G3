@@ -9,10 +9,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ExperiencesApi {
-    @GET ("v1/experiences")
+    @GET ("v1/experience/list")
     suspend fun getExperiences(): Response<ExperiencesDto>
 
-    @GET ("v1/experiences")
+    @GET ("v1/experience")
     suspend fun getExperienceById(
         @Query("id") id: Int
     ): Response<ExperienceDto>
@@ -21,10 +21,10 @@ interface ExperiencesApi {
     suspend fun getReviewsByExperienceId(
         @Query("id")experienceId: Int): Response<ReviewsDto>
 
-    @GET ("v1/categories")
+    @GET ("v1/category/list")
     suspend fun getCategories(): Response<CategoriesDto>
 
-    @GET ("v1/categories/experiences")
+    @GET ("v1/category")
     suspend fun getExperiencesByCategory(
         @Query("id") categoryId: Int
     ): Response<List<ExperienceDto>>

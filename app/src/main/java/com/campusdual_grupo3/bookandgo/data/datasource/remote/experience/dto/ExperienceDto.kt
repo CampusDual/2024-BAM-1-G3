@@ -14,12 +14,12 @@ data class ExperienceDto(
     var location: String,
     var capacity: Int?,
     var stock: Int,
-    var availability: Boolean,
+    var availability: String?,
     var reviews: List<ReviewDto>?,
     var category: Int,
-    var isFavorite: Boolean = false,
+    var isFavorite: Int,
     var image: String,
-    val user_id: Int?,
+    val user_id: Int,
     val createdAt: String,
 
     )

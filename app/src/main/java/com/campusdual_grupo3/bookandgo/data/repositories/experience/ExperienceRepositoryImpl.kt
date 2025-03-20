@@ -22,19 +22,44 @@ class ExperienceRepositoryImpl @Inject constructor(
 
 ) : ExperienceRepository {
     override suspend fun getExperiences(): List<ExperienceEntity> {
-        val experiences = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
-        return experiences
+        val localExperiences = experienceLocalDataSource.getAllExperiences()
+        val remoteExperiences = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
 
+        if (localExperiences.isNullOrEmpty()) {
+            remoteExperiences.forEach { experience ->
+                experienceLocalDataSource.insertExperience(experience.toDbo())
+            }
+            return remoteExperiences
 
-//       val favorites = experienceLocalDataSource.getAllExperiences()
-//        return experienceRemoteDataSource.getExperiences().map {
-//            it.toDomain().copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
-//        }
+        } else {
+            for (localExperience in localExperiences) {
+                for (remoteExperience in remoteExperiences) {
+                    if (localExperience.id == remoteExperience.id) {
+                        if (localExperience.isFavorite) {
+                            remoteExperience.isFavorite = true
+                        } else {
+                            remoteExperience.isFavorite = false
+                        }
+                        break
+
+                    }else{
+                        experienceLocalDataSource.insertExperience(remoteExperience.toDbo())
+                    }
+                }
+            }
+            val updatedLocalExperiences = experienceLocalDataSource.getAllExperiences()
+            return updatedLocalExperiences.map { it.toDomain() }
+        }
 
     }
 
-    override suspend fun getExperienceById(id: Int): ExperienceEntity? {
-        return experienceRemoteDataSource.getExperienceById(id)?.toDomain()
+    override suspend fun getExperienceById(id: Int): ExperienceEntity {
+        return experienceLocalDataSource.getExperienceById(id).toDomain()
+
+
+
+
+
     }
 
     override suspend fun getRewiewsByExperienceId(experienceId: Int): List<ReviewEntity> {
@@ -48,18 +73,18 @@ class ExperienceRepositoryImpl @Inject constructor(
         return experienceRemoteDataSource.getCategories().map { it.toDomain() }
     }
 
-    override suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceEntity> {
-        val favorites = experienceLocalDataSource.getAllExperiences()
-        return experienceRemoteDataSource.getExperiencesByCategory(categoryId).map {
-            it.toDomain().copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
+    override suspend fun getExperiencesByCategory(category: Int): List<ExperienceEntity> {
+        return experienceRemoteDataSource.getExperiencesByCategory(category).map {
+            it.toDomain()
         }
+//
     }
 
     override suspend fun getFavorites(): List<ExperienceEntity> {
         val favorites = experienceLocalDataSource.getAllExperiences()
-        return experienceLocalDataSource.getAllExperiences().map {
+        return favorites.map {
             it.toDomain()
-                .copy(isFavorite = favorites.any { favorite -> favorite.id == it.id })
+                .copy(isFavorite = favorites.any { favorite -> favorite.isFavorite == it.isFavorite })
         }
     }
 
@@ -82,7 +107,7 @@ class ExperienceRepositoryImpl @Inject constructor(
 
     private fun ReviewDto.toDomain(): ReviewEntity {
         return ReviewEntity(
-            id, rating, comment, createAt, updateAt
+            id, rating, comment, createdAt, updateAt
         )
 
     }
@@ -90,22 +115,37 @@ class ExperienceRepositoryImpl @Inject constructor(
     private fun ExperienceDto.toDomain(): ExperienceEntity {
         return ExperienceEntity(
             id = id,
-            name = name,
+            name = name?:"<nombre no disponible>",
             description = description,
             price = price,
             duration = duration,
-            dateTo = LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
-            dateFrom = LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            dateTo = if (dateTo != null) {
+                LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
+            } else {
+                LocalDate.MIN // o algun valor por defecto
+            },
+            dateFrom = if (dateFrom != null) {
+                LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
+            } else {
+                LocalDate.MIN
+            },
+//            dateTo = LocalDate.parse(dateTo.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+//            dateFrom = LocalDate.parse(dateFrom.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
             location = location,
             capacity = capacity,
             stock = stock,
             availability = availability,
-            reviews = listOf(),
-//            reviews = reviews?.map { it.toDomain() } ?: emptyList(),
+//            reviews = ,
+            reviews = reviews?.map { it.toDomain() } ?: emptyList(),
             category = category,
-            isFavorite = isFavorite,
+            isFavorite = isFavorite == 0,
             image = image,
-            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
+            createdAt = if (createdAt != null) {
+                LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
+            } else {
+                LocalDate.MIN
+            },
+//            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
             user_id = user_id
 
 
@@ -117,8 +157,15 @@ class ExperienceRepositoryImpl @Inject constructor(
             id,
             image,
             name,
-            createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
-            updateAt = LocalDate.parse(updateAt?.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE)
+            experience_id,
+            createdAt = LocalDate.parse(
+                createdAt.substring(0, 10),
+                DateTimeFormatter.ISO_LOCAL_DATE
+            ),
+            updatedAt = LocalDate.parse(
+                updatedAt?.substring(0, 10),
+                DateTimeFormatter.ISO_LOCAL_DATE
+            )
         )
     }
 
@@ -143,7 +190,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             createdAt = createdAt,
 
 
-        )
+            )
     }
 
     private fun ReviewDbo.toDomain(): ReviewEntity {
@@ -172,7 +219,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             capacity = capacity,
             stock = stock,
             availability = availability,
-            reviews = ArrayList(reviews?.map { it.toDbo() }),
+            reviews = ArrayList(reviews.map { it.toDbo() }?: emptyList()),
             category = category,
             isFavorite = isFavorite,
             image = image,

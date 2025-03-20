@@ -111,14 +111,15 @@ fun ListScreen(
                             .height(100.dp),
                         contentScale = ContentScale.Crop
                         )
-                        Text(
-                            text = experience.name,
-                            color = Color.Black,
-                            modifier = Modifier
-                                .padding(8.dp)
-                                ,
-                            fontSize = 28.sp
-                        )
+                        experience.name?.let {
+                            Text(
+                                text = it,
+                                color = Color.Black,
+                                modifier = Modifier
+                                    .padding(8.dp),
+                                fontSize = 28.sp
+                            )
+                        }
 
                         Text(
                             text = experience.description,

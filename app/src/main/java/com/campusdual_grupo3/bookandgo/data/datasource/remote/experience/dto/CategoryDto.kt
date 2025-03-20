@@ -4,7 +4,8 @@ data class CategoryDto(
     val id: Int,
     val image: String,
     val name: String,
+    val experience_id: Int?,
     val createdAt: String,
-    val updateAt: String?
+    val updatedAt: String?
 
     )

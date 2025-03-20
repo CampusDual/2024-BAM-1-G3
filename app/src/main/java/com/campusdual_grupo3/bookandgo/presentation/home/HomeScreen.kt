@@ -1,5 +1,6 @@
 package com.campusdual_grupo3.bookandgo.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -48,13 +49,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
+import com.campusdual_grupo3.bookandgo.presentation.experiencia.ExperienceUiState
 import java.time.LocalDate
 
 
 @Composable
-fun HomeScreen(onClickExperience: (Int) -> Unit) {
+fun HomeScreen(
+    onClickExperience: (Int) -> Unit) {
+
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
+
 
     Column(
         modifier = Modifier
@@ -135,36 +140,35 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp) // Espacio entre elementos
         ) {
-
-            item {
-                Text(
-                    text = "Explorar",
-                    modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(if (uiState.selectedCategoryId == -1) Color.Black else Color.White)//
-                        .padding(
-                            horizontal = if (uiState.selectedCategoryId == -1) 10.dp else 4.dp,
-                            vertical = 2.dp
-                        )
-                        .clickable {
-
-                            viewModel.onCategorySelected(-1)
-
-                        },
-                    color = if (uiState.selectedCategoryId == -1) Color.White else Color.Black
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_onboarding_1),
-                    contentDescription = null,
-                    modifier = Modifier
-                            .size(16.dp)
-                        .padding(vertical = 16.dp),
-                    contentScale = ContentScale.Crop
-                )
-
-
-            }
+//            item {
+//                Text(
+//                    text = "Explorar",
+//                    modifier = Modifier
+//                        .padding(vertical = 16.dp)
+//                        .clip(RoundedCornerShape(4.dp))
+//                        .background(if (uiState.selectedCategoryId == -1) Color.Black else Color.White)//
+//                        .padding(
+//                            horizontal = if (uiState.selectedCategoryId == -1) 10.dp else 4.dp,
+//                            vertical = 2.dp
+//                        )
+//                        .clickable {
+//
+//                            viewModel.onCategorySelected(-1)
+//
+//                        },
+//                    color = if (uiState.selectedCategoryId == -1) Color.White else Color.Black
+//                )
+//                Image(
+//                    painter = painterResource(id = R.drawable.ic_onboarding_1),
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .size(16.dp)
+//                        .padding(vertical = 16.dp),
+//                    contentScale = ContentScale.Crop
+//                )
+//
+//
+//            }
             items(uiState.categories) { category ->
                 Text(
                     text = category.name,
@@ -193,40 +197,35 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
                 .fillMaxWidth()
         ) {
             item {
+                val categories = uiState.selectedCategoryId
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
                     .padding(vertical = 8.dp)
                     .clickable {
-                        // Aquí añadir la lógica para navegar a la sección de exploración
+
                     }) {
-                    val selectedCat = viewModel.getCategoryById(uiState.selectedCategoryId)
-//                    if (uiState.selectedCategoryId == null) {
-////                        Image(
-////                            painter = painterResource(id = R.drawable.ic_onboarding_1),
-////                            contentDescription = null,
-////                            modifier = Modifier.fillMaxSize(),
-////                            contentScale = ContentScale.Crop
-////                        )
-//
-//                    } else {
+                    val selectedCat = uiState.categories.find { it.id == categories }
+
                     AsyncImage(
-                        model = selectedCat.image,
-                        contentDescription = selectedCat.name,
+                        model = selectedCat?.name,
+                        contentDescription = selectedCat?.name,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
 
-                    Text(
-                        text = selectedCat.name,
-                        color = Color.White,
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
+                    selectedCat?.let {
+                        Text(
+                            text = it.name,
+                            color = Color.White,
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
 
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp)
-                    )
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(16.dp)
+                        )
+                    }
                 }
             }
 
@@ -266,15 +265,24 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
                                     contentScale = ContentScale.Crop
                                 )
                             }
-                            Row {
-                                Text(
-                                    text = experience.name,
-                                    modifier = Modifier.padding(8.dp),
-                                    fontSize = 14.sp
-                                )
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
 
-
-
+                            )  {
+                                experience.name?.let {
+                                    Text(
+                                        text = it,
+                                        modifier = Modifier
+                                            .padding(8.dp)
+                                            .weight(1f),
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis,
+                                        fontSize = 14.sp
+                                    )
+                                }
 
                                 Image(painter = painterResource(
                                     if (isFavorite) {
@@ -290,7 +298,8 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
                                             // Actualizamos el estado en la experiencia original
                                             viewModel.onFavoriteClicked(experience)
 
-                                        })
+                                        }
+                                )
 
                             }
                         }
@@ -348,11 +357,13 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
                                 ),// Espacio entre imagen y texto
 
                             ) {
-                                Text(
-                                    text = experience.name,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
+                                experience.name?.let {
+                                    Text(
+                                        text = it,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
                                 Text(
                                     text = experience.description,// Añade una descripción
                                     maxLines = 2,
@@ -371,11 +382,10 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
                             verticalArrangement = Arrangement.SpaceBetween
 
                         ) {
-                            if(!experience.reviews.isNullOrEmpty()){
+                            if (!experience.reviews.isNullOrEmpty()) {
                                 Text(
 
                                     modifier = Modifier
-
                                         .padding(
                                             end = 16.dp, start = 8.dp
                                         )
@@ -385,19 +395,33 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
                                         ),
 
 
-                                    text = experience.reviews?.get(index = 0)?.rating.toString(),
+                                    text = experience.reviews.get(index = 0).rating.toString(),
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
                                     text = experience.price.toString(), // Añade una descripción
-                                    fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Gray
                                 )
 
-                            }else{
+                            } else {
                                 Text(
-                                    text = experience.price.toString(), // Añade una descripción
-                                    fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray
+                                    modifier = Modifier
+                                        .padding(
+                                            end = 16.dp,
+                                            start = 2.dp,
+                                            top = 16.dp,
+                                            bottom = 16.dp
+                                        )
+                                        .align(Alignment.End),
+
+
+                                    text = experience.price.toString() + " €", // Añade una descripción
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black
                                 )
                             }
 
@@ -413,6 +437,9 @@ fun HomeScreen(onClickExperience: (Int) -> Unit) {
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
 @Composable
 fun HomePreview() {
-    HomeScreen() {}
+    HomeScreen(){}
+
+
+
 
 }

@@ -6,6 +6,6 @@ data class ReviewDto(
     val id: Int,
     var rating: Double,
     var comment: String,
-    var createAt: LocalDate,
+    var createdAt: LocalDate,
     var updateAt: LocalDate?
 )

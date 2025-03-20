@@ -8,7 +8,7 @@ import java.time.LocalDate
 data class ExperienceDbo(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-    var name: String,
+    var name: String?,
     var description: String,
     var price: Int,
     var duration: Int?,
@@ -17,11 +17,11 @@ data class ExperienceDbo(
     var location: String,
     var capacity: Int?,
     var stock: Int,
-    var availability: Boolean,
+    var availability: String?,
     var reviews: ArrayList<ReviewDbo>?,
     var category: Int,
     val isFavorite: Boolean,
-    val user_id: Int?,
+    val user_id: Int,
     var image: String,
     var createdAt: LocalDate,
 

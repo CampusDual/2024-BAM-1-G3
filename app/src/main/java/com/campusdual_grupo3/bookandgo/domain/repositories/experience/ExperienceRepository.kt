@@ -6,7 +6,7 @@ import com.campusdual_grupo3.bookandgo.domain.entities.ReviewEntity
 
 interface ExperienceRepository {
     suspend fun getExperiences(): List<ExperienceEntity>
-    suspend fun getExperienceById(id: Int): ExperienceEntity?
+    suspend fun getExperienceById(id: Int): ExperienceEntity
     suspend fun getRewiewsByExperienceId(experienceId: Int): List<ReviewEntity>
     suspend fun getCategories(): List<CategoryEntity>
     suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceEntity>

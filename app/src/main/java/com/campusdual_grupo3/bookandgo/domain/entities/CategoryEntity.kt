@@ -6,7 +6,8 @@ data class CategoryEntity(
     val id: Int,
     val image: String,
     val name: String,
+    val experience_id: Int?,
     val createdAt: LocalDate,
-    val updateAt: LocalDate?
+    val updatedAt: LocalDate?
 
 )
