@@ -41,15 +41,7 @@ class ExperienceRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getCategories(): List<CategoryDto> {
-//        return listOf(CategoryDto(
-//            id = 1,
-//            image = "https://www.google.com/url?sa",
-//            name = "Actividades",
-//            createdAt = "2025-03-18T00:13:10.000Z",
-//            updateAt = "2025-03-18T00:13:10.000Z"
-//
-//
-//        ))
+
         return try {
             val response = experienceApi.getCategories()
             if (response.isSuccessful) {
@@ -64,6 +56,7 @@ class ExperienceRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+
     override suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceDto> {
         return try {
             val response = experienceApi.getExperiencesByCategory(categoryId)
@@ -72,10 +65,6 @@ class ExperienceRemoteDataSourceImpl @Inject constructor(
 //                response.body()?.data ?: emptyList()
             }else{
                 throw Exception("Error ${response.body()?: response.code()}: ${response.message()}")
-
-
-
-
 
             }
 

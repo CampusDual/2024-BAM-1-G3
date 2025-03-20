@@ -167,20 +167,20 @@ fun HomeScreen(
                 .padding(vertical = 10.dp)
                 .fillMaxWidth()
         ) {
-            val selectedCategory = uiState.selectedCategoryId
-            item() {
+
+            item {
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
                     .padding(vertical = 8.dp)
                     .clickable {
 
-                        viewModel.onCategorySelected(selectedCategory?.id ?: -1)
+//                        viewModel.onCategorySelected(selectedCategory?.id ?: -1)
                     }) {
 
                         AsyncImage(
-                            model = selectedCategory?.image,
-                            contentDescription = selectedCategory?.name,
+                            model = uiState.selectedCategoryId?.image,
+                            contentDescription = uiState.selectedCategoryId?.name,
                             modifier = Modifier.fillMaxSize(),
                             contentScale = ContentScale.Crop
                         )
@@ -188,7 +188,7 @@ fun HomeScreen(
 
 
                     Text(
-                        text = selectedCategory?.name ?: "Explorar",
+                        text = uiState.selectedCategoryId?.name ?: "Explorar",
                         color = Color.White,
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
