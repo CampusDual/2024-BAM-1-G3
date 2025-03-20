@@ -140,35 +140,7 @@ fun HomeScreen(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp) // Espacio entre elementos
         ) {
-//            item {
-//                Text(
-//                    text = "Explorar",
-//                    modifier = Modifier
-//                        .padding(vertical = 16.dp)
-//                        .clip(RoundedCornerShape(4.dp))
-//                        .background(if (uiState.selectedCategoryId == -1) Color.Black else Color.White)//
-//                        .padding(
-//                            horizontal = if (uiState.selectedCategoryId == -1) 10.dp else 4.dp,
-//                            vertical = 2.dp
-//                        )
-//                        .clickable {
-//
-//                            viewModel.onCategorySelected(-1)
-//
-//                        },
-//                    color = if (uiState.selectedCategoryId == -1) Color.White else Color.Black
-//                )
-//                Image(
-//                    painter = painterResource(id = R.drawable.ic_onboarding_1),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .size(16.dp)
-//                        .padding(vertical = 16.dp),
-//                    contentScale = ContentScale.Crop
-//                )
-//
-//
-//            }
+
             items(uiState.categories) { category ->
                 Text(
                     text = category.name,
@@ -184,53 +156,50 @@ fun HomeScreen(
                             viewModel.onCategorySelected(category.id)
 
                         },
-                    color = if (uiState.selectedCategoryId?.id == category.id) Color.White else Color.Black
+                    color = if (uiState.selectedCategoryId?.id == category.id ) Color.White else Color.Black
                 )
-
-            }
-            item {
 
             }
 
         }
-
         LazyColumn(
             modifier = Modifier
                 .padding(vertical = 10.dp)
                 .fillMaxWidth()
         ) {
-            item {
-                val categories = uiState.selectedCategoryId
+            val selectedCategory = uiState.selectedCategoryId
+            item() {
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
                     .padding(vertical = 8.dp)
                     .clickable {
 
+                        viewModel.onCategorySelected(selectedCategory?.id ?: -1)
                     }) {
-                    val selectedCat = uiState.categories.find { it.id == categories?.id }
 
-                    AsyncImage(
-                        model = selectedCat?.name,
-                        contentDescription = selectedCat?.name,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
-
-                    selectedCat?.let {
-                        Text(
-                            text = it.name,
-                            color = Color.White,
-                            fontSize = 32.sp,
-                            fontWeight = FontWeight.Bold,
-
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .padding(16.dp)
+                        AsyncImage(
+                            model = selectedCategory?.image,
+                            contentDescription = selectedCategory?.name,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
                         )
-                    }
+
+
+
+                    Text(
+                        text = selectedCategory?.name ?: "Explorar",
+                        color = Color.White,
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Bold,
+
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(16.dp)
+                    )
                 }
             }
+
 
             item {
                 Text(

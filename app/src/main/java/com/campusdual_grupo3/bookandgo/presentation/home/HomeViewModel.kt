@@ -37,9 +37,6 @@ class HomeViewModel @Inject constructor(
 
     init {
 
-
-
-
         viewModelScope.launch {
 
             val categories = experiencesUseCase.getCategories()
@@ -72,19 +69,7 @@ class HomeViewModel @Inject constructor(
             }
 
 
-//            val favorites = experiencesUseCase.getFavorites()
-//            _uiState.value = _uiState.value.copy(
-//                favorites = favorites.map {
-//                    if (experiencesUseCase.isFavorite(it)) {
-//                        it.copy(isFavorite = true)
-//                    } else {
-//                        it
-//                    }
-//
-//
-//                }
-//
-//            )
+
 
             val favorit = experiencesUseCase.getFavorites()
             _uiState.update {
@@ -179,29 +164,9 @@ class HomeViewModel @Inject constructor(
 
 
         }
-    }
-//    fun getCategoryById(id: Int): CategoryEntity {
-//       val category = uiState.value.categories.find { it.id == id }
-//        _uiState.update {
-//            it.copy(
-//                selectedCategoryId = id
-//            )
-//
-//        }
-//
-//    }
 
-//    fun getCategoryById(id: Int): CategoryEntity {
-//        return uiState.value.categories.find { it.id == id } ?: CategoryEntity(
-//           id = -1,
-//           image = "https://i.blogs.es/161dfa/simon-migaj-yui5vfkhuzs-unsplash/1366_2000.webp",
-//           name = "Explorar",
-//            experience_id = -1,
-//            createdAt = LocalDate.now(),
-//            updatedAt = LocalDate.now()?: null
-//        )
-//
-//
-//    }
+
+    }
+
 
 }

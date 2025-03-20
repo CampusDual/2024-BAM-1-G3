@@ -74,10 +74,31 @@ class ExperienceRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getExperiencesByCategory(category: Int): List<ExperienceEntity> {
-        return experienceRemoteDataSource.getExperiencesByCategory(category).map {
-            it.toDomain()
-        }
+        return experienceRemoteDataSource.getExperiencesByCategory(category).map { it.toDomain() }
 //
+////        val categories = experienceRemoteDataSource.getCategories().map { it.toDomain().id }
+//        val categorieExperience = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
+//
+//        return categorieExperience.filter { experience ->
+//            experience.category == category
+//
+//
+//
+//        }
+
+//        return categorieExperience.filter { experience ->
+//            experience.category in categories
+//        }
+////        val categorieExperience = experienceRemoteDataSource.getExperiences().map { it.toDomain() }
+//        if (categorieExperience.contains(category)) {
+//            categorieExperience.filter { categorieExperience ->
+//                categorieExperience.category == category
+//            }
+//        }
+//        return experienceRemoteDataSource.getExperiencesByCategory(category).map {
+//            it.toDomain()
+//        }
+
     }
 
     override suspend fun getFavorites(): List<ExperienceEntity> {
