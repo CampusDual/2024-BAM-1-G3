@@ -21,9 +21,9 @@ data class HomeUiState(
     val experiences: List<ExperienceEntity> = emptyList(),
     val betterExperience: List<ExperienceEntity> = emptyList(),
     val favorites: List<ExperienceEntity> = emptyList(),
-
-
-    )
+    val filteredExperiences: List<ExperienceEntity> = emptyList(),
+    val originalExperiences: List<ExperienceEntity> = emptyList()
+)
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -53,7 +53,8 @@ class HomeViewModel @Inject constructor(
                 home.copy(
                     experiences = experiences.sortedByDescending { experience ->
                         experience.createdAt
-                    }
+                    }, 
+                    originalExperiences = experiences
                 )
             }
 
@@ -168,5 +169,12 @@ class HomeViewModel @Inject constructor(
 
     }
 
+    fun filterExperiences(searchText: String) {
+        _uiState.value = _uiState.value.copy(
+            filteredExperiences = uiState.value.originalExperiences.filter { 
+                it.name?.contains(searchText, ignoreCase = true) == true 
+            }
+        )
+    }
 
 }

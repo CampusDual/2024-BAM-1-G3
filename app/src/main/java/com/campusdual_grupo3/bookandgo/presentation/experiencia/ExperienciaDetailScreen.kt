@@ -28,6 +28,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -47,6 +50,10 @@ fun ExperienceDetailScreen(
 ) {
     val viewModel: ExperienceViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
+
+    val playfairFont = FontFamily(
+        Font(R.font.playfair_regular, FontWeight.Normal)
+    )
 
     LifecycleEventEffect(event = Lifecycle.Event.ON_RESUME) {
         viewModel.loadExperienceById(experienceId)
@@ -115,6 +122,7 @@ fun ExperienceDetailScreen(
                     text = uiState.detailExperiences?.name ?: "Cargando...",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
+                    style = TextStyle(fontFamily = playfairFont),
                     modifier = Modifier.padding(8.dp)
                 )
                 Image(painter = painterResource(
@@ -170,12 +178,14 @@ fun ExperienceDetailScreen(
                                     )
                                     Text(
                                         text = review?.comment ?: "Sin comentarios",
-                                        textAlign = TextAlign.Center
+                                        textAlign = TextAlign.Center,
+                                        style = TextStyle(fontFamily = playfairFont)
                                     )
                                     Text(
                                         text = review?.rating.toString() + "/5",
                                         fontSize = 22.sp,
                                         fontWeight = FontWeight.Bold,
+                                        style = TextStyle(fontFamily = playfairFont),
                                         modifier = Modifier
                                             .padding(8.dp)
                                             .align(Alignment.CenterHorizontally)
@@ -214,6 +224,7 @@ fun ExperienceDetailScreen(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Justify,
+                            style = TextStyle(fontFamily = playfairFont),
                             modifier = Modifier.padding(8.dp)
 
                         )
@@ -228,6 +239,7 @@ fun ExperienceDetailScreen(
                         Text(
                             text = "Precio " + uiState.detailExperiences?.price.toString() + " €",
                             fontSize = 16.sp,
+                            style = TextStyle(fontFamily = playfairFont),
                             fontWeight = FontWeight.Bold
 
                         )
@@ -250,6 +262,7 @@ fun ExperienceDetailScreen(
 
                         Text(
                             text = uiState.detailExperiences?.location.toString(),
+                            style = TextStyle(fontFamily = playfairFont),
                             modifier = Modifier
                                 .padding(8.dp)
                         )
@@ -272,6 +285,7 @@ fun ExperienceDetailScreen(
 
                         Text(
                             text = uiState.detailExperiences?.dateFrom.toString() + " - " + uiState.detailExperiences?.dateTo.toString(),
+                            style = TextStyle(fontFamily = playfairFont),
                             modifier = Modifier
                                 .padding(8.dp)
                         )
@@ -296,6 +310,7 @@ fun ExperienceDetailScreen(
 
                         Text(
                             text = uiState.detailExperiences?.capacity.toString() + " experiencias disponibles",
+                            style = TextStyle(fontFamily = playfairFont),
                             modifier = Modifier
                                 .padding(8.dp)
                         )
