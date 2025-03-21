@@ -181,6 +181,7 @@ fun ExperienceDetailScreen(
                                             .align(Alignment.CenterHorizontally)
 
                                     )
+
                                 }
 
                             }
@@ -307,6 +308,7 @@ fun ExperienceDetailScreen(
     }
 
 }
+
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
 @Composable
 fun ExperienceDetailPreview() {

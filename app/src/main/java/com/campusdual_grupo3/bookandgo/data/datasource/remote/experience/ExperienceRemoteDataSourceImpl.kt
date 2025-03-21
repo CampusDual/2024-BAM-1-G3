@@ -66,8 +66,6 @@ class ExperienceRemoteDataSourceImpl @Inject constructor(
 
                 throw Exception("Error ${response.body()?.error?: response.code()}: ${response.message()}")
 
-//                throw Exception("Error ${response.body()?.error}: ${response.message()}")
-
             }
 
         }

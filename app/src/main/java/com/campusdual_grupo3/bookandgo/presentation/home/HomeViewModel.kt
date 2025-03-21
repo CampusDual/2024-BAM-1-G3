@@ -11,14 +11,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 data class HomeUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val categories: List<CategoryEntity> = emptyList(),
-    val selectedCategoryId: CategoryEntity? = null,
+    val selectedCategory: CategoryEntity? = null,
     val experiences: List<ExperienceEntity> = emptyList(),
     val betterExperience: List<ExperienceEntity> = emptyList(),
     val favorites: List<ExperienceEntity> = emptyList(),
@@ -44,6 +43,9 @@ class HomeViewModel @Inject constructor(
                 home.copy(
                     categories = categories
                 )
+                }
+            if (categories.isNotEmpty()) {
+                onCategorySelected(categories.first().id)
 
             }
             val experiences = experiencesUseCase.getExperiences()
@@ -108,7 +110,7 @@ class HomeViewModel @Inject constructor(
     fun onCategorySelected(categoryId: Int) {
         val selectedCategory = uiState.value.categories.find { it.id == categoryId }
         _uiState.value = _uiState.value.copy(
-            selectedCategoryId = selectedCategory
+            selectedCategory = selectedCategory
         )
         if (categoryId == -1) {
             viewModelScope.launch {

@@ -1,6 +1,5 @@
 package com.campusdual_grupo3.bookandgo.presentation.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -48,9 +47,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
-import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
-import com.campusdual_grupo3.bookandgo.presentation.experiencia.ExperienceUiState
-import java.time.LocalDate
 
 
 @Composable
@@ -146,16 +142,16 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(vertical = 16.dp)
                         .clip(RoundedCornerShape(4.dp))
-                        .background(if (uiState.selectedCategoryId?.id == category.id) Color.Black else Color.White)//
+                        .background(if (uiState.selectedCategory?.id == category.id) Color.Black else Color.White)//
                         .padding(
-                            horizontal = if (uiState.selectedCategoryId?.id == category.id) 10.dp else 4.dp,
+                            horizontal = if (uiState.selectedCategory?.id == category.id) 10.dp else 4.dp,
                             vertical = 2.dp
                         )
                         .clickable {
                             viewModel.onCategorySelected(category.id)
 
                         },
-                    color = if (uiState.selectedCategoryId?.id == category.id ) Color.White else Color.Black
+                    color = if (uiState.selectedCategory?.id == category.id ) Color.White else Color.Black
                 )
 
             }
@@ -178,8 +174,8 @@ fun HomeScreen(
                     }) {
 
                         AsyncImage(
-                            model = uiState.selectedCategoryId?.image,
-                            contentDescription = uiState.selectedCategoryId?.name,
+                            model = uiState.selectedCategory?.image,
+                            contentDescription = uiState.selectedCategory?.name,
                             modifier = Modifier.fillMaxSize(),
                             contentScale = ContentScale.Crop
                         )
@@ -187,7 +183,7 @@ fun HomeScreen(
 
 
                     Text(
-                        text = uiState.selectedCategoryId?.name ?: "Explorar",
+                        text = uiState.selectedCategory?.name ?: "Explorar",
                         color = Color.White,
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
