@@ -23,4 +23,8 @@
         <item name="android:insetBottom">0dp</item>
     </style>
 
+    <style name="text_toolbar">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/playfair_bold</item>
+    </style>
 </resources>

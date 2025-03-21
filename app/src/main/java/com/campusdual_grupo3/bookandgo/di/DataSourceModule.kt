@@ -16,6 +16,7 @@ import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.Experie
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSourceImpl
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,14 +32,14 @@ object DataSourceModule {
     @Mock
     @Provides
     @Singleton
-    fun provideUserMockDataSource(auth: FirebaseAuth): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(auth)
+    fun provideUserMockDataSource(auth: FirebaseAuth, firestore: FirebaseFirestore ): UserRemoteDataSource {
+        return UserRemoteDataSourceImpl(auth, firestore)
     }
 
     @Provides
     @Singleton
-    fun provideUserRemoteDataSource(auth: FirebaseAuth): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(auth)
+    fun provideUserRemoteDataSource(auth: FirebaseAuth, firestore: FirebaseFirestore ): UserRemoteDataSource {
+        return UserRemoteDataSourceImpl(auth, firestore)
     }
 
     @Provides

@@ -1,10 +1,12 @@
 package com.campusdual_grupo3.bookandgo.data.repositories.user
 
+import android.net.Uri
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.dto.LoginDto
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.dto.UserDTO
 import com.campusdual_grupo3.bookandgo.di.Mock
-import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
+import com.campusdual_grupo3.bookandgo.domain.entities.UserEntity
 import com.campusdual_grupo3.bookandgo.domain.repositories.user.UserRepository
 import javax.inject.Inject
 
@@ -29,7 +31,13 @@ class UserRepositoryImpl @Inject constructor(
 
     }
 
-
+    override suspend fun register(
+        user: UserEntity
+    ): Pair<Boolean, String> {
+        val registerCredentials = UserDTO(user.id.toString(), user.email, user.password, user.name, user.address, user.image, user.phone, user.zipcode, user.preferences)
+        val isSuccessful = userRemoteDataSource.register(registerCredentials)
+        return isSuccessful
+    }
 
 
 }

@@ -1,6 +1,6 @@
 package com.campusdual_grupo3.bookandgo.domain.usecases.user
 
-import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
+import com.campusdual_grupo3.bookandgo.domain.entities.UserEntity
 import com.campusdual_grupo3.bookandgo.domain.repositories.user.UserRepository
 import javax.inject.Inject
 
@@ -46,7 +46,31 @@ class UserUseCaseImpl @Inject constructor(
 
     }
 
+    override suspend fun register(
+        user: UserEntity
+    ): Pair<Boolean, String> {
+        return userRepository.register(user)
+    }
 
+    override fun isNameValid(name: String): Boolean {
+        return name.isNotBlank() && name.length <= 50
+    }
 
+    override fun isPhoneValid(phone: String): Boolean {
+        return phone.isNotBlank() && phone.length >= 9 && phone.length <= 12    }
+
+    override fun isAddressValid(address: String): Boolean {
+        return address.isNotBlank() && address.length >3
+    }
+
+    override fun isZipcodeValid(zipcode: String): Boolean {
+        return zipcode.isNotBlank() && zipcode.length > 3
+    }
+
+    override fun isRegisterFormValid(
+        user: UserEntity
+    ): Boolean {
+        return (isNameValid(user.name) && isPhoneValid(user.phone) && isAddressValid(user.address) && isZipcodeValid(user.zipcode) && isPasswordValid(user.password) && isMailValid(user.email))
+    }
 
 }

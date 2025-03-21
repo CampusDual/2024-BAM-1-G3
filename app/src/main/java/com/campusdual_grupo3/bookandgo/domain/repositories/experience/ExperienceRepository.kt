@@ -15,6 +15,4 @@ interface ExperienceRepository {
     suspend fun removeFavorite(experience: ExperienceEntity)
     suspend fun getFavoriteById(id: Int): ExperienceEntity?  //para el detalle de la experiencia favorita
     suspend fun isFavorite(experience: ExperienceEntity): Boolean
-
-
 }

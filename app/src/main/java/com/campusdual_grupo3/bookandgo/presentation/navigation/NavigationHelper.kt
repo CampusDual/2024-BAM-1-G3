@@ -48,7 +48,13 @@ class NavigationHelper {
                 fragmentTransaction.hide(currentFragment)
                 stack.add(WeakReference(currentFragment))
             }
-            fragmentTransaction.add(R.id.fragment_container, futureFragment, tag)
+            fragmentManager.findFragmentByTag(tag)?.let { fragment ->
+                fragmentTransaction.show(
+                    fragment
+                )
+            } ?: run {
+                fragmentTransaction.add(R.id.fragment_container, futureFragment, tag)
+            }
         }
 
         fragmentTransaction

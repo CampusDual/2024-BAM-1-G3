@@ -42,6 +42,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- REGISTER SCREEN -->
+    <string name="upload_your_picture">Upload your picture</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="preference_and_availability">Preference &amp; Availability</string>
+    <string name="terms_and_conditions">Almost there</string>
+    <string name="terms_and_conditions_chkbox"><b><u>Terms &amp; Conditions</u></b></string>
+    <string name="terms_and_conditions_body">You are one step away from completing the registration. To wrap this up, you can agree to our <b>Terms &amp; Conditions</b>.\n\nWe publish the BookAndGo <b>Terms &amp; Conditions</b> so that you know what to expect as you use our services.\n\nBy checking the box below, you agree to these terms.</string>
+
+
+
     <!-- HOME SCREEN -->
     <string name="search_experience">Buscar experiencias</string>
+    <string name="prefered_experience_categories">Prefered Experience Categories</string>
+    <string name="preferences">Preferences</string>
+
 </resources>
