@@ -4,8 +4,20 @@
 
     <!--PERMISSION TO USE INTERNET-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="SelectedPhotoAccess" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <!--PERMISSION TO USE LOCATION-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature android:name="android.hardware.location.gps"
+        tools:ignore="UnnecessaryRequiredFeature" />
 
     <application
         android:name=".App"
@@ -21,12 +33,11 @@
 
         <activity
             android:name=".presentation.register.RegisterActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
 
         <activity
-        android:name=".presentation.onboarding.OnBoardingActivity"
-        android:exported="true">
+            android:name=".presentation.onboarding.OnBoardingActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

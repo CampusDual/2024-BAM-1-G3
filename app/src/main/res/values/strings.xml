@@ -50,11 +50,16 @@
     <string name="terms_and_conditions_chkbox"><b><u>Terms &amp; Conditions</u></b></string>
     <string name="terms_and_conditions_body">You are one step away from completing the registration. To wrap this up, you can agree to our <b>Terms &amp; Conditions</b>.\n\nWe publish the BookAndGo <b>Terms &amp; Conditions</b> so that you know what to expect as you use our services.\n\nBy checking the box below, you agree to these terms.</string>
 
-
-
     <!-- HOME SCREEN -->
     <string name="search_experience">Buscar experiencias</string>
     <string name="prefered_experience_categories">Prefered Experience Categories</string>
     <string name="preferences">Preferences</string>
+
+    <!-- GIFT CARD SCREEN -->
+    <string name="giftcard_screen_name">Tarjeta Regalo</string>
+    <string name="giftcard_input_name">Nombre del destinatario</string>
+    <string name="giftcard_input_email">Correo electrónico del destinatario</string>
+    <string name="giftcard_input_message">Mensaje para el destinatario</string>
+    <string name="giftcard_button_checkout">Proceder a pagar</string>
 
 </resources>

@@ -8,6 +8,7 @@ import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.databinding.ActivityMainBinding
 import com.campusdual_grupo3.bookandgo.presentation.experiencia.ExperienceDetailFragment
 import com.campusdual_grupo3.bookandgo.presentation.favorites.FavoritesFragment
+import com.campusdual_grupo3.bookandgo.presentation.giftcard.GiftCardFragment
 import com.campusdual_grupo3.bookandgo.presentation.home.HomeFragment
 import com.campusdual_grupo3.bookandgo.presentation.listing.ListFragment
 import com.campusdual_grupo3.bookandgo.presentation.navigation.NavigationHelper
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var homeFragment = HomeFragment()
     private var favoritesFragment = FavoritesFragment()
     private var listFragment = ListFragment()
-    private var giftCardFragment = HomeFragment()
+    private var giftCardFragment = GiftCardFragment()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,10 +82,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openGiftCard() {
-        if (currentFragment !is HomeFragment) {
+        if (currentFragment !is GiftCardFragment) {
             currentFragment = navigationHelper.showFragment(
-                this, currentFragment,
-                homeFragment, AppGlobalConstants.F_HOME
+                activity = this, // Activity Context
+                currentFragment = currentFragment, // Current Fragment
+                futureFragment = giftCardFragment, // Fragment To Show
+                tag = AppGlobalConstants.F_GIFT_CARD // Fragment Tag
             )
         }
     }

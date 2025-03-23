@@ -1,5 +1,6 @@
 package com.campusdual_grupo3.bookandgo.presentation.home
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -180,6 +182,16 @@ fun HomeScreen(
                             contentScale = ContentScale.Crop
                         )
 
+// Bottom gradient
+                    Canvas (modifier = Modifier.matchParentSize().clip(shape = RoundedCornerShape(8.dp))) {
+                        val gradient = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent, // Transparente en la parte superior
+                                Color.Black.copy(alpha = 0.65f) // Oscuro en la parte inferior
+                            )
+                        )
+                        drawRect(brush = gradient)
+                    }
 
 
                     Text(

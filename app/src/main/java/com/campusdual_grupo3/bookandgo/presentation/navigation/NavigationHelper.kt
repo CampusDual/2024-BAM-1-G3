@@ -16,6 +16,7 @@ class NavigationHelper {
 
     private val stack = mutableListOf<WeakReference<Fragment>>()
 
+    /*
     fun showFragment(
         activity: AppCompatActivity,
         currentFragment: Fragment?,
@@ -63,6 +64,52 @@ class NavigationHelper {
 
         return futureFragment
     }
+
+    */
+    fun showFragment(
+        activity: AppCompatActivity,
+        currentFragment: Fragment?,
+        futureFragment: Fragment,
+        tag: String
+    ): Fragment {
+
+        val fragmentManager = activity.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        if (tag == F_HOME || tag == F_FAVORITES || tag == F_LIST || tag == F_GIFT_CARD || tag == F_PROFILE) {
+            clearStack()
+            if (fragmentManager.findFragmentByTag(tag) != null) {
+                if (currentFragment != null) {
+                    fragmentTransaction.hide(currentFragment)
+                    fragmentManager.findFragmentByTag(tag)?.let { fragment ->
+                        fragmentTransaction.show(fragment)
+                    }
+                }
+            } else {
+                if (currentFragment != null) {
+                    fragmentTransaction.hide(currentFragment)
+                }
+                fragmentTransaction.add(R.id.fragment_container, futureFragment, tag)
+            }
+        } else {
+            if (currentFragment != null) {
+                fragmentTransaction.hide(currentFragment)
+                stack.add(WeakReference(currentFragment))
+            }
+            fragmentManager.findFragmentByTag(tag)?.let { fragment ->
+                fragmentTransaction.show(fragment)
+            } ?: run {
+                fragmentTransaction.add(R.id.fragment_container, futureFragment, tag)
+            }
+        }
+
+        fragmentTransaction
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+
+        return futureFragment
+    }
+
 
     fun backStackFragment(activity: AppCompatActivity, currentFragment: Fragment?): Fragment? {
 

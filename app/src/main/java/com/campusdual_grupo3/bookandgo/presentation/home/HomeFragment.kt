@@ -28,6 +28,7 @@ class HomeFragment : Fragment() {
                 (activity as? MainActivity)?.openExperienceDetail(experienceId)
             }
         }
+        
         return binding?.root
     }
 }
