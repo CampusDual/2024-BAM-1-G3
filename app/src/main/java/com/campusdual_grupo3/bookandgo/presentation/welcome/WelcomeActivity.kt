@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.campusdual_grupo3.bookandgo.databinding.ActivityWelcomeBinding
 import com.campusdual_grupo3.bookandgo.presentation.MainActivity
 import com.campusdual_grupo3.bookandgo.presentation.login.LoginActivity
+import com.campusdual_grupo3.bookandgo.presentation.register.RegisterActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -27,6 +28,7 @@ class WelcomeActivity : AppCompatActivity() {
         // Configurar clic en el botón Register
         binding.btnRegister.setOnClickListener {
             // Lógica para navegar a la pantalla de registro
+            navigateToRegisterActivity()
         }
 
         // Configurar clic en el botón omitir este paso
@@ -37,6 +39,10 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun navigateToLoginActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+    private fun navigateToRegisterActivity() {
+        startActivity(Intent(this, RegisterActivity::class.java))
         finish()
     }
 

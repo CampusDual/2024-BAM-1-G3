@@ -20,6 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -40,6 +43,9 @@ fun FavoritesScreen(
     val viewModel: FavoritesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
+    val playfairFont = FontFamily(
+        Font(R.font.playfair_regular, FontWeight.Normal)
+    )
 
 
     LaunchedEffect(uiState.favoritesExperiences.isEmpty()) {
@@ -57,7 +63,7 @@ fun FavoritesScreen(
 
     Column() {
         Text(
-            text = "Tus experiencias Favoritas",
+            text = "Tus experiencias favoritas",
             modifier = Modifier
                 .padding(
                     horizontal = 24.dp,
@@ -66,6 +72,7 @@ fun FavoritesScreen(
                 .fillMaxWidth(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            style = TextStyle(fontFamily = playfairFont),
             textAlign = TextAlign.Center
         )
 
@@ -106,6 +113,7 @@ fun FavoritesScreen(
                                     modifier = Modifier
                                         .padding(8.dp),
                                     fontSize = 16.sp,
+                                    style = TextStyle(fontFamily = playfairFont),
                                     fontWeight = FontWeight.Bold
 
 
@@ -126,12 +134,14 @@ fun FavoritesScreen(
                             text = favorites.description,
                             modifier = Modifier
                                 .padding(8.dp),
+                            style = TextStyle(fontFamily = playfairFont),
                             fontSize = 14.sp
                         )
                         Text(
                             text = "Precio " + favorites.price.toString() + "€",
                             modifier = Modifier
                                 .padding(8.dp),
+                            style = TextStyle(fontFamily = playfairFont),
                             fontSize = 14.sp
                         )
                     }

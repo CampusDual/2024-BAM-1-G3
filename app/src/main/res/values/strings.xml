@@ -56,5 +56,7 @@
     <string name="search_experience">Buscar experiencias</string>
     <string name="prefered_experience_categories">Prefered Experience Categories</string>
     <string name="preferences">Preferences</string>
+    <string name="no_experiences_found">No experiences found</string>
+    <string name="experience_not_found">No experiences found</string>
 
 </resources>

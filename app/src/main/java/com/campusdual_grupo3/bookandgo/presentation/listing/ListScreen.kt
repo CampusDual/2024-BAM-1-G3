@@ -23,6 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -41,6 +44,10 @@ fun ListScreen(
 ){
     val viewModel: ListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
+
+    val playfairFont = FontFamily(
+        Font(R.font.playfair_regular, FontWeight.Normal)
+    )
 
     Column (
         modifier = Modifier
@@ -85,6 +92,7 @@ fun ListScreen(
                 .fillMaxWidth(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            style = TextStyle(fontFamily = playfairFont),
             textAlign = TextAlign.Center // Alinea el texto al centro
         )
         LazyColumn() {
@@ -117,7 +125,8 @@ fun ListScreen(
                                 color = Color.Black,
                                 modifier = Modifier
                                     .padding(8.dp),
-                                fontSize = 28.sp
+                                fontSize = 28.sp,
+                                style = TextStyle(fontFamily = playfairFont),
                             )
                         }
 
@@ -125,12 +134,14 @@ fun ListScreen(
                             text = experience.description,
                             modifier = Modifier
                                 .padding(8.dp),
+                            style = TextStyle(fontFamily = playfairFont),
                             fontSize = 14.sp
                         )
                         Text(
                             text = "Precio " + experience.price.toString() + "€",
                             modifier = Modifier
                                 .padding(8.dp),
+                            style = TextStyle(fontFamily = playfairFont),
                             fontSize = 14.sp
                         )
                     }
