@@ -127,9 +127,9 @@ class ExperienceRepositoryImpl @Inject constructor(
             availability = availability,
             reviews = reviews?.map { it.toDomain() } ?: emptyList(),
             category_id = category_id,
+            category_name = category_name,
             isFavorite = isFavorite == 0,
             image = image,
-
             createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
             user_id = user_id
 
@@ -169,6 +169,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             availability = availability,
             reviews = reviews?.map { it.toDomain() } ?: emptyList(),
             category_id = category_id,
+            category_name = category_name,
             isFavorite = isFavorite,
             user_id = user_id,
             image = image,
@@ -206,6 +207,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             availability = availability,
             reviews = ArrayList(reviews.map { it.toDbo() }?: emptyList()),
             category_id = category_id,
+            category_name = category_name,
             isFavorite = isFavorite,
             image = image,
             createdAt = createdAt,

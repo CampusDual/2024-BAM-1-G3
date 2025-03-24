@@ -7,7 +7,7 @@ data class UserEntity(
     var name: String,
     var address:String,
     var image:String,
-    var zipcode:String, //
+    var zipcode:String,
     var isActive:Boolean?,
     var phone:String,
     var role:String?,

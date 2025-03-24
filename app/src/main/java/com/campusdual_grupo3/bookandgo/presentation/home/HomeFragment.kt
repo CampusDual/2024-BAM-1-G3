@@ -24,9 +24,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding?.composeView?.setContent {
-            HomeScreen() { experienceId ->
-                (activity as? MainActivity)?.openExperienceDetail(experienceId)
-            }
+            HomeScreen()
         }
         
         return binding?.root

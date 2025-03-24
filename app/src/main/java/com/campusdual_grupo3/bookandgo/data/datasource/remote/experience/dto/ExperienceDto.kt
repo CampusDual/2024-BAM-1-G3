@@ -15,6 +15,7 @@ data class ExperienceDto(
     var availability: String?,
     var reviews: List<ReviewDto>?,
     var category_id: Int,
+    var category_name: String,
     var isFavorite: Int,
     var image: String,
     val user_id: Int,
