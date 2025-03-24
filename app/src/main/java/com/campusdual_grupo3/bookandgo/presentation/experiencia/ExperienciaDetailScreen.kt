@@ -108,201 +108,209 @@ fun ExperienceDetailScreen(
                         start = 20.dp, bottom = 5.dp, end = 20.dp,
 
                         ),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.Center,
 
                 ) {
                 Text(
                     text = uiState.detailExperiences?.name ?: "Cargando...",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier
+                        .padding(8.dp)
                 )
-                Image(painter = painterResource(
-                    id = R.drawable.ic_giftcard
-                ), contentDescription = null, modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        goToGiftCard()
-                    })
-
             }
-            LazyColumn(
-                modifier = Modifier
-                    .padding(
-                        vertical = 10.dp
-                    )
-                    .align(Alignment.Start)
+        }//fin card
+        LazyColumn(
+            modifier = Modifier
+                .padding(
+                    vertical = 10.dp
+                )
+                .align(Alignment.Start)
 
-            ) {
-                item {
-                    LazyRow(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White)
-                            .padding(vertical = 8.dp)
-                            .clip(RoundedCornerShape(8.dp)),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
 
-                    ) {
-                        items(uiState.reviews?.size ?: 0) { index ->
-                            val review = uiState.reviews?.get(index)
-                            Card(
-                                modifier = Modifier
-                                    .width(200.dp)
-                                    .height(150.dp),
-
-                                shape = RoundedCornerShape(16.dp)
-
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(8.dp)
-                                        .align(Alignment.CenterHorizontally)
-
-
-                                ) {
-                                    Image(
-                                        painter = painterResource(
-                                            id = R.drawable.ic_positive
-                                        ), contentDescription = null,
-                                        modifier = Modifier
-                                            .padding(8.dp)
-                                    )
-                                    Text(
-                                        text = review?.comment ?: "Sin comentarios",
-                                        textAlign = TextAlign.Center
-                                    )
-                                    Text(
-                                        text = review?.rating.toString() + "/5",
-                                        fontSize = 22.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier
-                                            .padding(8.dp)
-                                            .align(Alignment.CenterHorizontally)
-
-                                    )
-
-                                }
-
-                            }
-
-                        }
-                    }
+            item {
+//                LazyRow(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .background(Color.White)
+//                        .padding(vertical = 8.dp)
+//                        .clip(RoundedCornerShape(8.dp)),
+//                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+//
+//                ) {
+//                    items(uiState.reviews?.size ?: 0) { index ->
+//                        val review = uiState.reviews?.get(index)
+//                        Card(
+//                            modifier = Modifier
+//                                .width(200.dp)
+//                                .height(150.dp),
+//
+//                            shape = RoundedCornerShape(16.dp)
+//
+//                        ) {
+//                            Column(
+//                                modifier = Modifier
+//                                    .padding(8.dp)
+//                                    .align(Alignment.CenterHorizontally)
+//
+//
+//                            ) {
+//                                Image(
+//                                    painter = painterResource(
+//                                        id = R.drawable.ic_positive
+//                                    ), contentDescription = null,
+//                                    modifier = Modifier
+//                                        .padding(8.dp)
+//                                )
+//                                Text(
+//                                    text = review?.comment ?: "Sin comentarios",
+//                                    textAlign = TextAlign.Center
+//                                )
+//
+//
+//                            }
+//
+//                        }
+//
+//                    }
+//                }
 
 
-                }
-                item {
-                    //detalles experiencias
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(
-                                brush = Brush.linearGradient(
-                                    colors = listOf(
-                                        Color(0xFF9F9A9A),
-                                        Color(0xFFC1C5C7),
-                                        Color(0xFFBBBAB2)
-                                    )
-                                )
-                            )
+            }  //reviews
+            item{  // precio y giftcard
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, bottom = 16.dp)
+                        ,
 
-                    ) {
-                        Text(
-                            text = uiState.detailExperiences?.description ?: "Cargando...",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Justify,
-                            modifier = Modifier.padding(8.dp)
+                    horizontalArrangement =  Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
 
-                        )
-
-                    }
-                    // precio
-                    Row(
+                ) {
+                    Text(
+                    text = "Precio " + uiState.detailExperiences?.price.toString() + " €",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.ic_giftcard
+                        ), contentDescription = null,
                         modifier = Modifier
                             .padding(8.dp)
-                            .align(Alignment.CenterHorizontally)
-                    ) {
-                        Text(
-                            text = "Precio " + uiState.detailExperiences?.price.toString() + " €",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-
-                        )
-                    }
-                    // cantidad de experiencias disponibles
-                    Row(
-                        modifier = Modifier
-                            .padding(start = 8.dp, bottom = 8.dp)
-                            .align(Alignment.Start),
-
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                    ) {
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.ic_place
-                            ), contentDescription = null,
-                            modifier = Modifier
-                                .padding(8.dp)
-                        )
-
-                        Text(
-                            text = uiState.detailExperiences?.location.toString(),
-                            modifier = Modifier
-                                .padding(8.dp)
-                        )
-
-                    }
-                    // fechas
-                    Row(
-                        modifier = Modifier
-                            .padding(start = 8.dp, bottom = 8.dp)
-                            .align(Alignment.Start),
-
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                    ) {
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.ic_calendar
-                            ), contentDescription = null, modifier = Modifier
-                                .padding(8.dp)
-                        )
-
-                        Text(
-                            text = uiState.detailExperiences?.dateFrom.toString() + " - " + uiState.detailExperiences?.dateTo.toString(),
-                            modifier = Modifier
-                                .padding(8.dp)
-                        )
+                            .size(30.dp)
+                            .clickable {
+                                goToGiftCard()
+                            }
+//
+                    )
 
 
-                    }
-
-                    // Experiencias disponibles
-                    Row(
-                        modifier = Modifier
-                            .padding(start = 8.dp, bottom = 8.dp)
-                            .align(Alignment.Start),
-
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                    ) {
-                        Image(
-                            painter = painterResource(
-                                id = R.drawable.ic_profile
-                            ), contentDescription = null, modifier = Modifier
-                                .padding(8.dp)
-                        )
-
-                        Text(
-                            text = uiState.detailExperiences?.capacity.toString() + " experiencias disponibles",
-                            modifier = Modifier
-                                .padding(8.dp)
-                        )
-
-
-                    }
                 }
+            }
+            item { //detalles experiencias
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    Color(0xFF9F9A9A),
+                                    Color(0xFFC1C5C7),
+                                    Color(0xFFBBBAB2)
+                                )
+                            )
+                        )
+
+                ) {
+                    Text(
+                        text = uiState.detailExperiences?.description ?: "Cargando...",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Justify,
+                        modifier = Modifier.padding(8.dp)
+
+                    )
+
+                }
+
+                // cantidad de experiencias disponibles
+                Row(
+                    modifier = Modifier
+                        .padding(start = 8.dp, bottom = 8.dp)
+                        .align(Alignment.Start),
+
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                ) {
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.ic_place
+                        ), contentDescription = null,
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+
+                    Text(
+                        text = uiState.detailExperiences?.location.toString(),
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+
+                }
+                // fechas
+                Row(
+                    modifier = Modifier
+                        .padding(start = 8.dp, bottom = 8.dp)
+                        .align(Alignment.Start),
+
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                ) {
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.ic_calendar
+                        ), contentDescription = null, modifier = Modifier
+                            .padding(8.dp)
+                    )
+
+                    Text(
+                        text = uiState.detailExperiences?.dateFrom.toString() + " - " + uiState.detailExperiences?.dateTo.toString(),
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+
+
+                }
+
+                // Experiencias disponibles
+                Row(
+                    modifier = Modifier
+                        .padding(start = 8.dp, bottom = 8.dp)
+                        .align(Alignment.Start),
+
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                ) {
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.ic_profile
+                        ), contentDescription = null, modifier = Modifier
+                            .padding(8.dp)
+                    )
+
+                    Text(
+                        text = uiState.detailExperiences?.capacity.toString() + " experiencias disponibles",
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+
+
+                }
+                ///// aqui vendrían más detalles
+                Row(){}
+
             }
         }
     }

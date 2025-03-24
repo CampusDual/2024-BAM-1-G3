@@ -170,7 +170,6 @@ fun HomeScreen(
                     .padding(vertical = 8.dp)
                     .clickable {
 
-//                        viewModel.onCategorySelected(selectedCategory?.id ?: -1)
                     }) {
 
                         AsyncImage(
