@@ -33,7 +33,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,7 +59,7 @@ import com.campusdual_grupo3.bookandgo.presentation.components.CustomSearchBar
 
 @Composable
 fun HomeScreen(
-    onClickExperience: (Int) -> Unit
+    onClickExperience: (Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
@@ -111,20 +115,23 @@ fun HomeScreen(
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = stringResource(R.string.experience_not_found),
-                                style = TextStyle(fontFamily = playfairFont))
+                            Text(
+                                text = stringResource(R.string.experience_not_found),
+                                style = TextStyle(fontFamily = playfairFont)
+                            )
                         }
                     }
                 } else {
                     items(uiState.filteredExperiences) { experience ->
-                        Card(modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                onClickExperience(experience.id)
-                            }
-                            .padding(8.dp), elevation = CardDefaults.cardElevation(
-                            defaultElevation = 4.dp
-                        )) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onClickExperience(experience.id)
+                                }
+                                .padding(8.dp), elevation = CardDefaults.cardElevation(
+                                defaultElevation = 4.dp
+                            )) {
                             Row(
                                 modifier = Modifier.height(intrinsicSize = IntrinsicSize.Max),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -222,7 +229,7 @@ fun HomeScreen(
                         text = category.name,
                         style = TextStyle(fontFamily = playfairFont),
                         modifier = Modifier
-                            .padding(vertical = 16.dp)
+                            .padding(vertical = 8.dp)
                             .clip(RoundedCornerShape(4.dp))
                             .background(if (uiState.selectedCategory?.id == category.id) Color.Black else Color.White)
                             .padding(
@@ -238,33 +245,32 @@ fun HomeScreen(
             }
             LazyColumn(
                 modifier = Modifier
-                    .padding(vertical = 10.dp)
                     .fillMaxWidth()
+                    .padding(vertical = 8.dp)
             ) {
 
                 item {
-                    Box(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                        .padding(vertical = 8.dp)
-                        .clickable {
-
-//                        viewModel.onCategorySelected(selectedCategory?.id ?: -1)
-                        }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                            .padding(vertical = 8.dp, horizontal = 16.dp)
+                    )
+                    {
 
                         AsyncImage(
                             model = uiState.selectedCategory?.image,
                             contentDescription = uiState.selectedCategory?.name,
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(8.dp)),
                             contentScale = ContentScale.Crop
                         )
-
-
 
                         Text(
                             text = uiState.selectedCategory?.name ?: "Explorar",
                             color = Color.White,
-                            fontSize = 32.sp,
+                            fontSize = 42.sp,
                             fontWeight = FontWeight.Bold,
                             style = TextStyle(fontFamily = playfairFont),
                             modifier = Modifier
@@ -287,7 +293,7 @@ fun HomeScreen(
                     )
                     LazyRow(
                         modifier = Modifier
-                            .padding(vertical = 10.dp)
+                            .padding(vertical = 8.dp, horizontal = 16.dp)
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -295,7 +301,7 @@ fun HomeScreen(
                             var isFavorite by remember { mutableStateOf(experience.isFavorite) }
                             Card(
                                 modifier = Modifier
-                                    .width(200.dp)
+                                    .width(240.dp)
                                     .height(150.dp)
                                     .clickable {
                                         onClickExperience(experience.id)
@@ -331,11 +337,12 @@ fun HomeScreen(
                                         )
                                     }
 
-                                    Image(painter = painterResource(
-                                        if (isFavorite) {
-                                            R.drawable.ic_favorite
-                                        } else R.drawable.ic_not_favorite
-                                    ), // Cambiamos el icono según el estado
+                                    Image(
+                                        painter = painterResource(
+                                            if (isFavorite) {
+                                                R.drawable.ic_favorite
+                                            } else R.drawable.ic_not_favorite
+                                        ), // Cambiamos el icono según el estado
                                         contentDescription = null,
                                         modifier = Modifier
                                             .padding(8.dp)
