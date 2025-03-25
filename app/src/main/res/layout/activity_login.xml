@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_login_mail"
-        app:passwordToggleEnabled="true"
+        app:endIconMode="password_toggle"
         app:passwordToggleTint="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/playfair_regular"
             android:hint="@string/lg_ti_password"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/black"
+            android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

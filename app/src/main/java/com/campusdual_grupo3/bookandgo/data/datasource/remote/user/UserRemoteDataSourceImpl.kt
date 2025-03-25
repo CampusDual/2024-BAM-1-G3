@@ -23,6 +23,10 @@ class UserRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+    override fun logout(): Boolean {
+        auth.signOut()
+        return true
+    }
     override suspend fun recoverPassword(email: String): Boolean {
         return suspendCoroutine { result ->
             auth.sendPasswordResetEmail(email)
@@ -79,4 +83,23 @@ class UserRemoteDataSourceImpl @Inject constructor(
         }
     }
 }
+
+    override suspend fun getUserProfile(): UserDTO? {
+        val userId = auth.currentUser?.uid ?: return null
+
+        return suspendCoroutine { result ->
+            firestore.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val user = document.toObject(UserDTO::class.java)
+                        result.resume(user)
+                    } else {
+                        result.resume(null)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    result.resumeWithException(exception)
+                }
+        }
+    }
 }

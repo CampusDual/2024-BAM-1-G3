@@ -16,7 +16,7 @@ class UploadPicFragment : Fragment() {
     private lateinit var binding: FragmentUploadPicBinding
     private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
-            image = it.path.toString()
+            image = it.toString()
             binding.ivUpload.setImageURI(it) // Aqui gestionamos la imagen seleccionada
         }
     }

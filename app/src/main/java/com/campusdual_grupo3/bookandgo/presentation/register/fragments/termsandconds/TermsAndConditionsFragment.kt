@@ -88,8 +88,17 @@ class TermsAndConditionsFragment : Fragment() {
             }
         }
 
-        //binding.btnRegister.isEnabled = binding.checkboxTerms.isChecked
+
+        // Habilitar el botón solo si la checkbox está marcada
+        binding.checkboxTerms.setOnCheckedChangeListener { _, isChecked ->
+            binding.btnRegister.isEnabled = isChecked
+        }
+
         binding.btnRegister.setOnClickListener {
+            if (!binding.checkboxTerms.isChecked) {
+                Toast.makeText(requireContext(), "Debes aceptar los términos y condiciones", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val user = UserEntity(
                 name = this.name,
                 email = this.email,
@@ -109,6 +118,8 @@ class TermsAndConditionsFragment : Fragment() {
             viewModel.register(user)
         }
     }
+
+
 
     private fun initObservers() {
         viewModel?.isRegisteredSuccess?.observe(viewLifecycleOwner) { isSuccess ->

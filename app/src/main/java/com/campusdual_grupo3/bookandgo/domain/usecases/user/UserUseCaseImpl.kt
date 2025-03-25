@@ -73,4 +73,8 @@ class UserUseCaseImpl @Inject constructor(
         return (isNameValid(user.name) && isPhoneValid(user.phone) && isAddressValid(user.address) && isZipcodeValid(user.zipcode) && isPasswordValid(user.password) && isMailValid(user.email))
     }
 
+    override fun isTermsAndConditionsAccepted(accepted: Boolean): Boolean {
+        return accepted
+    }
+
 }

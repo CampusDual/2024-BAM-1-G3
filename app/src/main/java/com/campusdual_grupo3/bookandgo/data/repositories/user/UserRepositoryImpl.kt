@@ -24,6 +24,9 @@ class UserRepositoryImpl @Inject constructor(
 
 
     }
+    override suspend fun logout(): Boolean {
+        return userRemoteDataSource.logout()
+    }
 
     override suspend fun recoverPassword(email: String): Boolean {
         val isSuccessful = userRemoteDataSource.recoverPassword(email)

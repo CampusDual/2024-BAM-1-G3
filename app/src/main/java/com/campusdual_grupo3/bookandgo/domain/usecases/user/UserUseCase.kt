@@ -19,6 +19,6 @@ interface UserUseCase {
     fun isAddressValid(address: String): Boolean
     fun isZipcodeValid(zipcode: String): Boolean
     fun isRegisterFormValid(user: UserEntity): Boolean
-
+    fun isTermsAndConditionsAccepted(accepted: Boolean): Boolean
 
 }

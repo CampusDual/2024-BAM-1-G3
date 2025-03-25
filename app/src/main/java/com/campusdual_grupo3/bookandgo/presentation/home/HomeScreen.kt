@@ -55,7 +55,8 @@ import com.campusdual_grupo3.bookandgo.presentation.components.CustomSearchBar
 
 @Composable
 fun HomeScreen(
-    onClickExperience: (Int) -> Unit
+    onClickExperience: (Int) -> Unit,
+    onProfileClick: () -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
@@ -87,6 +88,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .size(40.dp)
                     .clickable {
+                        onProfileClick()
                         // Aquí añadir la lógica para navegar a la sección de perfil
                     }
             )
@@ -468,8 +470,8 @@ fun HomeScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
-@Composable
-fun HomePreview() {
-    HomeScreen() {}
-}
+//@Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
+//@Composable
+//fun HomePreview() {
+//    HomeScreen() {}
+//}

@@ -11,6 +11,7 @@ import com.campusdual_grupo3.bookandgo.presentation.favorites.FavoritesFragment
 import com.campusdual_grupo3.bookandgo.presentation.home.HomeFragment
 import com.campusdual_grupo3.bookandgo.presentation.listing.ListFragment
 import com.campusdual_grupo3.bookandgo.presentation.navigation.NavigationHelper
+import com.campusdual_grupo3.bookandgo.presentation.profile.ProfileFragment
 import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var homeFragment = HomeFragment()
     private var favoritesFragment = FavoritesFragment()
     private var listFragment = ListFragment()
+    private var profileFragment = ProfileFragment()
     private var giftCardFragment = HomeFragment()
 
 
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun openHome() {
+    fun openHome() {
         if (currentFragment !is HomeFragment) {
             currentFragment = navigationHelper.showFragment(
                 this, currentFragment,
@@ -67,6 +69,8 @@ class MainActivity : AppCompatActivity() {
                 favoritesFragment, AppGlobalConstants.F_FAVORITES)
         }
     }
+
+
     private fun openList(){
         if (currentFragment !is ListFragment){
             currentFragment = navigationHelper.showFragment(
@@ -95,6 +99,13 @@ class MainActivity : AppCompatActivity() {
             this, currentFragment,
             experienceDetailFragment, AppGlobalConstants.F_EXPERIENCE_DETAIL
         )
+    }
+    fun openProfile() {
+        if (currentFragment !is ProfileFragment) {
+            currentFragment = navigationHelper.showFragment(
+                this, currentFragment,
+                profileFragment, AppGlobalConstants.F_PROFILE)
+        }
     }
 
     fun navigateBackStack() {
