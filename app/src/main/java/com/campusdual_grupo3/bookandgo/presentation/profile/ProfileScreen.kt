@@ -79,12 +79,12 @@ fun ProfileScreen(
             )
             // Imagen de perfil obtenida desde la URL del usuario
             AsyncImage(
-                model = userProfile?.image?.toUri() ?: R.drawable.ic_profile_pic,
+//                model = userProfile?.image?.toUri(),
+                model = R.mipmap.ic_real_profile_pic,
                 contentDescription = "Foto de perfil",
                 modifier = Modifier
                     .size(120.dp)
                     .clip(CircleShape),
-                error = painterResource(id = R.drawable.ic_profile_pic)
             )
 
             Spacer(modifier = Modifier.height(16.dp))

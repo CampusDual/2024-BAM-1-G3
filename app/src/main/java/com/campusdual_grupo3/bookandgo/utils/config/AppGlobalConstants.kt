@@ -24,6 +24,7 @@ object AppGlobalConstants {
     const val F_GIFT_CARD = "F_GIFT_CARD"
     const val F_PROFILE = "F_PROFILE"
     const val F_EXPERIENCE_DETAIL = "F_EXPERIENCE_DETAIL"
+    const val F_GIFT_CARD_DETAIL = "F_GIFT_CARD_DETAIL"
 
     // REGISTER NAVIGATION
     const val F_PERSONAL_INFO = "personalInfo"

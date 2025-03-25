@@ -43,6 +43,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
+import com.google.firebase.annotations.concurrent.Background
 
 @Composable
 fun ExperienceDetailScreen(
@@ -66,6 +67,7 @@ fun ExperienceDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .background(Color.White),
     ) {
         Row(
             //***** barra superior ******

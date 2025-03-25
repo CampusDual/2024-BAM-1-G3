@@ -8,6 +8,7 @@ import com.campusdual_grupo3.bookandgo.domain.usecases.experiences.ExperiencesUs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,6 +47,12 @@ class ExperienceViewModel @Inject constructor(
             _uiState.value = uiState.value.copy(
                 reviews = reviews
             )
+        }
+    }
+
+    fun clearDetailExperience() {
+        _uiState.update { currentState ->
+            currentState.copy(detailExperiences = null)
         }
     }
 }

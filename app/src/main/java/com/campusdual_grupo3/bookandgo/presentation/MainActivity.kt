@@ -8,6 +8,8 @@ import com.campusdual_grupo3.bookandgo.R
 import com.campusdual_grupo3.bookandgo.databinding.ActivityMainBinding
 import com.campusdual_grupo3.bookandgo.presentation.experiencia.ExperienceDetailFragment
 import com.campusdual_grupo3.bookandgo.presentation.favorites.FavoritesFragment
+import com.campusdual_grupo3.bookandgo.presentation.giftcard.GiftCardDetailFragment
+import com.campusdual_grupo3.bookandgo.presentation.giftcard.GiftCardFragment
 import com.campusdual_grupo3.bookandgo.presentation.home.HomeFragment
 import com.campusdual_grupo3.bookandgo.presentation.listing.ListFragment
 import com.campusdual_grupo3.bookandgo.presentation.navigation.NavigationHelper
@@ -27,8 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var favoritesFragment = FavoritesFragment()
     private var listFragment = ListFragment()
     private var profileFragment = ProfileFragment()
-    private var giftCardFragment = HomeFragment()
-
+    private var giftCardFragment = GiftCardFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,14 +85,22 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.selectedItemId = R.id.navigation_giftCard
     }
 
-    private fun openGiftCard() {
-        if (currentFragment !is HomeFragment) {
+    fun openGiftCard() {
+        if (currentFragment !is GiftCardFragment) {
             currentFragment = navigationHelper.showFragment(
                 this, currentFragment,
-                homeFragment, AppGlobalConstants.F_HOME
+                giftCardFragment, AppGlobalConstants.F_GIFT_CARD
             )
         }
     }
+    fun openGiftCardDetail(experienceId: Int) {
+        val giftCardDetailFragment = GiftCardDetailFragment.newInstance(experienceId)
+        currentFragment = navigationHelper.showFragment(
+            this, currentFragment,
+            giftCardDetailFragment, AppGlobalConstants.F_GIFT_CARD_DETAIL
+        )
+    }
+
 
     fun openExperienceDetail(experienceId: Int) {
         val experienceDetailFragment = ExperienceDetailFragment.newInstance(experienceId)

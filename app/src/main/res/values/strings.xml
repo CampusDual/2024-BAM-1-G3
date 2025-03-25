@@ -58,4 +58,13 @@
     <string name="no_experiences_found">No experiences found</string>
     <string name="experience_not_found">No experiences found</string>
 
+    <!-- GIFT CARD SCREEN -->
+    <string name="giftcard_screen_name">Tarjeta Regalo</string>
+    <string name="giftcard_input_name">Nombre del destinatario</string>
+    <string name="giftcard_input_email">Correo electrónico del destinatario</string>
+    <string name="giftcard_input_message">Mensaje para el destinatario</string>
+    <string name="giftcard_button_checkout">Proceder a pagar</string>
+    <string name="gift_not_found">No experiences found</string>
+
+
 </resources>
