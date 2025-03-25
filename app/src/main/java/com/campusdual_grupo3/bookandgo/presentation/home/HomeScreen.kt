@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -33,11 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -52,16 +47,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
-import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.presentation.components.CustomSearchBar
+import com.campusdual_grupo3.bookandgo.presentation.components.cards.ExperienceCardV1
+import com.campusdual_grupo3.bookandgo.presentation.favorites.FavoritesViewModel
 
 @Composable
 fun HomeScreen(
     onClickExperience: (Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
+    val favoriteViewModel: FavoritesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     var searchText by remember { mutableStateOf("") }
     val playfairFont = FontFamily(
@@ -176,7 +174,7 @@ fun HomeScreen(
                                         .fillMaxHeight(),
                                     verticalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    if (!experience.reviews.isNullOrEmpty()) {
+                                    if (experience.reviews.isNotEmpty()) {
                                         Text(
                                             modifier = Modifier
                                                 .padding(end = 16.dp, start = 8.dp)
@@ -298,7 +296,8 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(uiState.experiences) { experience ->
-                            var isFavorite by remember { mutableStateOf(experience.isFavorite) }
+                           //  var isFavorite by remember { mutableStateOf(experience.isFavorite) }
+                            /*
                             Card(
                                 modifier = Modifier
                                     .width(240.dp)
@@ -357,6 +356,16 @@ fun HomeScreen(
 
                                 }
                             }
+                             */
+                            ExperienceCardV1(
+                                experience = experience,
+                                modifier = Modifier,
+                                onFavoriteClick = {
+                                    viewModel.onFavoriteClicked(experience)
+                                } ,
+                                onViewOfferClick = { onClickExperience(experience.id) }
+                            )
+
                         }
                     }
                 }
@@ -375,6 +384,7 @@ fun HomeScreen(
                 }
 
                 items(uiState.betterExperience) { experience ->
+                    /*
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -468,6 +478,19 @@ fun HomeScreen(
                             }
                         }
                     }
+                     */
+
+                    Row(modifier = Modifier.padding(16.dp)) {
+                        ExperienceCardV1(
+                            experience = experience,
+                            modifier = Modifier,
+                            onFavoriteClick = { ->
+
+                                favoriteViewModel.addFavorite(experience)
+                            },
+                            onViewOfferClick = {  onClickExperience(experience.id) }
+                        )
+                    }
                 }
 
             }
@@ -478,5 +501,5 @@ fun HomeScreen(
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
 @Composable
 fun HomePreview() {
-    HomeScreen() {}
+    HomeScreen {}
 }

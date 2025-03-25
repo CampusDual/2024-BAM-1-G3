@@ -14,6 +14,7 @@ import com.campusdual_grupo3.bookandgo.domain.repositories.experience.Experience
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import kotlin.String
 
 class ExperienceRepositoryImpl @Inject constructor(
     private val experienceRemoteDataSource: ExperienceRemoteDataSource,
@@ -75,8 +76,6 @@ class ExperienceRepositoryImpl @Inject constructor(
 
     override suspend fun getExperiencesByCategory(categoryId: Int): List<ExperienceEntity> {
         return experienceRemoteDataSource.getExperiencesByCategory(categoryId).map { it.toDomain() }
-
-
     }
 
     override suspend fun getFavorites(): List<ExperienceEntity> {
@@ -109,7 +108,6 @@ class ExperienceRepositoryImpl @Inject constructor(
         return ReviewEntity(
             id, rating, comment, createdAt, updateAt
         )
-
     }
 
     private fun ExperienceDto.toDomain(): ExperienceEntity {
@@ -127,9 +125,9 @@ class ExperienceRepositoryImpl @Inject constructor(
             availability = availability,
             reviews = reviews?.map { it.toDomain() } ?: emptyList(),
             category_id = category_id,
+            category_name = category_name,
             isFavorite = isFavorite == 0,
             image = image,
-
             createdAt = LocalDate.parse(createdAt.substring(0, 10), DateTimeFormatter.ISO_LOCAL_DATE),
             user_id = user_id
 
@@ -169,6 +167,7 @@ class ExperienceRepositoryImpl @Inject constructor(
             availability = availability,
             reviews = reviews?.map { it.toDomain() } ?: emptyList(),
             category_id = category_id,
+            category_name = category_name,
             isFavorite = isFavorite,
             user_id = user_id,
             image = image,
@@ -204,8 +203,9 @@ class ExperienceRepositoryImpl @Inject constructor(
             capacity = capacity,
             stock = stock,
             availability = availability,
-            reviews = ArrayList(reviews.map { it.toDbo() }?: emptyList()),
+            reviews = ArrayList(reviews.map { it.toDbo() }),
             category_id = category_id,
+            category_name = category_name.toString(),
             isFavorite = isFavorite,
             image = image,
             createdAt = createdAt,

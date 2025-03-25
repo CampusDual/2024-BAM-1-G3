@@ -20,6 +20,7 @@ data class ExperienceDbo(
     var availability: String?,
     var reviews: ArrayList<ReviewDbo>?,
     var category_id: Int,
+    var category_name: String,
     val isFavorite: Boolean,
     val user_id: Int,
     var image: String,

@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
+import com.campusdual_grupo3.bookandgo.presentation.components.cards.ExperienceCardV1
 import kotlinx.coroutines.launch
 
 @Composable
@@ -43,115 +44,34 @@ fun FavoritesScreen(
     val viewModel: FavoritesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
-    val playfairFont = FontFamily(
-        Font(R.font.playfair_regular, FontWeight.Normal)
-    )
-
-
-    LaunchedEffect(uiState.favoritesExperiences.isEmpty()) {
-
-        viewModel.loadFavorites()
-
-
-
-    }
-
-
-//        viewModel.loadFavorites(uiState.favoritesExperiences)
-//        viewModel.onFavoriteClicked()
-
-
     Column() {
         Text(
-            text = "Tus experiencias favoritas",
+            text = "Tus experiencias Favoritas",
             modifier = Modifier
                 .padding(
                     horizontal = 24.dp,
-                    vertical = 16.dp
+                    vertical = 8.dp
                 )
                 .fillMaxWidth(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            style = TextStyle(fontFamily = playfairFont),
-            textAlign = TextAlign.Center
         )
-
-        LazyColumn() {
-            items(uiState.favoritesExperiences) { favorites ->
-                Card(
-                    modifier = Modifier
-                        .padding(
-                            horizontal = 8.dp,
-                            vertical = 8.dp
-                        )
-                        .fillMaxWidth()
-                        .clickable {
-                            goToExperienceDetail(favorites.id)
-                        }
-                ) {
-                    Column {
-                        AsyncImage(
-                            model = favorites.image,
-                            contentDescription = favorites.name,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(100.dp),
-                            contentScale = ContentScale.Crop
-                        )
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    start = 20.dp, bottom = 5.dp, end = 20.dp,
-                                ),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            favorites.name?.let {
-
-                                Text(
-                                    text = it,
-                                    modifier = Modifier
-                                        .padding(8.dp),
-                                    fontSize = 16.sp,
-                                    style = TextStyle(fontFamily = playfairFont),
-                                    fontWeight = FontWeight.Bold
-
-
-                                )
-                            }
-                            Image(painter = painterResource(
-                                id = R.drawable.ic_giftcard),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .clickable {
-                                        goToGiftCard()
-                                    }
-                            )
-                        }
-
-                        Text(
-                            text = favorites.description,
-                            modifier = Modifier
-                                .padding(8.dp),
-                            style = TextStyle(fontFamily = playfairFont),
-                            fontSize = 14.sp
-                        )
-                        Text(
-                            text = "Precio " + favorites.price.toString() + "€",
-                            modifier = Modifier
-                                .padding(8.dp),
-                            style = TextStyle(fontFamily = playfairFont),
-                            fontSize = 14.sp
-                        )
+        LazyColumn {
+            items(uiState.favoritesExperiences) { myFavoriteExperience ->
+                ExperienceCardV1(
+                    experience = myFavoriteExperience,
+                    modifier = Modifier,
+                    onFavoriteClick = { // Pasamos una función sin parámetros
+                        viewModel.removeFavorite(myFavoriteExperience)
+                    },
+                    onViewOfferClick = {
+                        goToExperienceDetail(myFavoriteExperience.id)
                     }
-                }
+                )
             }
         }
     }
-
-
-}// fin de FavoritesScreen
+}
 
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)

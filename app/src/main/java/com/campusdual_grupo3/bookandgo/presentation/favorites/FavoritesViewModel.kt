@@ -27,36 +27,49 @@ class FavoritesViewModel @Inject constructor(
     private val experiencesUseCase: ExperiencesUseCase
 
 ) : ViewModel() {
+    private val _uiState = MutableStateFlow(FavoritesUiState())
 
-    private val _uiState: MutableStateFlow<FavoritesUiState> = MutableStateFlow(FavoritesUiState())
+    // private val _uiState: MutableStateFlow<FavoritesUiState> = MutableStateFlow(FavoritesUiState())
     val uiState: StateFlow<FavoritesUiState> = _uiState
 
     init {
         loadFavorites()
-
-
+    }
+    fun addFavorite(experience: ExperienceEntity) {
+        viewModelScope.launch {
+            experiencesUseCase.addFavorite(experience)
+            loadFavorites() // Actualiza la lista después de agregar un favorito
+        }
     }
 
-
-
-
-    fun loadFavorites() {
+    fun removeFavorite(experience: ExperienceEntity) {
         viewModelScope.launch {
-            val favoritesExperiences = experiencesUseCase.getFavorites()
-            val updatedFavorites = favoritesExperiences.map { experience ->
-                experience.copy(isFavorite = true)
-            }
-
-            _uiState.update {
-               it.copy(
-                    favoritesExperiences = updatedFavorites
-                )
-
-            }
+            experiencesUseCase.removeFavorite(experience)
+            loadFavorites() // Actualiza la lista después de eliminar un favorito
         }
     }
 
 
+    fun toggleFavorite(experience: ExperienceEntity) {
+        viewModelScope.launch {
+            // Simulamos la operación de agregar/eliminar favorito
+            val updatedFavorites = _uiState.value.favoritesExperiences.toMutableList()
+
+            if (!updatedFavorites.contains(experience)) {
+                updatedFavorites.remove(experience)
+            } else {
+                updatedFavorites.add(experience)
+            }
+
+            _uiState.value = _uiState.value.copy(favoritesExperiences = updatedFavorites)
+        }
+    }
 
 
+    private fun loadFavorites() {
+        viewModelScope.launch {
+            val favoritesExperiences = experiencesUseCase.getFavorites()
+            _uiState.value = _uiState.value.copy(favoritesExperiences = favoritesExperiences)
+        }
+    }
 }
