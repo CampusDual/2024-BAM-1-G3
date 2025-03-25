@@ -2,6 +2,7 @@ package com.campusdual_grupo3.bookandgo.data.datasource.local.experiences
 
 import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dao.ExperiencesDao
 import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dbo.ExperienceDbo
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ExperienceLocalDataSourceImpl @Inject constructor(
@@ -24,8 +25,18 @@ class ExperienceLocalDataSourceImpl @Inject constructor(
         return experiencesDao.getExperienceById(id)
     }
 
-    override suspend fun isFavorite(experience: ExperienceDbo): Boolean {
-       return experiencesDao.isFavorite(id = experience.id)
+
+
+    override suspend fun getFavorites(): List<ExperienceDbo> {
+        return experiencesDao.getFavorites()
+    }
+
+    override suspend fun updateExperience(experience: ExperienceDbo) {
+        return experiencesDao.updateExperience(experience)
+    }
+
+    override suspend fun getFavoriteExperiences(): Flow<List<ExperienceDbo>> {
+        return experiencesDao.getFavoriteExperiences()
     }
 
 }

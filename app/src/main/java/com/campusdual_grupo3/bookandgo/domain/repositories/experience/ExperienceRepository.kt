@@ -1,8 +1,10 @@
 package com.campusdual_grupo3.bookandgo.domain.repositories.experience
 
+import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dao.ExperiencesDao
 import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ReviewEntity
+import kotlinx.coroutines.flow.Flow
 
 interface ExperienceRepository {
     suspend fun getExperiences(): List<ExperienceEntity>
@@ -15,4 +17,6 @@ interface ExperienceRepository {
     suspend fun removeFavorite(experience: ExperienceEntity)
     suspend fun getFavoriteById(id: Int): ExperienceEntity?  //para el detalle de la experiencia favorita
     suspend fun isFavorite(experience: ExperienceEntity): Boolean
+    suspend fun updateExperience(experience: ExperienceEntity)
+    suspend fun getFavoriteExperiences(): Flow<List<ExperienceEntity>>
 }

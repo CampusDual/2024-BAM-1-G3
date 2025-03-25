@@ -6,7 +6,6 @@ import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.domain.usecases.experiences.ExperiencesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -43,7 +42,7 @@ class HomeViewModel @Inject constructor(
                 home.copy(
                     categories = categories
                 )
-                }
+            }
             if (categories.isNotEmpty()) {
                 onCategorySelected(categories.first().id)
 
@@ -53,7 +52,7 @@ class HomeViewModel @Inject constructor(
                 home.copy(
                     experiences = experiences.sortedByDescending { experience ->
                         experience.createdAt
-                    }, 
+                    },
                     originalExperiences = experiences
                 )
             }
@@ -70,8 +69,6 @@ class HomeViewModel @Inject constructor(
             }
 
 
-
-
             val favorit = experiencesUseCase.getFavorites()
             _uiState.update {
                 it.copy(
@@ -86,13 +83,10 @@ class HomeViewModel @Inject constructor(
 
     fun onFavoriteClicked(experience: ExperienceEntity) {
         // Actualizar el estado de favorito en la experiencia
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             experience.isFavorite = !experience.isFavorite
-            if (experience.isFavorite) {
-                experiencesUseCase.addFavorite(experience)
-            } else {
-                experiencesUseCase.removeFavorite(experience)
-            }
+            experiencesUseCase.updateExperience(experience)
+
 
             // Actualizar el estado de favorito en el estado global
             _uiState.value = _uiState.value.copy(
@@ -115,7 +109,7 @@ class HomeViewModel @Inject constructor(
         )
         if (categoryId == -1) {
             viewModelScope.launch {
-                val experiences = experiencesUseCase.getExperiencesByCategory(categoryId)
+                val experiences = experiencesUseCase.getExperiences()
                 _uiState.update { home ->
                     home.copy(
                         experiences = experiences.sortedByDescending { it.createdAt }
@@ -171,8 +165,8 @@ class HomeViewModel @Inject constructor(
 
     fun filterExperiences(searchText: String) {
         _uiState.value = _uiState.value.copy(
-            filteredExperiences = uiState.value.originalExperiences.filter { 
-                it.name?.contains(searchText, ignoreCase = true) == true 
+            filteredExperiences = uiState.value.originalExperiences.filter {
+                it.name?.contains(searchText, ignoreCase = true) == true
             }
         )
     }

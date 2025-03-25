@@ -50,7 +50,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.campusdual_grupo3.bookandgo.R
-import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.presentation.components.CustomSearchBar
 
 @Composable
@@ -72,6 +71,8 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
+            //***** barra superior ******
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp, top = 45.dp, bottom = 5.dp, end = 20.dp),
@@ -113,8 +114,10 @@ fun HomeScreen(
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = stringResource(R.string.experience_not_found),
-                                style = TextStyle(fontFamily = playfairFont))
+                            Text(
+                                text = stringResource(R.string.experience_not_found),
+                                style = TextStyle(fontFamily = playfairFont)
+                            )
                         }
                     }
                 } else {
@@ -349,7 +352,6 @@ fun HomeScreen(
 
                                             }
                                     )
-
                                 }
                             }
                         }
