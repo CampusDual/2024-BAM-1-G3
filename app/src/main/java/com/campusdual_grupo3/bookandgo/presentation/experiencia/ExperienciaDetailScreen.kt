@@ -46,7 +46,6 @@ import com.campusdual_grupo3.bookandgo.R
 @Composable
 fun ExperienceDetailScreen(
     experienceId: Int, onBackClick: () -> Unit, goToGiftCard: () -> Unit
-
 ) {
     val viewModel: ExperienceViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()

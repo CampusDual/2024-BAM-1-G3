@@ -5,7 +5,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.dbo.ExperienceDbo
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExperiencesDao {
@@ -24,6 +26,17 @@ interface ExperiencesDao {
 
     @Query("SELECT EXISTS(SELECT * FROM experiences WHERE id = :id)")
     suspend fun isFavorite(id: Int): Boolean
+
+    @Query("SELECT * FROM experiences WHERE isFavorite = 1")
+    suspend fun getFavorites(): List<ExperienceDbo>
+
+    @Update
+    suspend fun updateExperience(experience: ExperienceDbo)
+
+    @Query("SELECT * FROM experiences WHERE isFavorite = 1")
+    fun getFavoriteExperiences(): Flow<List<ExperienceDbo>>
+
+
 
 
 

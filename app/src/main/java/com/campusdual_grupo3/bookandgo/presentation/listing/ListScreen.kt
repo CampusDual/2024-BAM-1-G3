@@ -41,7 +41,7 @@ import com.campusdual_grupo3.bookandgo.R
 fun ListScreen(
     onExperienceClick: (Int) -> Unit
 
-){
+) {
     val viewModel: ListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
@@ -49,41 +49,41 @@ fun ListScreen(
         Font(R.font.playfair_regular, FontWeight.Normal)
     )
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            //***** barra superior ******
-
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = 20.dp, top = 45.dp, bottom = 5.dp, end = 20.dp
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-
-            ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = null,
-                modifier = Modifier.size(40.dp)
-
-            )
-            Image(painter = painterResource(id = R.drawable.ic_profile),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {
-                        // Aquí añadir la lógica para navegar a la sección de perfil
-                    }
-
-            )
-        }
+//        Row(
+//            //***** barra superior ******
+//
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(
+//                    start = 20.dp, top = 45.dp, bottom = 5.dp, end = 20.dp
+//                ),
+//            horizontalArrangement = Arrangement.SpaceBetween,
+//
+//            ) {
+//            Image(
+//                painter = painterResource(id = R.drawable.logo),
+//                contentDescription = null,
+//                modifier = Modifier.size(40.dp)
+//
+//            )
+//            Image(painter = painterResource(id = R.drawable.ic_profile),
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clickable {
+//                        // Aquí añadir la lógica para navegar a la sección de perfil
+//                    }
+//
+//            )
+//        }
         Text(
-            text = "Tus preferencias",
+            text = "Todas las experiencias",
             modifier = Modifier
                 .padding(
                     horizontal = 24.dp,
@@ -111,13 +111,13 @@ fun ListScreen(
                 ) {
                     Column {
 
-                       AsyncImage(
-                                model = experience.image,
-                        contentDescription = experience.name,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(100.dp),
-                        contentScale = ContentScale.Crop
+                        AsyncImage(
+                            model = experience.image,
+                            contentDescription = experience.name,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(100.dp),
+                            contentScale = ContentScale.Crop
                         )
                         experience.name?.let {
                             Text(
@@ -156,7 +156,7 @@ fun ListScreen(
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.DEFAULT)
 @Composable
-fun ListPreview(){
+fun ListPreview() {
     ListScreen(onExperienceClick = {})
 
 //    ListScreen()

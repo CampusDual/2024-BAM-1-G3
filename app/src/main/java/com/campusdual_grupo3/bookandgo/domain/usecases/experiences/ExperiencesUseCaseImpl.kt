@@ -4,6 +4,8 @@ import com.campusdual_grupo3.bookandgo.domain.entities.CategoryEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ExperienceEntity
 import com.campusdual_grupo3.bookandgo.domain.entities.ReviewEntity
 import com.campusdual_grupo3.bookandgo.domain.repositories.experience.ExperienceRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ExperiencesUseCaseImpl @Inject constructor(
@@ -45,8 +47,17 @@ class ExperiencesUseCaseImpl @Inject constructor(
         return experienceRepository.getFavoriteById(id)
     }
 
-    override suspend fun isFavorite(experience: ExperienceEntity): Boolean {
-        return experienceRepository.isFavorite(experience)
+    override suspend fun updateExperience(experience: ExperienceEntity) {
+       return experienceRepository.updateExperience(experience)
+    }
+
+    override suspend fun getFavoriteExperiences(): Flow<List<ExperienceEntity>> {
+        return experienceRepository.getFavoriteExperiences()
+
+
+
+
+
 
     }
 

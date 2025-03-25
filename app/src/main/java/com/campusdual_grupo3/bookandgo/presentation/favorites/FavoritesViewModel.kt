@@ -15,8 +15,7 @@ data class FavoritesUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val favoritesExperiences: List<ExperienceEntity> = emptyList(),
-    val favorite: ExperienceEntity?  = null,
-    // Otros estados y funciones de la UI aquí
+    val favorite: ExperienceEntity? = null,
     val favorites: List<ExperienceEntity> = emptyList()
 
 
@@ -32,31 +31,39 @@ class FavoritesViewModel @Inject constructor(
     val uiState: StateFlow<FavoritesUiState> = _uiState
 
     init {
-        loadFavorites()
-
-
-    }
-
-
-
-
-    fun loadFavorites() {
         viewModelScope.launch {
             val favoritesExperiences = experiencesUseCase.getFavorites()
             val updatedFavorites = favoritesExperiences.map { experience ->
                 experience.copy(isFavorite = true)
             }
-
             _uiState.update {
-               it.copy(
+                it.copy(
                     favoritesExperiences = updatedFavorites
                 )
 
             }
+
         }
     }
 
+    fun loadFavorites() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) } // Establecer isLoading a true al inicio
 
+            experiencesUseCase.getFavoriteExperiences()
+                .collect { favorites ->
+                    val updatedFavorites = favorites.map { experience ->
+                        experience.copy(isFavorite = true)
+                    }
+                    _uiState.update {
+                        it.copy(
+                            favoritesExperiences = updatedFavorites,
+                            isLoading = false // Establecer isLoading a false después de cargar los datos
+                        )
+                    }
+                }
+        }
+    }
 
 
 }

@@ -1,6 +1,5 @@
 package com.campusdual_grupo3.bookandgo.presentation.favorites
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,9 +13,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -30,10 +32,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import coil.compose.AsyncImage
+import com.bumptech.glide.Glide.init
 import com.campusdual_grupo3.bookandgo.R
-import kotlinx.coroutines.launch
 
 @Composable
 fun FavoritesScreen(
@@ -42,23 +46,38 @@ fun FavoritesScreen(
 ) {
     val viewModel: FavoritesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
-
     val playfairFont = FontFamily(
         Font(R.font.playfair_regular, FontWeight.Normal)
     )
 
 
-    LaunchedEffect(uiState.favoritesExperiences.isEmpty()) {
-
-        viewModel.loadFavorites()
 
 
 
+
+
+//    LaunchedEffect (!uiState.isLoading) {
+//        viewModel.loadFavorites()
+////        val observer = LifecycleEventObserver { _, event ->
+////            if (event == Lifecycle.Event.ON_START) {
+////                viewModel.loadFavorites()
+////            }
+////            if (event == Lifecycle.Event.ON_RESUME) {
+////                viewModel.loadFavorites()
+////            }
+////        }
+////        lifecycleOwner.lifecycle.addObserver(observer)
+//
+//    }
+
+    LaunchedEffect(Unit
+    ) {
+    viewModel.
+    loadFavorites()
     }
 
 
-//        viewModel.loadFavorites(uiState.favoritesExperiences)
-//        viewModel.onFavoriteClicked()
+
 
 
     Column() {
@@ -77,7 +96,10 @@ fun FavoritesScreen(
         )
 
         LazyColumn() {
-            items(uiState.favoritesExperiences) { favorites ->
+
+
+            items(uiState.favoritesExperiences, key = { favorites ->
+                favorites.id }) { favorites ->
                 Card(
                     modifier = Modifier
                         .padding(

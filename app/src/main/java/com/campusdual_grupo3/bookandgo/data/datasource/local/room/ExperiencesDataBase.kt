@@ -17,5 +17,7 @@ import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 
 abstract class ExperiencesDataBase : RoomDatabase() {
     abstract val experienceDao: ExperiencesDao
+
+
 }
 
