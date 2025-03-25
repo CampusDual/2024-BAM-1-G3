@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -94,10 +95,7 @@ fun ExperienceDetailScreen(
         }
         Card(
             modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
-
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 4.dp
-            )
+            colors = CardDefaults.cardColors(containerColor = Color.LightGray)
         ) {
             AsyncImage(
                 model = uiState.detailExperiences?.image,

@@ -1,5 +1,6 @@
 package com.campusdual_grupo3.bookandgo.presentation.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -75,7 +76,7 @@ fun HomeScreen(
 
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, top = 45.dp, bottom = 5.dp, end = 20.dp),
+                .padding(start = 20.dp, top = 20.dp, bottom = 5.dp, end = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Image(
@@ -122,14 +123,16 @@ fun HomeScreen(
                     }
                 } else {
                     items(uiState.filteredExperiences) { experience ->
-                        Card(modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                onClickExperience(experience.id)
-                            }
-                            .padding(8.dp), elevation = CardDefaults.cardElevation(
-                            defaultElevation = 4.dp
-                        )) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onClickExperience(experience.id)
+                                }
+                                .padding(8.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+                            border = BorderStroke(0.5.dp, Color.LightGray)
+                        ) {
                             Row(
                                 modifier = Modifier.height(intrinsicSize = IntrinsicSize.Max),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -304,7 +307,9 @@ fun HomeScreen(
                                     .height(150.dp)
                                     .clickable {
                                         onClickExperience(experience.id)
-                                    }
+                                    },
+                                colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+                                border = BorderStroke(0.5.dp, Color.LightGray)
                             ) {
                                 Column {
                                     AsyncImage(
@@ -379,9 +384,8 @@ fun HomeScreen(
                                 onClickExperience(experience.id)
                             }
                             .padding(8.dp),
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 4.dp
-                        )
+                        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+                        border = BorderStroke(0.5.dp, Color.LightGray)
                     ) {
                         Row(
                             modifier = Modifier.height(intrinsicSize = IntrinsicSize.Max),

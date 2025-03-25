@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,6 +59,10 @@ fun CustomSearchBar(onValueChange: (String) -> Unit,
 
         ) {
            TextField(
+               colors = TextFieldDefaults.colors(
+                   focusedContainerColor = Color.Transparent,   // Fondo cuando está enfocado
+                   unfocusedContainerColor = Color.LightGray  // Fondo cuando NO está enfocado
+               ),
                value = text,
                onValueChange = {
                 text = it

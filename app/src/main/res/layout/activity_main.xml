@@ -23,6 +23,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/button_navigation_home" />
+        app:menu="@menu/button_navigation_home"
+        app:itemActiveIndicatorStyle="@color/gray_20"
+        android:background="@color/transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
