@@ -31,10 +31,10 @@ class WelcomeActivity : AppCompatActivity() {
             navigateToRegisterActivity()
         }
 
-        // Configurar clic en el botón omitir este paso
-        binding.btnWsOmit.setOnClickListener {
-            navigateToHomeActivity()
-        }
+//        // Configurar clic en el botón omitir este paso
+//        binding.btnWsOmit.setOnClickListener {
+//            navigateToHomeActivity()
+//        }
     }
 
     private fun navigateToLoginActivity() {
