@@ -44,8 +44,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -56,7 +54,7 @@ import com.campusdual_grupo3.bookandgo.presentation.components.CustomSearchBar
 @Composable
 fun HomeScreen(
     onClickExperience: (Int) -> Unit,
-    onProfileClick: () -> Unit
+    onProfileClick: () -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
@@ -251,14 +249,15 @@ fun HomeScreen(
             ) {
 
                 item {
-                    Box(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                        .padding(vertical = 8.dp)
-                        .clickable {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                            .padding(vertical = 8.dp)
+                            .clickable {
 
 //                        viewModel.onCategorySelected(selectedCategory?.id ?: -1)
-                        }) {
+                            }) {
 
                         AsyncImage(
                             model = uiState.selectedCategory?.image,
@@ -341,11 +340,12 @@ fun HomeScreen(
                                         )
                                     }
 
-                                    Image(painter = painterResource(
-                                        if (isFavorite) {
-                                            R.drawable.ic_favorite
-                                        } else R.drawable.ic_not_favorite
-                                    ), // Cambiamos el icono según el estado
+                                    Image(
+                                        painter = painterResource(
+                                            if (isFavorite) {
+                                                R.drawable.ic_favorite
+                                            } else R.drawable.ic_not_favorite
+                                        ), // Cambiamos el icono según el estado
                                         contentDescription = null,
                                         modifier = Modifier
                                             .padding(8.dp)
@@ -399,9 +399,9 @@ fun HomeScreen(
                                     model = experience.image,
                                     contentDescription = experience.name,
                                     modifier = Modifier
-                                        .padding(start = 4.dp)
-                                        .size(100.dp)
-                                        .clip(CircleShape),
+                                        .padding(start = 16.dp)
+                                        .height(55.dp)
+                                        .clip(RoundedCornerShape(8.dp)),
                                 )
                                 Column(
                                     modifier = Modifier.padding(start = 16.dp),
@@ -419,7 +419,7 @@ fun HomeScreen(
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis,
                                         style = TextStyle(fontFamily = playfairFont),
-                                        fontSize = 14.sp,
+                                        fontSize = 12.sp,
                                         color = Color.Gray
                                     )
                                 }

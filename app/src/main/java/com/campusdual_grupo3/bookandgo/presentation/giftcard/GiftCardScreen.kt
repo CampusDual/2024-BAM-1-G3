@@ -8,14 +8,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -53,7 +56,7 @@ fun GiftCardScreen(
     modifier: Modifier = Modifier,
     onClickGiftCard: (Int) -> Unit,
     onProfileClick: () -> Unit,
-    onLogoClick: () -> Unit
+    onLogoClick: () -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     var searchText by remember { mutableStateOf("") }
@@ -85,7 +88,9 @@ fun GiftCardScreen(
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = null,
-                modifier = Modifier.size(40.dp).clickable { onLogoClick() }
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onLogoClick() }
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_profile),
@@ -243,16 +248,20 @@ fun GiftCardScreen(
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             Row(
-                                modifier = Modifier.weight(1f, true),
+                                modifier = Modifier
+                                    .weight(1f, true)
+                                    .padding(vertical = 8.dp),
+                                horizontalArrangement = Arrangement.Start,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 AsyncImage(
                                     model = experience.image,
                                     contentDescription = experience.name,
                                     modifier = Modifier
-                                        .padding(start = 4.dp)
-                                        .size(100.dp)
-                                        .clip(CircleShape),
+                                        .padding(start = 16.dp)
+                                        .height(55.dp)
+                                        .width(80.dp)
+                                        .clip(RoundedCornerShape(8.dp)),
                                 )
                                 Column(
                                     modifier = Modifier.padding(start = 16.dp),
@@ -260,7 +269,7 @@ fun GiftCardScreen(
                                     experience.name?.let {
                                         Text(
                                             text = it,
-                                            fontSize = 16.sp,
+                                            fontSize = 14.sp,
                                             style = TextStyle(fontFamily = playfairFont),
                                             fontWeight = FontWeight.Bold
                                         )
@@ -270,7 +279,7 @@ fun GiftCardScreen(
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis,
                                         style = TextStyle(fontFamily = playfairFont),
-                                        fontSize = 14.sp,
+                                        fontSize = 10.sp,
                                         color = Color.Gray
                                     )
                                 }
