@@ -15,6 +15,7 @@ import com.campusdual_grupo3.bookandgo.domain.entities.UserEntity
 import com.campusdual_grupo3.bookandgo.domain.usecases.user.UserUseCase
 import com.campusdual_grupo3.bookandgo.presentation.MainActivity
 import com.campusdual_grupo3.bookandgo.presentation.home.HomeFragment
+import com.campusdual_grupo3.bookandgo.presentation.login.LoginActivity
 import com.campusdual_grupo3.bookandgo.presentation.register.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -132,7 +133,7 @@ class TermsAndConditionsFragment : Fragment() {
                 requireActivity().startActivity(
                     Intent(
                         this.requireContext(),
-                        MainActivity::class.java
+                        LoginActivity::class.java
                     )
                 )
                 requireActivity().finish()

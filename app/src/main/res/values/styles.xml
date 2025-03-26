@@ -27,4 +27,9 @@
         <item name="android:textSize">16sp</item>
         <item name="fontFamily">@font/playfair_bold</item>
     </style>
+
+    <style name="text_bottombar">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/playfair_bold</item>
+    </style>
 </resources>

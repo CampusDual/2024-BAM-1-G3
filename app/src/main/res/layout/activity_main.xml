@@ -25,6 +25,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/button_navigation_home"
         app:itemActiveIndicatorStyle="@color/gray_20"
-        android:background="@color/transparent"/>
+        android:background="@color/transparent"
+        app:itemTextAppearanceActive="@style/text_bottombar"
+        app:itemTextAppearanceInactive="@style/text_bottombar"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

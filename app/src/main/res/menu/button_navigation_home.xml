@@ -8,7 +8,9 @@
     <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_favorite"
-        android:title="Favoritos" />
+        android:title="Favoritos"
+        android:fontFamily="@font/playfair_bold"
+        />
 
     <item
         android:id="@+id/navigation_list"

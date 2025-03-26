@@ -109,6 +109,7 @@ fun FavoritesScreen(
                             horizontal = 8.dp,
                             vertical = 8.dp
                         )
+                        .height(220.dp)
                         .fillMaxWidth()
                         .clickable {
                             goToExperienceDetail(favorites.id)
@@ -128,8 +129,7 @@ fun FavoritesScreen(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(
-                                    start = 20.dp, bottom = 5.dp, end = 20.dp,
+                                .padding(bottom = 5.dp, end = 16.dp, start = 8.dp
                                 ),
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
@@ -160,14 +160,14 @@ fun FavoritesScreen(
                         Text(
                             text = favorites.description,
                             modifier = Modifier
-                                .padding(8.dp),
+                                .padding(bottom = 8.dp, start = 16.dp, end = 8.dp),
                             style = TextStyle(fontFamily = playfairFont),
                             fontSize = 14.sp
                         )
                         Text(
                             text = "Precio " + favorites.price.toString() + "€",
                             modifier = Modifier
-                                .padding(8.dp),
+                                .padding(bottom = 8.dp, start = 16.dp, end = 8.dp),
                             style = TextStyle(fontFamily = playfairFont),
                             fontSize = 14.sp
                         )

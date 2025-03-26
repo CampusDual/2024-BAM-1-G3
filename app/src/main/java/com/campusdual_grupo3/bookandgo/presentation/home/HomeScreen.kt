@@ -95,11 +95,11 @@ fun HomeScreen(
                     }
             )
         }
-
-        CustomSearchBar(onValueChange = { newText ->
+        Column (Modifier.padding(horizontal = 8.dp)){ CustomSearchBar(onValueChange = { newText ->
             searchText = newText
             viewModel.filterExperiences(searchText)
-        })
+        }) }
+
 
         // Si hay texto en la barra de búsqueda, mostrar solo las experiencias filtradas
         if (searchText.isNotEmpty()) {
@@ -377,10 +377,9 @@ fun HomeScreen(
                 }
 
                 items(uiState.betterExperience) { experience ->
-                    Card(
+                    Column (Modifier.padding(horizontal = 10.dp)) { Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
                             .clickable {
                                 onClickExperience(experience.id)
                             }
@@ -469,7 +468,8 @@ fun HomeScreen(
                                 }
                             }
                         }
-                    }
+                    } }
+
                 }
 
             }
