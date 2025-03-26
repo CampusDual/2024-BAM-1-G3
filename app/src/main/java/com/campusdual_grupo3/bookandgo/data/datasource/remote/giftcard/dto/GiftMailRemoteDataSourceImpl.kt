@@ -1,11 +1,9 @@
-package com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard
+package com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard.dto
 
-import com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard.dto.GiftCardMailDto
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.GiftMailApi
-import com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard.dto.GiftMailRemoteDataSource
 import javax.inject.Inject
 
-class GiftCardRemoteDataSourceImpl @Inject constructor(
+class GiftMailRemoteDataSourceImpl @Inject constructor(
     private val api: GiftMailApi
 ) : GiftMailRemoteDataSource {
 

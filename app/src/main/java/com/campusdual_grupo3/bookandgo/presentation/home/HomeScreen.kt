@@ -295,7 +295,7 @@ fun HomeScreen(
                     )
                     LazyRow(
                         modifier = Modifier
-                            .padding(vertical = 10.dp)
+                            .padding(vertical = 10.dp, horizontal = 16.dp)
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -380,6 +380,7 @@ fun HomeScreen(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
                             .clickable {
                                 onClickExperience(experience.id)
                             }
