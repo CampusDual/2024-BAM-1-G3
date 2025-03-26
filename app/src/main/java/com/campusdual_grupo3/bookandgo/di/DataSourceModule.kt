@@ -11,8 +11,11 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.room.ExperiencesDat
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.ExperiencesApi
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.GiftMailApi
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSourceImpl
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard.dto.GiftMailRemoteDataSource
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard.dto.GiftMailRemoteDataSourceImpl
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSourceImpl
 import com.google.firebase.auth.FirebaseAuth
@@ -78,6 +81,16 @@ object DataSourceModule {
     ): ExperienceRemoteDataSource {
         return ExperienceRemoteDataSourceImpl(
             experienceApi = experienceApi
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMailRemoteDataSource(
+        mailApi: GiftMailApi
+    ): GiftMailRemoteDataSource {
+        return GiftMailRemoteDataSourceImpl(
+            giftMailApi = mailApi
         )
     }
 

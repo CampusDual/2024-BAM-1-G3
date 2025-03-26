@@ -4,12 +4,15 @@ import com.campusdual_grupo3.bookandgo.data.datasource.local.experiences.Experie
 import com.campusdual_grupo3.bookandgo.data.datasource.local.preferences.AppPreferencesDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.local.user.UserLocalDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.experience.ExperienceRemoteDataSource
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.giftcard.dto.GiftMailRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.UserRemoteDataSource
 import com.campusdual_grupo3.bookandgo.data.repositories.experience.ExperienceRepositoryImpl
+import com.campusdual_grupo3.bookandgo.data.repositories.giftcard.GiftMailRepositoryImpl
 import com.campusdual_grupo3.bookandgo.data.repositories.user.UserRepositoryImpl
 import com.campusdual_grupo3.bookandgo.domain.repositories.AppPreferencesRepository
 import com.campusdual_grupo3.bookandgo.domain.repositories.AppPreferencesRepositoryImpl
 import com.campusdual_grupo3.bookandgo.domain.repositories.experience.ExperienceRepository
+import com.campusdual_grupo3.bookandgo.domain.repositories.giftcard.GiftMailRepository
 import com.campusdual_grupo3.bookandgo.domain.repositories.user.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -45,6 +48,14 @@ object RepositoryModule {
     ): ExperienceRepository {
         return ExperienceRepositoryImpl(experienceRemoteDataSource,
             experienceLocalDataSource)
+
+    }
+ @Provides
+    @Singleton
+    fun provideMailRepository(
+        giftMailRemoteDataSource: GiftMailRemoteDataSource,
+    ): GiftMailRepository {
+        return GiftMailRepositoryImpl(giftMailRemoteDataSource)
 
     }
 

@@ -1,6 +1,7 @@
 package com.campusdual_grupo3.bookandgo.di
 
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.ExperiencesApi
+import com.campusdual_grupo3.bookandgo.data.datasource.remote.api.GiftMailApi
 import com.campusdual_grupo3.bookandgo.data.datasource.remote.user.api.UserAPI
 import com.campusdual_grupo3.bookandgo.utils.config.AppGlobalConstants
 import dagger.Module
@@ -67,6 +68,14 @@ object APIModule {
     fun provideExperienceAPI(retrofit: Retrofit): ExperiencesApi {
         return retrofit
             .create(ExperiencesApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    // 4. API MAIL
+    fun provideGiftCardAPI(retrofit: Retrofit): GiftMailApi {
+        return retrofit
+            .create(GiftMailApi::class.java)
     }
 }
 

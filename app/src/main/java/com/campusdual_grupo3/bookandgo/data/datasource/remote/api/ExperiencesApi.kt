@@ -29,12 +29,4 @@ interface ExperiencesApi {
         @Query("category_id") categoryId: Int
     ): Response<ExperiencesDto>
 
-
-
-
-
-
-
-
-
 }
