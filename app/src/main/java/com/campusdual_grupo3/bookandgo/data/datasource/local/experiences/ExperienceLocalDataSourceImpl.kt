@@ -13,6 +13,10 @@ class ExperienceLocalDataSourceImpl @Inject constructor(
       return experiencesDao.getAllExperiences()
     }
 
+    override suspend fun deleteAllExperiences() {
+        experiencesDao.deleteAllExperiences()
+    }
+
     override suspend fun insertExperience(experience: ExperienceDbo) {
        experiencesDao.insertExperience(experience)
     }

@@ -9,6 +9,7 @@ interface UserRepository {
     suspend fun logout(): Boolean
     suspend fun recoverPassword(email: String): Boolean
     suspend fun register(user: UserEntity): Pair<Boolean, String>
+    suspend fun getUserProfile(): UserEntity?
 
 
 

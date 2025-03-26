@@ -6,6 +6,7 @@ import com.campusdual_grupo3.bookandgo.domain.entities.UserEntity
 interface UserUseCase {
 
     suspend fun login(email: String, password: String): Boolean
+    suspend fun logout(): Boolean
     fun isMailValid(email: String): Boolean
     fun isPasswordValid(password: String): Boolean
     fun isLoggingFormatValid(email: String, password: String): Boolean
@@ -21,4 +22,5 @@ interface UserUseCase {
     fun isRegisterFormValid(user: UserEntity): Boolean
     fun isTermsAndConditionsAccepted(accepted: Boolean): Boolean
 
+    suspend fun getUserProfile(): UserEntity?
 }

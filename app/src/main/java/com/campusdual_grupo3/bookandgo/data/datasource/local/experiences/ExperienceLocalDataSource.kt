@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExperienceLocalDataSource {
     suspend fun getAllExperiences(): List<ExperienceDbo>
+    suspend fun deleteAllExperiences()
     suspend fun insertExperience(experience: ExperienceDbo)
     suspend fun deleteExperience(experience: ExperienceDbo)
     suspend fun getExperienceById(id: Int): ExperienceDbo

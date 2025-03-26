@@ -28,9 +28,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideUserRepository(
+        experienceLocalDataSource: ExperienceLocalDataSource,
         userRemoteDataSource: UserRemoteDataSource
     ): UserRepository {
-        return UserRepositoryImpl(userRemoteDataSource)
+        return UserRepositoryImpl(experienceLocalDataSource, userRemoteDataSource)
     }
 
     @Provides

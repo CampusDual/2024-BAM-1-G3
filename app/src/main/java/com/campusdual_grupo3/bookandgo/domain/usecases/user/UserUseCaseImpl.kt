@@ -12,6 +12,10 @@ class UserUseCaseImpl @Inject constructor(
         return userRepository.login(email, password)
     }
 
+    override suspend fun logout(): Boolean {
+        return userRepository.logout()
+    }
+
     override fun isMailValid(email: String): Boolean {
        if(email.isEmpty()){
            return false
@@ -75,6 +79,10 @@ class UserUseCaseImpl @Inject constructor(
 
     override fun isTermsAndConditionsAccepted(accepted: Boolean): Boolean {
         return accepted
+    }
+
+    override suspend fun getUserProfile(): UserEntity? {
+        return userRepository.getUserProfile()
     }
 
 }

@@ -36,6 +36,8 @@ interface ExperiencesDao {
     @Query("SELECT * FROM experiences WHERE isFavorite = 1")
     fun getFavoriteExperiences(): Flow<List<ExperienceDbo>>
 
+    @Query("DELETE FROM experiences")
+    suspend fun deleteAllExperiences()
 
 
 
