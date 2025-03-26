@@ -26,15 +26,22 @@ class NavigationHelper {
         val fragmentManager = activity.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        if (tag == F_HOME || tag == F_FAVORITES || tag == F_LIST || tag == F_GIFT_CARD|| tag == F_PROFILE ) {
+        if (tag == F_HOME || tag == F_FAVORITES || tag == F_LIST || tag == F_GIFT_CARD || tag == F_PROFILE) {
             clearStack()
+            // Remove any non-main fragments that might be in the container
+            fragmentManager.fragments.forEach { fragment ->
+                if (fragment.tag != F_HOME && fragment.tag != F_FAVORITES &&
+                    fragment.tag != F_LIST && fragment.tag != F_GIFT_CARD &&
+                    fragment.tag != F_PROFILE) {
+                    fragmentTransaction.remove(fragment)
+                }
+            }
+
             if (fragmentManager.findFragmentByTag(tag) != null) {
                 if (currentFragment != null) {
                     fragmentTransaction.hide(currentFragment)
                     fragmentManager.findFragmentByTag(tag)?.let { fragment ->
-                        fragmentTransaction.show(
-                            fragment
-                        )
+                        fragmentTransaction.show(fragment)
                     }
                 }
             } else {
@@ -49,9 +56,7 @@ class NavigationHelper {
                 stack.add(WeakReference(currentFragment))
             }
             fragmentManager.findFragmentByTag(tag)?.let { fragment ->
-                fragmentTransaction.show(
-                    fragment
-                )
+                fragmentTransaction.show(fragment)
             } ?: run {
                 fragmentTransaction.add(R.id.fragment_container, futureFragment, tag)
             }
@@ -63,7 +68,6 @@ class NavigationHelper {
 
         return futureFragment
     }
-
     fun backStackFragment(activity: AppCompatActivity, currentFragment: Fragment?): Fragment? {
 
         val fragmentManager = activity.supportFragmentManager

@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListener() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
+            clearBackStack()
             when (item.itemId) {
                 R.id.navigation_home -> openHome()
                 R.id.navigation_favorites-> openFavorites()
@@ -52,6 +53,24 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_giftCard-> openGiftCard()
             }
             true
+        }
+    }
+
+    private fun clearBackStack() {
+        val fragmentManager = supportFragmentManager
+        val backStackCount = fragmentManager.backStackEntryCount
+        for (i in 0 until backStackCount) {
+            fragmentManager.popBackStack()
+        }
+
+        // Also make sure to reset currentFragment to the selected tab
+        val selectedItemId = binding.bottomNavigation.selectedItemId
+        currentFragment = when (selectedItemId) {
+            R.id.navigation_home -> homeFragment
+            R.id.navigation_favorites -> favoritesFragment
+            R.id.navigation_list -> listFragment
+            R.id.navigation_giftCard -> giftCardFragment
+            else -> homeFragment
         }
     }
 

@@ -90,7 +90,7 @@ object DataSourceModule {
         mailApi: GiftMailApi
     ): GiftMailRemoteDataSource {
         return GiftMailRemoteDataSourceImpl(
-            giftMailApi = mailApi
+            api = mailApi
         )
     }
 
